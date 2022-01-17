@@ -26,9 +26,11 @@ public abstract class JDBC {
           }
                   catch(ClassNotFoundException e) {
                       System.out.println("Error:" + e.getMessage());
+                      e.printStackTrace();
                   }
                   catch(SQLException e) {
                       System.out.println("Error:" + e.getMessage());
+                      e.printStackTrace();
                   }
           }
 
@@ -41,6 +43,7 @@ public abstract class JDBC {
                      System.out.println("Connection closed!");
                  } catch (SQLException e) {
                      System.out.println(e.getMessage());
+                     e.printStackTrace();
                  }
              }
 
