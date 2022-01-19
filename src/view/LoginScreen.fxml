@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
    <children>
       <Pane prefHeight="125.0" prefWidth="400.0">
          <children>
@@ -38,13 +38,13 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button mnemonicParsing="false" text="Login" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField promptText="Username">
+                  <Button fx:id="loginButton" mnemonicParsing="false" onAction="#onActionLogin" text="Login" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="loginUserName" promptText="Username">
                      <font>
                         <Font name="Calibri" size="12.0" />
                      </font>
                   </TextField>
-                  <TextField promptText="Password" GridPane.columnIndex="1" />
+                  <TextField fx:id="loginPassword" promptText="Password" GridPane.columnIndex="1" />
                </children>
             </GridPane>
          </children>
