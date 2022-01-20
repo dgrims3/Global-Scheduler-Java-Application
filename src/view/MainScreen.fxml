@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="550.0" prefWidth="883.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainScreenController">
+   <children>
+      <Pane layoutX="6.0" layoutY="12.0" prefHeight="263.0" prefWidth="867.0" style="-fx-border-color: black;">
+         <children>
+            <Label alignment="CENTER" layoutX="301.0" prefHeight="47.0" prefWidth="300.0" text="Appointments" textAlignment="CENTER">
+               <font>
+                  <Font name="Calibri Bold" size="30.0" />
+               </font>
+            </Label>
+            <TableView fx:id="appointmentsTableView" layoutX="9.0" layoutY="47.0" prefHeight="137.0" prefWidth="849.0">
+              <columns>
+                <TableColumn prefWidth="75.0" text="Appt. ID" />
+                <TableColumn prefWidth="67.0" text="Title" />
+                  <TableColumn prefWidth="146.0" text="Description" />
+                  <TableColumn prefWidth="93.0" text="Location" />
+                  <TableColumn prefWidth="79.0" text="Contact" />
+                  <TableColumn prefWidth="74.0" text="Type" />
+                  <TableColumn prefWidth="82.0" text="Start" />
+                  <TableColumn prefWidth="79.0" text="End" />
+                  <TableColumn prefWidth="83.0" text="Customer ID" />
+                  <TableColumn prefWidth="78.0" text="User ID" />
+              </columns>
+            </TableView>
+            <HBox layoutX="29.0" layoutY="225.0" prefHeight="30.0" prefWidth="212.0">
+               <children>
+                  <RadioButton fx:id="viewApptsByAllRdoBtn" alignment="CENTER_LEFT" contentDisplay="BOTTOM" minWidth="38.0" mnemonicParsing="false" onAction="#onActionViewApptsByAll" prefHeight="17.0" selected="true" text="All">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="ViewAppointmentsToggleGroup" />
+                     </toggleGroup>
+                     <HBox.margin>
+                        <Insets right="10.0" top="5.0" />
+                     </HBox.margin>
+                  </RadioButton>
+                  <RadioButton fx:id="viewApptsByWeekRdoBtn" mnemonicParsing="false" onAction="#onActionViewApptsByWeek" text="By Week" toggleGroup="$ViewAppointmentsToggleGroup">
+                     <HBox.margin>
+                        <Insets right="10.0" top="5.0" />
+                     </HBox.margin>
+                  </RadioButton>
+                  <RadioButton fx:id="viewApptsByMonthRdoBtn" mnemonicParsing="false" onAction="#onActionViewApptsByMonth" text="By Month" toggleGroup="$ViewAppointmentsToggleGroup">
+                     <HBox.margin>
+                        <Insets right="10.0" top="5.0" />
+                     </HBox.margin>
+                  </RadioButton>
+               </children>
+            </HBox>
+            <Label layoutX="32.0" layoutY="199.0" prefHeight="17.0" prefWidth="190.0" text="View Appointments">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <ButtonBar layoutX="540.0" layoutY="220.0" prefHeight="40.0" prefWidth="310.0">
+              <buttons>
+                <Button mnemonicParsing="false" onAction="#onActionAddAppt" text="Add Appt" />
+                  <Button mnemonicParsing="false" onAction="#onActionModifyAppt" text="Modify Appt" />
+                  <Button mnemonicParsing="false" onAction="#onActionCancelAppt" text="Cancel Appt" />
+              </buttons>
+            </ButtonBar>
+            <DatePicker fx:id="viewApptsCalender" layoutX="241.0" layoutY="228.0" onAction="#onActionViewApptsCalender" />
+         </children>
+      </Pane>
+      <Pane layoutX="5.0" layoutY="287.0" prefHeight="263.0" prefWidth="565.0" style="-fx-border-color: black;">
+         <children>
+            <Label alignment="CENTER" layoutX="117.0" layoutY="7.0" prefHeight="47.0" prefWidth="300.0" text="Customers" textAlignment="CENTER">
+               <font>
+                  <Font name="Calibri Bold" size="30.0" />
+               </font>
+            </Label>
+            <TableView fx:id="customersTableView" layoutX="17.0" layoutY="62.0" prefHeight="137.0" prefWidth="541.0">
+               <columns>
+                  <TableColumn prefWidth="104.0" text="Cust. ID" />
+                  <TableColumn prefWidth="101.0" text="Name" />
+                  <TableColumn prefWidth="166.0" text="Address" />
+                  <TableColumn prefWidth="163.0" />
+               </columns>
+            </TableView>
+            <ButtonBar layoutY="209.0" prefHeight="40.0" prefWidth="416.0">
+               <buttons>
+                  <Button mnemonicParsing="false" onAction="#onActionAddCustomer" prefHeight="25.0" prefWidth="140.0" text="Add Customer" />
+                  <Button mnemonicParsing="false" onAction="#onActionModifyCustomer" text="Modify Customer" />
+                  <Button mnemonicParsing="false" onAction="#onActionDeleteCustomer" text="Delete Customer" />
+               </buttons>
+            </ButtonBar>
+         </children>
+      </Pane>
+      <Pane layoutX="689.0" layoutY="343.0" prefHeight="151.0" prefWidth="125.0" style="-fx-border-color: black;">
+         <children>
+            <Button layoutX="20.0" layoutY="85.0" mnemonicParsing="false" onAction="#onActionLogOut" prefHeight="25.0" prefWidth="85.0" text="Log Out" />
+            <Button layoutX="20.0" layoutY="32.0" mnemonicParsing="false" onAction="#OnActionViewReportsScreen" text="View Reports" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
