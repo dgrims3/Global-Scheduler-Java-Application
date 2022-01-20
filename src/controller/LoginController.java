@@ -7,19 +7,29 @@ import javafx.scene.control.TextField;
 
 public class LoginController {
 
-    @FXML
-    private Button loginButton;
 
-    @FXML
-    private TextField loginUserName;
 
-    @FXML
-    private TextField loginPassword;
+        @FXML
+        private TextField loginPassword;
 
-    @FXML
-    void onActionLogin(ActionEvent event) {
+        @FXML
+        private TextField loginUserName;
 
-    }
+        @FXML
+        private Button loginButton;
+
+        @FXML
+        private Button quitButton;
+
+        @FXML
+        void onActionLoginToMain(ActionEvent event) {
+
+        }
+
+        @FXML
+        void onActionQuitProgram(ActionEvent event) {
+
+        }
 
 }
 
