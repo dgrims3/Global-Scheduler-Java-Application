@@ -14,7 +14,6 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="550.0" prefWidth="883.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainScreenController">
    <children>
       <Pane layoutX="6.0" layoutY="12.0" prefHeight="263.0" prefWidth="867.0" style="-fx-border-color: black;">
@@ -26,16 +25,16 @@
             </Label>
             <TableView fx:id="appointmentsTableView" layoutX="9.0" layoutY="47.0" prefHeight="137.0" prefWidth="849.0">
               <columns>
-                <TableColumn prefWidth="75.0" text="Appt. ID" />
-                <TableColumn prefWidth="67.0" text="Title" />
-                  <TableColumn prefWidth="146.0" text="Description" />
-                  <TableColumn prefWidth="93.0" text="Location" />
-                  <TableColumn prefWidth="79.0" text="Contact" />
-                  <TableColumn prefWidth="74.0" text="Type" />
-                  <TableColumn prefWidth="82.0" text="Start" />
-                  <TableColumn prefWidth="79.0" text="End" />
-                  <TableColumn prefWidth="83.0" text="Customer ID" />
-                  <TableColumn prefWidth="78.0" text="User ID" />
+                <TableColumn fx:id="apptID" prefWidth="75.0" text="Appt. ID" />
+                <TableColumn fx:id="apptTitle" prefWidth="67.0" text="Title" />
+                  <TableColumn fx:id="apptDescription" prefWidth="146.0" text="Description" />
+                  <TableColumn fx:id="apptLocation" prefWidth="93.0" text="Location" />
+                  <TableColumn fx:id="apptContact" prefWidth="79.0" text="Contact" />
+                  <TableColumn fx:id="apptType" prefWidth="74.0" text="Type" />
+                  <TableColumn fx:id="apptStartTime" prefWidth="82.0" text="Start" />
+                  <TableColumn fx:id="apptEndTime" prefWidth="79.0" text="End" />
+                  <TableColumn fx:id="apptCustomerID" prefWidth="83.0" text="Customer ID" />
+                  <TableColumn fx:id="apptUserID" prefWidth="78.0" text="User ID" />
               </columns>
             </TableView>
             <HBox layoutX="29.0" layoutY="225.0" prefHeight="30.0" prefWidth="212.0">
@@ -75,19 +74,21 @@
             <DatePicker fx:id="viewApptsCalender" layoutX="241.0" layoutY="228.0" onAction="#onActionViewApptsCalender" />
          </children>
       </Pane>
-      <Pane layoutX="5.0" layoutY="287.0" prefHeight="263.0" prefWidth="565.0" style="-fx-border-color: black;">
+      <Pane layoutX="5.0" layoutY="287.0" prefHeight="263.0" prefWidth="708.0" style="-fx-border-color: black;">
          <children>
             <Label alignment="CENTER" layoutX="117.0" layoutY="7.0" prefHeight="47.0" prefWidth="300.0" text="Customers" textAlignment="CENTER">
                <font>
                   <Font name="Calibri Bold" size="30.0" />
                </font>
             </Label>
-            <TableView fx:id="customersTableView" layoutX="17.0" layoutY="62.0" prefHeight="137.0" prefWidth="541.0">
+            <TableView fx:id="customersTableView" layoutX="17.0" layoutY="62.0" prefHeight="137.0" prefWidth="674.0">
                <columns>
-                  <TableColumn prefWidth="104.0" text="Cust. ID" />
-                  <TableColumn prefWidth="101.0" text="Name" />
-                  <TableColumn prefWidth="166.0" text="Address" />
-                  <TableColumn prefWidth="163.0" />
+                  <TableColumn fx:id="custID" prefWidth="58.0" text="Cust. ID" />
+                  <TableColumn fx:id="custFirstName" prefWidth="102.0" text="First Name" />
+                  <TableColumn fx:id="custLastName" prefWidth="94.0" text="Last Name" />
+                  <TableColumn fx:id="custAddress" prefWidth="191.0" text="Address" />
+                  <TableColumn fx:id="custZipCode" prefWidth="90.0" text="Zip Code" />
+                  <TableColumn fx:id="custPhoneNumber" maxWidth="174.0" prefWidth="138.0" text="Phone Number" />
                </columns>
             </TableView>
             <ButtonBar layoutY="209.0" prefHeight="40.0" prefWidth="416.0">
@@ -99,7 +100,7 @@
             </ButtonBar>
          </children>
       </Pane>
-      <Pane layoutX="689.0" layoutY="343.0" prefHeight="151.0" prefWidth="125.0" style="-fx-border-color: black;">
+      <Pane layoutX="734.0" layoutY="343.0" prefHeight="151.0" prefWidth="125.0" style="-fx-border-color: black;">
          <children>
             <Button layoutX="20.0" layoutY="85.0" mnemonicParsing="false" onAction="#onActionLogOut" prefHeight="25.0" prefWidth="85.0" text="Log Out" />
             <Button layoutX="20.0" layoutY="32.0" mnemonicParsing="false" onAction="#OnActionViewReportsScreen" text="View Reports" />
