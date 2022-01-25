@@ -11,6 +11,16 @@ public class User {
     LocalDate update_date;
     String updated_by;
 
+    public User(int user_ID, String user_name, String password, LocalDate create_date, String created_by, LocalDate update_date, String updated_by) {
+        this.user_ID = user_ID;
+        this.user_name = user_name;
+        this.password = password;
+        this.create_date = create_date;
+        this.created_by = created_by;
+        this.update_date = update_date;
+        this.updated_by = updated_by;
+    }
+
     public int getUser_ID() {
         return user_ID;
     }
@@ -67,14 +77,4 @@ public class User {
         this.updated_by = updated_by;
     }
 
-    public User(int user_ID, String user_name, String password, LocalDate create_date, String created_by, LocalDate update_date, String updated_by) {
-        this.user_ID = user_ID;
-        this.user_name = user_name;
-        this.password = password;
-        this.create_date = create_date;
-        this.created_by = created_by;
-        this.update_date = update_date;
-        this.updated_by = updated_by;
-
-    }
 }

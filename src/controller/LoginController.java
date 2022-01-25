@@ -28,7 +28,7 @@ public class LoginController {
 
         @FXML
         void onActionQuitProgram(ActionEvent event) {
-
+                System.exit(0);
         }
 
 }
