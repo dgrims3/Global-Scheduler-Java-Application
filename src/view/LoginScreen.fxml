@@ -13,11 +13,11 @@
    <children>
       <VBox layoutX="3.0" layoutY="107.0" prefHeight="192.0" prefWidth="394.0" style="-fx-background-color: lightslategrey;">
          <children>
-            <TextField fx:id="loginPassword" prefHeight="32.0" prefWidth="394.0" promptText="Password">
+            <TextField fx:id="loginPassword" prefHeight="32.0" prefWidth="394.0">
                <VBox.margin>
                   <Insets left="10.0" right="200.0" top="10.0" />
                </VBox.margin></TextField>
-            <TextField fx:id="loginUserName" prefHeight="32.0" prefWidth="200.0" promptText="Username">
+            <TextField fx:id="loginUserName" prefHeight="32.0" prefWidth="200.0">
                <font>
                   <Font name="Calibri" size="12.0" />
                </font>
@@ -25,16 +25,16 @@
                   <Insets left="10.0" right="200.0" top="10.0" />
                </VBox.margin>
             </TextField>
-            <Button fx:id="loginButton" mnemonicParsing="false" onAction="#onActionLoginToMain" prefHeight="25.0" prefWidth="50.0" text="Login">
+            <Button fx:id="loginButton" mnemonicParsing="false" onAction="#onActionLoginToMain" prefHeight="25.0" prefWidth="50.0">
                <VBox.margin>
                   <Insets left="10.0" top="10.0" />
                </VBox.margin></Button>
-            <Button fx:id="quitButton" mnemonicParsing="false" onAction="#onActionQuitProgram" prefHeight="25.0" prefWidth="50.0" text="Quit">
+            <Button fx:id="quitButton" mnemonicParsing="false" onAction="#onActionQuitProgram" prefHeight="25.0" prefWidth="50.0">
                <VBox.margin>
                   <Insets left="10.0" top="10.0" />
                </VBox.margin>
             </Button>
-            <Label prefHeight="30.0" prefWidth="80.0" style="-fx-border-color: black;" text="Zone ID">
+            <Label prefHeight="30.0" prefWidth="80.0" style="-fx-border-color: black;">
                <VBox.margin>
                   <Insets bottom="10.0" left="300.0" top="10.0" />
                </VBox.margin>
@@ -43,7 +43,7 @@
       </VBox>
       <Pane layoutX="3.0" layoutY="5.0" prefHeight="102.0" prefWidth="394.0" style="-fx-background-color: D3D3D3;">
          <children>
-            <Label alignment="CENTER" layoutX="53.0" layoutY="21.0" prefHeight="66.0" prefWidth="295.0" text="My Scheduler Login" textAlignment="CENTER">
+            <Label fx:id="loginTitle" alignment="CENTER" layoutX="53.0" layoutY="21.0" prefHeight="66.0" prefWidth="295.0" textAlignment="CENTER">
                <font>
                   <Font name="HoloLens MDL2 Assets" size="30.0" />
                </font>
