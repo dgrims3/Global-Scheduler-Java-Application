@@ -35,7 +35,6 @@ public class LoginController {
                 loginUserName.setText(rb.getString("UserName"));
                 loginButton.setText(rb.getString("Login"));
                 quitButton.setText(rb.getString("Quit"));
-
         }
 
 
