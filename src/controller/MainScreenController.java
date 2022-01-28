@@ -9,7 +9,7 @@ package controller;
 
 public class MainScreenController {
 
-    @FXML
+   /* @FXML
     private TableView<?> appointmentsTableView;
 
     @FXML
@@ -137,5 +137,5 @@ public class MainScreenController {
     void onActionViewApptsCalender(ActionEvent event) {
 
     }
-
+*/
 }

@@ -2,14 +2,16 @@ package controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+import java.net.URL;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-public class LoginController {
+public class LoginController implements Initializable {
 
         ResourceBundle rb = ResourceBundle.getBundle("resourceBundle/rb", Locale.getDefault());
 
@@ -29,7 +31,7 @@ public class LoginController {
         private Button quitButton;
 
 
-        public void initialize() {
+        public void setText() {
                 loginPassword.setText(rb.getString("Password"));
                 loginTitle.setText(rb.getString("Title"));
                 loginUserName.setText(rb.getString("UserName"));
@@ -46,6 +48,11 @@ public class LoginController {
         @FXML
         void onActionQuitProgram(ActionEvent event) {
                 System.exit(0);
+        }
+
+        @Override
+        public void initialize (URL url, ResourceBundle resourceBundle){
+                setText();
         }
 
 }
