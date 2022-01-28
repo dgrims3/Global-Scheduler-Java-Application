@@ -1,24 +1,26 @@
 package model;
 
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 
 public class User {
     int user_ID;
     String user_name;
     String password;
-    LocalDate create_date;
+    Timestamp create_date;
     String created_by;
-    LocalDate update_date;
-    String updated_by;
+    Timestamp last_update;
+    String last_updated_by;
 
-    public User(int user_ID, String user_name, String password, LocalDate create_date, String created_by, LocalDate update_date, String updated_by) {
+    public User(int user_ID, String user_name, String password, Timestamp create_date, String created_by, Timestamp last_update, String last_updated_by) {
         this.user_ID = user_ID;
         this.user_name = user_name;
         this.password = password;
         this.create_date = create_date;
         this.created_by = created_by;
-        this.update_date = update_date;
-        this.updated_by = updated_by;
+        this.last_update = last_update;
+        this.last_updated_by = last_updated_by;
     }
 
     public int getUser_ID() {
@@ -45,11 +47,11 @@ public class User {
         this.password = password;
     }
 
-    public LocalDate getCreate_date() {
+    public Timestamp getCreate_date() {
         return create_date;
     }
 
-    public void setCreate_date(LocalDate create_date) {
+    public void setCreate_date(Timestamp create_date) {
         this.create_date = create_date;
     }
 
@@ -61,20 +63,14 @@ public class User {
         this.created_by = created_by;
     }
 
-    public LocalDate getUpdate_date() {
-        return update_date;
-    }
+    public Timestamp getLast_update() {return last_update;}
 
-    public void setUpdate_date(LocalDate update_date) {
-        this.update_date = update_date;
-    }
+    public void setLast_update(Timestamp last_update) {this.last_update = last_update;}
 
-    public String getUpdated_by() {
-        return updated_by;
-    }
+    public String getLast_updated_by() { return last_updated_by; }
 
-    public void setUpdated_by(String updated_by) {
-        this.updated_by = updated_by;
-    }
+    public void setLast_updated_by(String last_updated_by) {this.last_updated_by = last_updated_by;}
+
+
 
 }

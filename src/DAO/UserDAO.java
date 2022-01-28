@@ -24,7 +24,14 @@ public class UserDAO {
             resultSet = statement.executeQuery(sql);
 
             while (resultSet.next()){
-
+                allUsers.add(new User(
+                        resultSet.getInt("User_ID"),
+                        resultSet.getString("User_Name"),
+                        resultSet.getString("Password"),
+                        resultSet.getTimestamp("Create_Date"),
+                        resultSet.getString("Created_By"),
+                        resultSet.getTimestamp("Last_Update"),
+                        resultSet.getString("Last_Updated_By")));
             }
 
         } catch (Exception e) {
