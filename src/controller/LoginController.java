@@ -1,5 +1,6 @@
 package controller;
 
+import DAO.UserDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -53,6 +54,8 @@ public class LoginController implements Initializable {
         @Override
         public void initialize (URL url, ResourceBundle resourceBundle){
                 setText();
+                UserDAO dao = new UserDAO();
+                dao.initialize();
         }
 
 }

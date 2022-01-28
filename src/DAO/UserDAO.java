@@ -13,19 +13,19 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 
-public class UserDAO implements Initializable {
+public class UserDAO {
     public ObservableList <User> allUsers = FXCollections.observableArrayList();
 
     public void fillList(){
-        Statement statement = null;
+        PreparedStatement statement = null;
         ResultSet resultSet;
         Connection connection = null;
         String sql = "SELECT * FROM USERS;";
 
         try {
             connection = JDBC.getConnection();
-            statement.getConnection();
-            resultSet = statement.executeQuery(sql);
+            statement =connection.prepareStatement(sql);
+            resultSet = statement.executeQuery();
 
             while (resultSet.next()){
                 allUsers.add(new User(
@@ -47,11 +47,10 @@ public class UserDAO implements Initializable {
 
         public ObservableList <User> getAllUsers() {return allUsers;}
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize() {
         fillList();
         for (User u: getAllUsers()) {
-            System.out.println(u);
+            System.out.println(u.getUser_ID());
         }
     }
 }

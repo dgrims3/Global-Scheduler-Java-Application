@@ -71,6 +71,8 @@ public class User {
 
     public void setLast_updated_by(String last_updated_by) {this.last_updated_by = last_updated_by;}
 
-
-
+    @Override
+    public String toString(){
+        return user_name;
+    }
 }
