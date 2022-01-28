@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 
 public class UserDAO {
     public ObservableList <User> allUsers = FXCollections.observableArrayList();
-    public ObservableList <User> getAllUsers {return allUsers};
+    public ObservableList <User> getAllUsers() {return allUsers;}
 
     PreparedStatement ps;
     ResultSet rs;
