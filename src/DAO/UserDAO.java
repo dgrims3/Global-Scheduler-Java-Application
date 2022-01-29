@@ -31,11 +31,7 @@ public class UserDAO {
                 allUsers.add(new User(
                         resultSet.getInt("User_ID"),
                         resultSet.getString("User_Name"),
-                        resultSet.getString("Password"),
-                        resultSet.getTimestamp("Create_Date"),
-                        resultSet.getString("Created_By"),
-                        resultSet.getTimestamp("Last_Update"),
-                        resultSet.getString("Last_Updated_By")));
+                        resultSet.getString("Password")));
             }
 
         } catch (Exception e) {
@@ -50,7 +46,7 @@ public class UserDAO {
     public void initialize() {
         fillList();
         for (User u: getAllUsers()) {
-            System.out.println(u.getUser_ID());
+            System.out.println(u);
         }
     }
 }
