@@ -1,6 +1,7 @@
 package controller;
 
 import DAO.UserDAO;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -53,27 +54,30 @@ public class LoginController implements Initializable {
 
 
         public boolean userLogin(String username, String password){
+                boolean bool = false;
                         UserDAO dao = new UserDAO();
                         dao.fillList();
                         for (User u: dao.getAllUsers()) {
-                                if (u.getUser_name() == username && u.getPassword() == password) {
-                                        return false;
-                                }
-                        }
+                                if (username.equals(u.getUser_name()) && password.equals(u.getPassword())) {
+                                        System.out.println("fff");
+                                   bool = true;
+                                }}
 
-                return false;
+
+                return bool;
         }
 
 
         @FXML
         void onActionLoginToMain(ActionEvent event) throws IOException {
-            if (userLogin(loginUserName.getText(), loginPassword.getText()) == true){
+          if (userLogin(loginUserName.getText(), loginPassword.getText())){
                     System.out.println("success!!");
                     /*stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
                     scene = FXMLLoader.load(getClass().getResource("/view/MainScreen.fxml"));
                     stage.setScene(new Scene(scene));
                     stage.show();*/
             }else System.out.println("boo");
+
 
 
         }
@@ -86,6 +90,12 @@ public class LoginController implements Initializable {
         @Override
         public void initialize (URL url, ResourceBundle resourceBundle){
                 setText();
+              /* UserDAO dao = new UserDAO();
+                dao.fillList();
+                for (User u : dao.getAllUsers()
+                     ) {
+                        System.out.println(u);
+                }*/
         }
 
 }
