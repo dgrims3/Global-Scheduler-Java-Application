@@ -62,8 +62,8 @@ public class LoginController implements Initializable {
                         }
                 } catch (Exception e) {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setTitle();
-                        alert.setContentText();
+                        alert.setTitle(rb.getString("AlertTitle"));
+                        alert.setContentText(rb.getString("Alert"));
                         alert.showAndWait();
                 }
                 return false;
