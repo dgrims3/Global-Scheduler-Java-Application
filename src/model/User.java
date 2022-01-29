@@ -6,7 +6,7 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 
-public class User extends UserDAO {
+public class User {
     int user_ID;
     String user_name;
     String password;

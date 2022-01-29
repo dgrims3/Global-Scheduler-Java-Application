@@ -20,11 +20,11 @@ public class UserDAO {
         PreparedStatement statement = null;
         ResultSet resultSet;
         Connection connection = null;
-        String sql = "SELECT * FROM USERS;";
+        String sql = "SELECT User_ID, User_Name, Password FROM USERS;";
 
         try {
             connection = JDBC.getConnection();
-            statement =connection.prepareStatement(sql);
+            statement = connection.prepareStatement(sql);
             resultSet = statement.executeQuery();
 
             while (resultSet.next()){

@@ -53,19 +53,14 @@ public class LoginController implements Initializable {
 
 
         public boolean userLogin(String username, String password){
-                try {
                         UserDAO dao = new UserDAO();
+                        dao.fillList();
                         for (User u: dao.getAllUsers()) {
                                 if (u.getUser_name() == username && u.getPassword() == password) {
-                                        return true;
+                                        return false;
                                 }
                         }
-                } catch (Exception e) {
-                        Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setTitle(rb.getString("AlertTitle"));
-                        alert.setContentText(rb.getString("Alert"));
-                        alert.showAndWait();
-                }
+
                 return false;
         }
 
@@ -73,11 +68,12 @@ public class LoginController implements Initializable {
         @FXML
         void onActionLoginToMain(ActionEvent event) throws IOException {
             if (userLogin(loginUserName.getText(), loginPassword.getText()) == true){
-                    stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
+                    System.out.println("success!!");
+                    /*stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
                     scene = FXMLLoader.load(getClass().getResource("/view/MainScreen.fxml"));
                     stage.setScene(new Scene(scene));
-                    stage.show();
-            }
+                    stage.show();*/
+            }else System.out.println("boo");
 
 
         }
