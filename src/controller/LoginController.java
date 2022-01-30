@@ -44,29 +44,40 @@ public class LoginController implements Initializable {
 
 
         public void setText() {
-                loginPassword.setText(rb.getString("Password"));
+                loginPassword.setPromptText(rb.getString("Password"));
                 loginTitle.setText(rb.getString("Title"));
-                loginUserName.setText(rb.getString("UserName"));
+                loginUserName.setPromptText(rb.getString("UserName"));
                 loginButton.setText(rb.getString("Login"));
                 quitButton.setText(rb.getString("Quit"));
         }
 
-
-
         public boolean userLogin(String username, String password){
-                boolean bool = false;
-                        UserDAO dao = new UserDAO();
-                        dao.fillList();
-                        for (User u: dao.getAllUsers()) {
-                                if (username.equals(u.getUser_name()) && password.equals(u.getPassword())) {
-                                        System.out.println("fff");
-                                   bool = true;
-                                }}
-
-
-                return bool;
-        }
-
+               boolean bool = false;
+               UserDAO dao = new UserDAO();
+               dao.fillList();
+               if (username.isBlank() && !password.isBlank()){
+                   Alert alert = new Alert(Alert.AlertType.ERROR);
+                   alert.setTitle(rb.getString("AlertTitle"));
+                   alert.setContentText(rb.getString("EmptyUsername"));
+                   alert.showAndWait();
+               }
+                if (password.isBlank() && !username.isBlank()){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle(rb.getString("AlertTitle"));
+                alert.setContentText(rb.getString("EmptyPassword"));
+                alert.showAndWait();
+                 }
+                if (password.isBlank() && username.isBlank()){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle(rb.getString("AlertTitle"));
+                alert.setContentText(rb.getString("EmptyAll"));
+                alert.showAndWait();}
+               for (User u: dao.getAllUsers()) {
+                       if (username.equals(u.getUser_name()) && password.equals(u.getPassword())) {
+                               bool = true;
+                       }
+               }return bool;
+       }
 
         @FXML
         void onActionLoginToMain(ActionEvent event) throws IOException {
@@ -76,10 +87,7 @@ public class LoginController implements Initializable {
                     scene = FXMLLoader.load(getClass().getResource("/view/MainScreen.fxml"));
                     stage.setScene(new Scene(scene));
                     stage.show();*/
-            }else System.out.println("boo");
-
-
-
+            }
         }
 
         @FXML
@@ -90,12 +98,6 @@ public class LoginController implements Initializable {
         @Override
         public void initialize (URL url, ResourceBundle resourceBundle){
                 setText();
-              /* UserDAO dao = new UserDAO();
-                dao.fillList();
-                for (User u : dao.getAllUsers()
-                     ) {
-                        System.out.println(u);
-                }*/
         }
 
 }
