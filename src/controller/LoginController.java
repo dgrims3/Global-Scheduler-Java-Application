@@ -17,8 +17,11 @@ import model.User;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.MessageFormat;
+import java.time.ZoneId;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.TimeZone;
 
 public class LoginController implements Initializable {
 
@@ -28,27 +31,23 @@ public class LoginController implements Initializable {
         ResourceBundle rb = ResourceBundle.getBundle("resourceBundle/rb", Locale.getDefault());
 
         @FXML
-        private TextField loginPassword;
+        private TextField loginPassword, loginUserName;
 
         @FXML
-        private Label loginTitle;
+        private Label loginTitle, loginZone;
 
         @FXML
-        private TextField loginUserName;
-
-        @FXML
-        private Button loginButton;
-
-        @FXML
-        private Button quitButton;
+        private Button loginButton, quitButton;
 
 
-        public void setText() {
+
+    public void setText() {
                 loginPassword.setPromptText(rb.getString("Password"));
                 loginTitle.setText(rb.getString("Title"));
                 loginUserName.setPromptText(rb.getString("UserName"));
                 loginButton.setText(rb.getString("Login"));
                 quitButton.setText(rb.getString("Quit"));
+                loginZone.setText(String.valueOf(ZoneId.of(TimeZone.getDefault().getID())));
         }
 
         public boolean userLogin(String username, String password){
@@ -72,11 +71,11 @@ public class LoginController implements Initializable {
                 alert.setTitle(rb.getString("AlertTitle"));
                 alert.setContentText(rb.getString("EmptyAll"));
                 alert.showAndWait();}
-               for (User u: dao.getAllUsers()) {
+                for (User u: dao.getAllUsers()) {
                        if (username.equals(u.getUser_name()) && password.equals(u.getPassword())) {
                                bool = true;
                        }
-               }return bool;
+                 }return bool;
        }
 
         @FXML

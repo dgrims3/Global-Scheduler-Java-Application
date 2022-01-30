@@ -8,8 +8,11 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import DAO.JDBC;
 
-public class Main extends Application {
+import java.time.ZoneId;
+import java.util.Locale;
 
+public class Main extends Application {
+ZoneId zoneId;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -21,6 +24,8 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
+       // Locale.setDefault(new Locale("fr"));
+
         JDBC.makeConnection();
         launch(args);
     }
