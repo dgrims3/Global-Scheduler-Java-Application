@@ -59,7 +59,7 @@ public class LoginController implements Initializable {
                    alert.setTitle(rb.getString("AlertTitle"));
                    alert.setContentText(rb.getString("EmptyUsername"));
                    alert.showAndWait();
-               }
+                }
                 if (password.isBlank() && !username.isBlank()){
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle(rb.getString("AlertTitle"));
@@ -81,11 +81,10 @@ public class LoginController implements Initializable {
         @FXML
         void onActionLoginToMain(ActionEvent event) throws IOException {
           if (userLogin(loginUserName.getText(), loginPassword.getText())){
-                    System.out.println("success!!");
-                    /*stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
+                    stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
                     scene = FXMLLoader.load(getClass().getResource("/view/MainScreen.fxml"));
                     stage.setScene(new Scene(scene));
-                    stage.show();*/
+                    stage.show();
             }
         }
 

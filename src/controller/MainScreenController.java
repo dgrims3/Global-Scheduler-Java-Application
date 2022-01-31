@@ -1,5 +1,6 @@
 package controller;
 
+        import javafx.event.ActionEvent;
         import javafx.fxml.FXML;
         import javafx.scene.control.DatePicker;
         import javafx.scene.control.RadioButton;
@@ -9,7 +10,7 @@ package controller;
 
 public class MainScreenController {
 
-   /* @FXML
+    @FXML
     private TableView<?> appointmentsTableView;
 
     @FXML
@@ -137,5 +138,5 @@ public class MainScreenController {
     void onActionViewApptsCalender(ActionEvent event) {
 
     }
-*/
+
 }
