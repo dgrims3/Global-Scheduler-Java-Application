@@ -39,14 +39,6 @@ public class UserDAO {
         }
 
     }
+    public ObservableList <User> getAllUsers() {return allUsers;}
 
-
-        public ObservableList <User> getAllUsers() {return allUsers;}
-
-    public void initialize() {
-        fillList();
-        for (User u: getAllUsers()) {
-            System.out.println(u);
-        }
-    }
 }
