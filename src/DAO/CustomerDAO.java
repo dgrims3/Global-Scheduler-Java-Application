@@ -1,7 +1,11 @@
 package DAO;
 
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 import model.Customer;
 
 import java.sql.Connection;
@@ -40,15 +44,6 @@ public class CustomerDAO {
         }
         return customers;
     }
-    public String divisionTransform(int i){
-        Connection connection = null;
-        PreparedStatement statement = null;
-        ResultSet resultSet;
-        String sql = "SELECT Division FROM first_level_divisions WHERE Division_ID = (?)";
 
-        try {
-            connection = JDBC.getConnection();
-            statement = connection.prepareStatement(sql);
-            resultSet = statement.executeQuery();
-    }
+
 }

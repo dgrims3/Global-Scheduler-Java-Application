@@ -1,6 +1,8 @@
 package model;
 
-import java.sql.Timestamp;
+import DAO.JDBC;
+
+import java.sql.*;
 
 public class Customer {
     private int Customer_ID;
@@ -13,6 +15,19 @@ public class Customer {
     private Timestamp Last_Update;
     private String Last_Updated_By;
     private int Division_ID;
+
+    public Customer(int customer_ID, String customer_Name, String address, String postal_Code, String phone, Timestamp create_Date, String created_By, Timestamp last_Update, String last_Updated_By, int division_ID) {
+        Customer_ID = customer_ID;
+        Customer_Name = customer_Name;
+        Address = address;
+        Postal_Code = postal_Code;
+        Phone = phone;
+        Create_Date = create_Date;
+        Created_By = created_By;
+        Last_Update = last_Update;
+        Last_Updated_By = last_Updated_By;
+        Division_ID = division_ID;
+    }
 
     public int getCustomer_ID() {
         return Customer_ID;
@@ -93,19 +108,24 @@ public class Customer {
     public void setDivision_ID(int division_ID) {
         Division_ID = division_ID;
     }
+    public String divisionTransform(int i){
+        String s = null;
+        try {
+            Connection connection = null;
+            PreparedStatement statement = null;
+            ResultSet resultSet;
+            String sql = "SELECT Division FROM first_level_divisions WHERE Division_ID = (?)";
+            statement.setInt(1, i);
 
-    public Customer(int customer_ID, String customer_Name, String address, String postal_Code, String phone, Timestamp create_Date, String created_By, Timestamp last_Update, String last_Updated_By, int division_ID) {
-        Customer_ID = customer_ID;
-        Customer_Name = customer_Name;
-        Address = address;
-        Postal_Code = postal_Code;
-        Phone = phone;
-        Create_Date = create_Date;
-        Created_By = created_By;
-        Last_Update = last_Update;
-        Last_Updated_By = last_Updated_By;
-        Division_ID = division_ID;
+            connection = JDBC.getConnection();
+            statement = connection.prepareStatement(sql);
+            resultSet = statement.executeQuery();
+            s = resultSet.getString("Division");
 
-
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return s;
     }
+
 }

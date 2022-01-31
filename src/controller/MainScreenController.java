@@ -41,18 +41,20 @@ public class MainScreenController implements Initializable {
     @FXML private TableColumn<Customer, String > custAddress;
     @FXML private TableColumn<Customer, String> custZipCode;
     @FXML private TableColumn<Customer, String> custPhoneNumber;
-    @FXML private TableColumn<Customer, Integer> firstLevelDivision;
+    @FXML private TableColumn<Customer, String> firstLevelDivision;
 
     public void fillCustomerTableView(){
         CustomerDAO dao = new CustomerDAO();
+
         customersTableView.setItems(dao.allCustomers());
         custID.setCellValueFactory(new PropertyValueFactory<>("Customer_ID"));
         custName.setCellValueFactory(new PropertyValueFactory<>("Customer_Name"));
         custAddress.setCellValueFactory(new PropertyValueFactory<>("Address"));
         custZipCode.setCellValueFactory(new PropertyValueFactory<>("Postal_Code"));
         custPhoneNumber.setCellValueFactory(new PropertyValueFactory<>("Phone"));
-        firstLevelDivision.setCellValueFactory(new PropertyValueFactory<>("Division_ID"));
+        firstLevelDivision.setCellValueFactory( new PropertyValueFactory<>("Division_ID"));
     }
+
 
     @FXML void OnActionViewReportsScreen(ActionEvent event) {
     }
