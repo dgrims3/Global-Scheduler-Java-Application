@@ -10,9 +10,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CustomerDAO {
-    private ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
-    public ObservableList getAllCustomers(){return allCustomers;}
-    public void fillList(){
+    public ObservableList<Customer> allCustomers() {
+        ObservableList<Customer> customers = FXCollections.observableArrayList();
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet;
@@ -23,8 +22,8 @@ public class CustomerDAO {
             statement = connection.prepareStatement(sql);
             resultSet = statement.executeQuery();
 
-            while(resultSet.next()){
-                allCustomers.add(new Customer(
+            while (resultSet.next()) {
+                customers.add(new Customer(
                         resultSet.getInt(1),
                         resultSet.getString(2),
                         resultSet.getString(3),
@@ -39,5 +38,17 @@ public class CustomerDAO {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        return customers;
+    }
+    public String divisionTransform(int i){
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet;
+        String sql = "SELECT Division FROM first_level_divisions WHERE Division_ID = (?)";
+
+        try {
+            connection = JDBC.getConnection();
+            statement = connection.prepareStatement(sql);
+            resultSet = statement.executeQuery();
     }
 }

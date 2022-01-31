@@ -84,11 +84,11 @@
             <TableView fx:id="customersTableView" layoutX="17.0" layoutY="62.0" prefHeight="137.0" prefWidth="674.0">
                <columns>
                   <TableColumn fx:id="custID" prefWidth="58.0" text="Cust. ID" />
-                  <TableColumn fx:id="custFirstName" prefWidth="102.0" text="First Name" />
-                  <TableColumn fx:id="custLastName" prefWidth="94.0" text="Last Name" />
-                  <TableColumn fx:id="custAddress" prefWidth="191.0" text="Address" />
-                  <TableColumn fx:id="custZipCode" prefWidth="90.0" text="Zip Code" />
-                  <TableColumn fx:id="custPhoneNumber" maxWidth="174.0" prefWidth="138.0" text="Phone Number" />
+                  <TableColumn fx:id="custName" prefWidth="110.0" text="Name" />
+                  <TableColumn fx:id="custAddress" prefWidth="160.0" text="Address" />
+                  <TableColumn fx:id="custZipCode" prefWidth="104.0" text="Zip Code" />
+                  <TableColumn fx:id="custPhoneNumber" maxWidth="174.0" prefWidth="133.0" text="Phone Number" />
+                  <TableColumn fx:id="firstLevelDivision" maxWidth="174.0" prefWidth="108.0" text="1st Level Division" />
                </columns>
             </TableView>
             <ButtonBar layoutY="209.0" prefHeight="40.0" prefWidth="416.0">
