@@ -4,6 +4,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import model.Country;
+import model.Division;
 
 public class CustomerController {
 
@@ -12,8 +14,8 @@ public class CustomerController {
     @FXML private TextField addCustomerAddress;
     @FXML private TextField addCustomerPostalCode;
     @FXML private TextField addCustomerPhoneNumber;
-    @FXML private ComboBox<?> addCustomerCountryComboBox;
-    @FXML private ComboBox<?> addCustomerDivisionComboBox;
+    @FXML private ComboBox<Country> addCustomerCountryComboBox;
+    @FXML private ComboBox<Division> addCustomerDivisionComboBox;
 
     @FXML void onActionCancelAddCustomer(ActionEvent event) {
 
