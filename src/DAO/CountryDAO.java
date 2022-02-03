@@ -10,7 +10,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+
 public class CountryDAO {
+    public ObservableList<Country> getAllCountries(){return allCountries();}
     public ObservableList<Country> allCountries() {
         ObservableList<Country> countries = FXCollections.observableArrayList();
         Connection connection = null;

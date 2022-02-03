@@ -3,19 +3,24 @@ package controller;
         import DAO.CustomerDAO;
         import javafx.event.ActionEvent;
         import javafx.fxml.FXML;
+        import javafx.fxml.FXMLLoader;
         import javafx.fxml.Initializable;
-        import javafx.scene.control.DatePicker;
-        import javafx.scene.control.RadioButton;
-        import javafx.scene.control.TableColumn;
-        import javafx.scene.control.TableView;
-        import javafx.scene.control.ToggleGroup;
+        import javafx.scene.Parent;
+        import javafx.scene.Scene;
+        import javafx.scene.control.*;
         import javafx.scene.control.cell.PropertyValueFactory;
+        import javafx.stage.Stage;
         import model.Customer;
 
+        import java.io.IOException;
         import java.net.URL;
         import java.util.ResourceBundle;
 
 public class MainScreenController implements Initializable {
+
+    Stage stage;
+    Parent scene;
+
 
     @FXML private TableView<?> appointmentsTableView;
     @FXML private TableColumn<?, ?> apptID;
@@ -63,8 +68,11 @@ public class MainScreenController implements Initializable {
 
     }
 
-    @FXML void onActionAddCustomer(ActionEvent event) {
-
+    @FXML void onActionAddCustomer(ActionEvent event) throws IOException {
+        stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/view/Customer.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
     }
 
     @FXML void onActionCancelAppt(ActionEvent event) {

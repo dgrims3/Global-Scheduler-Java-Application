@@ -34,10 +34,13 @@
                   <Insets left="10.0" top="10.0" />
                </VBox.margin>
             </Button>
-            <Label fx:id="loginZone" prefHeight="30.0" prefWidth="80.0" style="-fx-border-color: black;">
+            <Label fx:id="loginZone" prefHeight="24.0" prefWidth="131.0" style="-fx-border-color: black;">
                <VBox.margin>
-                  <Insets bottom="10.0" left="300.0" top="10.0" />
+                  <Insets bottom="10.0" left="250.0" right="10.0" top="10.0" />
                </VBox.margin>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
             </Label>
          </children>
       </VBox>

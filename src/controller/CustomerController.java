@@ -1,13 +1,20 @@
 package controller;
 
+import DAO.CountryDAO;
+import DAO.DivisionDAO;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import model.Country;
 import model.Division;
 
-public class CustomerController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class CustomerController implements Initializable {
 
     @FXML private TextField addCustomerId;
     @FXML private TextField addCustomerName;
@@ -16,6 +23,10 @@ public class CustomerController {
     @FXML private TextField addCustomerPhoneNumber;
     @FXML private ComboBox<Country> addCustomerCountryComboBox;
     @FXML private ComboBox<Division> addCustomerDivisionComboBox;
+    CountryDAO dao = new CountryDAO();
+
+    public ObservableList<Country> countryComboBox = dao.getAllCountries();
+
 
     @FXML void onActionCancelAddCustomer(ActionEvent event) {
 
@@ -30,4 +41,8 @@ public class CustomerController {
 
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        addCustomerCountryComboBox.setItems(countryComboBox);
+    }
 }
