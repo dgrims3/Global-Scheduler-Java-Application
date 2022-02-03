@@ -24,8 +24,20 @@ public class CustomerController implements Initializable {
     @FXML private ComboBox<Country> addCustomerCountryComboBox;
     @FXML private ComboBox<Division> addCustomerDivisionComboBox;
     CountryDAO dao = new CountryDAO();
+    DivisionDAO divDao = new DivisionDAO();
 
     public ObservableList<Country> countryComboBox = dao.getAllCountries();
+
+    public ObservableList<Division> divisionComboBox(){
+        if(addCustomerCountryComboBox.getSelectionModel().getSelectedIndex()==0){
+            return divDao.getAllUsDivisions();
+        }else if(addCustomerCountryComboBox.getSelectionModel().getSelectedIndex()==1){
+            return divDao.ukDivisions();
+        }else if(addCustomerCountryComboBox.getSelectionModel().getSelectedIndex()==2){
+            return divDao.canadaDivisions();
+        }
+        return null;
+    }
 
 
     @FXML void onActionCancelAddCustomer(ActionEvent event) {
@@ -44,5 +56,6 @@ public class CustomerController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         addCustomerCountryComboBox.setItems(countryComboBox);
+        addCustomerDivisionComboBox.setItems(divisionComboBox());
     }
 }
