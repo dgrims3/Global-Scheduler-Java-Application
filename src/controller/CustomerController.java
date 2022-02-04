@@ -32,9 +32,9 @@ public class CustomerController implements Initializable {
         if(addCustomerCountryComboBox.getSelectionModel().getSelectedIndex()==0){
             return divDao.getAllUsDivisions();
         }else if(addCustomerCountryComboBox.getSelectionModel().getSelectedIndex()==1){
-            return divDao.ukDivisions();
+            return divDao.getAllUkDivisions();
         }else if(addCustomerCountryComboBox.getSelectionModel().getSelectedIndex()==2){
-            return divDao.canadaDivisions();
+            return divDao.getAllCanadaDivisions();
         }
         return null;
     }
@@ -57,5 +57,11 @@ public class CustomerController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         addCustomerCountryComboBox.setItems(countryComboBox);
         addCustomerDivisionComboBox.setItems(divisionComboBox());
+        DivisionDAO dao = new DivisionDAO();
+        for (Division d:dao.getAllUkDivisions()
+             ) {
+            System.out.println(d);
+
+        }
     }
 }

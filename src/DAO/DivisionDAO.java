@@ -20,7 +20,7 @@ public class DivisionDAO {
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet;
-        String sql = "SELECT Division FROM first_level_divisions WHERE Division_ID = 1";
+        String sql = "SELECT Division_ID, Division FROM first_level_divisions WHERE Country_ID = 1";
 
         try {
             connection = JDBC.getConnection();
@@ -29,8 +29,9 @@ public class DivisionDAO {
 
             while (resultSet.next()) {
                 divisions.add(new Division(
-                        resultSet.getInt(1),
-                        resultSet.getString(2)));
+                        resultSet.getInt("Division_ID"),
+                        resultSet.getString("Division")));
+                System.out.println("dao works");
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -43,7 +44,7 @@ public class DivisionDAO {
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet;
-        String sql = "SELECT Division FROM first_level_divisions WHERE Division_ID = 2";
+        String sql = "SELECT Division_ID, Division FROM first_level_divisions WHERE Country_ID = 2";
 
         try {
             connection = JDBC.getConnection();
@@ -52,8 +53,8 @@ public class DivisionDAO {
 
             while (resultSet.next()) {
                 divisions.add(new Division(
-                        resultSet.getInt(1),
-                        resultSet.getString(2)));
+                        resultSet.getInt("Division_ID"),
+                        resultSet.getString("Division")));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -66,7 +67,7 @@ public class DivisionDAO {
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet;
-        String sql = "SELECT Division FROM first_level_divisions WHERE Division_ID = 3";
+        String sql = "SELECT Division_ID, Division FROM first_level_divisions WHERE Country_ID = 3";
 
         try {
             connection = JDBC.getConnection();
@@ -75,8 +76,8 @@ public class DivisionDAO {
 
             while (resultSet.next()) {
                 divisions.add(new Division(
-                        resultSet.getInt(1),
-                        resultSet.getString(2)));
+                        resultSet.getInt("Division_ID"),
+                        resultSet.getString("Division")));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();

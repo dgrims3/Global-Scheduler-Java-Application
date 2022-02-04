@@ -9,19 +9,13 @@ public class Division {
         Division = division;
     }
 
-    public int getDivision_ID() {
-        return Division_ID;
-    }
+    public int getDivision_ID() { return Division_ID; }
 
-    public void setDivision_ID(int division_ID) {
-        Division_ID = division_ID;
-    }
+    public void setDivision_ID(int division_ID) { Division_ID = division_ID; }
 
-    public String getDivision() {
-        return Division;
-    }
+    public String getDivision() { return Division; }
 
-    public void setDivision(String division) {
-        Division = division;
-    }
+    public void setDivision(String division) { Division = division; }
+
+    @Override public String toString(){ return Division;}
 }
