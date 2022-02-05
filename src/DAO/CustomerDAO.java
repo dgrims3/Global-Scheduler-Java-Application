@@ -8,10 +8,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 import model.Customer;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDateTime;
 
 public class CustomerDAO {
     public ObservableList<Customer> allCustomers() {
@@ -33,10 +31,10 @@ public class CustomerDAO {
                         resultSet.getString(3),
                         resultSet.getString(4),
                         resultSet.getString(5),
-                        resultSet.getTimestamp(6),
+                       /* resultSet.getTimestamp(6),
                         resultSet.getString(7),
                         resultSet.getTimestamp(8),
-                        resultSet.getString(9),
+                        resultSet.getString(9),*/
                         resultSet.getInt(10)));
             }
         } catch (SQLException throwables) {
@@ -44,6 +42,31 @@ public class CustomerDAO {
         }
         return customers;
     }
+    public void addNewCustomer (Customer customer){
 
 
-}
+        try {
+            Connection connection = JDBC.getConnection();
+            PreparedStatement statement = null;
+            String sql = "INSERT INTO customers (Customer_Name, Address, Postal_Code, Phone, Create_Date, Created_By, Last_Update, last_Updated_By, Division_ID)"
+                    + "VALUES(?,?,?,?,?,?,?,?,?,?)";
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, customer.getCustomer_Name());
+            statement.setString(2, customer.getAddress());
+            statement.setString(3, customer.getPostal_Code());
+            statement.setString(4, customer.getPhone());
+            statement.setTimestamp(5, Timestamp.valueOf(LocalDateTime.now()));
+            statement.setString(6, "test");
+            statement.setTimestamp(7, Timestamp.valueOf(LocalDateTime.now()));
+            statement.setString(9, "test");
+            statement.setInt(10, customer.getDivision_ID());
+
+            System.out.println(customer.getDivision_ID());
+
+
+    } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+
+    }}

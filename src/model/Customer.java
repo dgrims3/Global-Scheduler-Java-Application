@@ -16,16 +16,16 @@ public class Customer {
     private String Last_Updated_By;
     private int Division_ID;
 
-    public Customer(int customer_ID, String customer_Name, String address, String postal_Code, String phone, Timestamp create_Date, String created_By, Timestamp last_Update, String last_Updated_By, int division_ID) {
+    public Customer(int customer_ID, String customer_Name, String address, String postal_Code, String phone, /*Timestamp create_Date, String created_By, Timestamp last_Update, String last_Updated_By,*/ int division_ID) {
         Customer_ID = customer_ID;
         Customer_Name = customer_Name;
         Address = address;
         Postal_Code = postal_Code;
         Phone = phone;
-        Create_Date = create_Date;
+       /* Create_Date = create_Date;
         Created_By = created_By;
         Last_Update = last_Update;
-        Last_Updated_By = last_Updated_By;
+        Last_Updated_By = last_Updated_By;*/
         Division_ID = division_ID;
     }
 

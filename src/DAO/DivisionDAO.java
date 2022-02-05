@@ -31,7 +31,6 @@ public class DivisionDAO {
                 divisions.add(new Division(
                         resultSet.getInt("Division_ID"),
                         resultSet.getString("Division")));
-                System.out.println("dao works");
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();

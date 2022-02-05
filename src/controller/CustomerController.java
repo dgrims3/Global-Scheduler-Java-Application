@@ -1,7 +1,9 @@
 package controller;
 
 import DAO.CountryDAO;
+import DAO.CustomerDAO;
 import DAO.DivisionDAO;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,9 +11,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import model.Country;
+import model.Customer;
 import model.Division;
 
 import java.net.URL;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 public class CustomerController implements Initializable {
@@ -44,6 +49,18 @@ public class CustomerController implements Initializable {
 
     }
     @FXML void onActionSaveAddCustomer(ActionEvent event) {
+        CustomerDAO dao = new CustomerDAO();
+
+        int Customer_ID = -1;
+        String Customer_Name = addCustomerName.getText();
+        String Address = addCustomerAddress.getText();
+        String Postal_Code = addCustomerPostalCode.getText();
+        String Phone = addCustomerPhoneNumber.getText();
+        int Division_ID = addCustomerDivisionComboBox.getSelectionModel().getSelectedItem().getDivision_ID();
+        Customer c = new Customer(Customer_ID, Customer_Name, Address, Postal_Code, Phone, Division_ID);
+
+        dao.addNewCustomer(c);
+
 
     }
     @FXML void onActionSelectCountry(ActionEvent event) {
