@@ -11,15 +11,13 @@ package controller;
         import javafx.scene.control.cell.PropertyValueFactory;
         import javafx.stage.Stage;
         import model.Customer;
+        import model.SceneChange;
 
         import java.io.IOException;
         import java.net.URL;
         import java.util.ResourceBundle;
 
 public class MainScreenController implements Initializable {
-
-    Stage stage;
-    Parent scene;
 
 
     @FXML private TableView<?> appointmentsTableView;
@@ -69,10 +67,8 @@ public class MainScreenController implements Initializable {
     }
 
     @FXML void onActionAddCustomer(ActionEvent event) throws IOException {
-        stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/view/Customer.fxml"));
-        stage.setScene(new Scene(scene));
-        stage.show();
+        SceneChange scene = new SceneChange();
+        scene.changeScene(event, "../view/Customer.fxml");
     }
 
     @FXML void onActionCancelAppt(ActionEvent event) {
@@ -80,7 +76,9 @@ public class MainScreenController implements Initializable {
     }
 
     @FXML void onActionDeleteCustomer(ActionEvent event) {
-
+        CustomerDAO dao = new CustomerDAO();
+        dao.deleteCustomer(customersTableView.getSelectionModel().getSelectedItem());
+        fillCustomerTableView();
     }
 
     @FXML void onActionLogOut(ActionEvent event) {

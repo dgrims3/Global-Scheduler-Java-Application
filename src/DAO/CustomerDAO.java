@@ -42,14 +42,24 @@ public class CustomerDAO {
         }
         return customers;
     }
+    public void deleteCustomer (Customer customer){
+        Connection connection = JDBC.getConnection();
+        PreparedStatement statement = null;
+        String sql = "DELETE FROM customers WHERE Customer_ID = ?";
+        try{
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, customer.getCustomer_ID());
+            statement.execute();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
     public void addNewCustomer (Customer customer){
-
-
+        Connection connection = JDBC.getConnection();
+        PreparedStatement statement = null;
+        String sql = "INSERT INTO customers (Customer_Name, Address, Postal_Code, Phone, Create_Date, Created_By, Last_Update, last_Updated_By, Division_ID)"
+                + "VALUES(?,?,?,?,?,?,?,?,?)";
         try {
-            Connection connection = JDBC.getConnection();
-            PreparedStatement statement = null;
-            String sql = "INSERT INTO customers (Customer_Name, Address, Postal_Code, Phone, Create_Date, Created_By, Last_Update, last_Updated_By, Division_ID)"
-                    + "VALUES(?,?,?,?,?,?,?,?,?)";
             statement = connection.prepareStatement(sql);
             statement.setString(1, customer.getCustomer_Name());
             statement.setString(2, customer.getAddress());
@@ -60,7 +70,6 @@ public class CustomerDAO {
             statement.setTimestamp(7, Timestamp.valueOf(LocalDateTime.now()));
             statement.setString(8, "test");
             statement.setInt(9, customer.getDivision_ID());
-
             statement.executeUpdate();
     } catch (SQLException throwables) {
             throwables.printStackTrace();

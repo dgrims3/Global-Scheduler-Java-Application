@@ -77,7 +77,7 @@
                <font>
                   <Font size="18.0" />
                </font></Label>
-            <TextField fx:id="addCustomerId" editable="false" promptText="auto-generated" GridPane.columnIndex="1" />
+            <TextField fx:id="addCustomerId" disable="true" editable="false" promptText="auto-generated" GridPane.columnIndex="1" />
             <TextField fx:id="addCustomerName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="addCustomerAddress" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="addCustomerPostalCode" GridPane.columnIndex="1" GridPane.rowIndex="3" />
