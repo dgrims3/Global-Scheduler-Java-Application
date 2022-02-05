@@ -49,7 +49,7 @@ public class CustomerDAO {
             Connection connection = JDBC.getConnection();
             PreparedStatement statement = null;
             String sql = "INSERT INTO customers (Customer_Name, Address, Postal_Code, Phone, Create_Date, Created_By, Last_Update, last_Updated_By, Division_ID)"
-                    + "VALUES(?,?,?,?,?,?,?,?,?,?)";
+                    + "VALUES(?,?,?,?,?,?,?,?,?)";
             statement = connection.prepareStatement(sql);
             statement.setString(1, customer.getCustomer_Name());
             statement.setString(2, customer.getAddress());
@@ -58,15 +58,14 @@ public class CustomerDAO {
             statement.setTimestamp(5, Timestamp.valueOf(LocalDateTime.now()));
             statement.setString(6, "test");
             statement.setTimestamp(7, Timestamp.valueOf(LocalDateTime.now()));
-            statement.setString(9, "test");
-            statement.setInt(10, customer.getDivision_ID());
+            statement.setString(8, "test");
+            statement.setInt(9, customer.getDivision_ID());
 
-            System.out.println(customer.getDivision_ID());
-
-
+            statement.executeUpdate();
     } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
 
 
-    }}
+    }
+}
