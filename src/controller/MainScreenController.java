@@ -18,7 +18,8 @@ package controller;
         import java.util.ResourceBundle;
 
 public class MainScreenController implements Initializable {
-
+    Stage stage;
+    Parent scene;
 
     @FXML private TableView<?> appointmentsTableView;
     @FXML private TableColumn<?, ?> apptID;
@@ -68,7 +69,7 @@ public class MainScreenController implements Initializable {
 
     @FXML void onActionAddCustomer(ActionEvent event) throws IOException {
         SceneChange scene = new SceneChange();
-        scene.changeScene(event, "../view/Customer.fxml");
+        scene.changeScene(event, "/view/Customer.fxml");
     }
 
     @FXML void onActionCancelAppt(ActionEvent event) {
