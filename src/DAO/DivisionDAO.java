@@ -2,7 +2,7 @@ package DAO;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import model.Country;
+import javafx.scene.control.SingleSelectionModel;
 import model.Division;
 
 import java.sql.Connection;
@@ -83,4 +83,19 @@ public class DivisionDAO {
         }
         return divisions;
     }
+
+        public SingleSelectionModel<Division> getDivisionForModifyCustomer (int i) {
+            Connection connection = JDBC.getConnection();
+            PreparedStatement statement = null;
+            ResultSet resultSet = null;
+            String sql = "SELECT Division FROM divisions WHERE Division_ID = ?";
+            try {
+                statement = connection.prepareStatement(sql);
+                statement.setInt(1, i);
+                resultSet = statement.executeQuery(sql);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            return (SingleSelectionModel<Division>) resultSet;
+        }
 }

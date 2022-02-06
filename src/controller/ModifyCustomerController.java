@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import model.Country;
+import model.Customer;
 import model.Division;
 
 import java.net.URL;
@@ -23,7 +24,16 @@ public class ModifyCustomerController implements Initializable {
     @FXML private ComboBox<Country> addCustomerCountryComboBox;
     @FXML private ComboBox<Division> addCustomerDivisionComboBox;
     CountryDAO dao = new CountryDAO();
-    DivisionDAO divDao = new DivisionDAO();
+    DivisionDAO divDao =new DivisionDAO();
+
+    public void setText(Customer customer){
+        addCustomerId.setText(String.valueOf(customer.getCustomer_ID()));
+        addCustomerName.setText(customer.getCustomer_Name());
+        addCustomerAddress.setText(customer.getAddress());
+        addCustomerPostalCode.setText(customer.getPostal_Code());
+        addCustomerPhoneNumber.setText(customer.getPhone());
+        addCustomerDivisionComboBox.setSelectionModel(divDao.getDivisionForModifyCustomer(customer.getDivision_ID()));
+    }
     @FXML
     void onActionCancelAddCustomer(ActionEvent event) {
 
@@ -45,5 +55,6 @@ public class ModifyCustomerController implements Initializable {
     }
 
     public void onActionSelectDivision(ActionEvent actionEvent) {
+        setText();
     }
 }
