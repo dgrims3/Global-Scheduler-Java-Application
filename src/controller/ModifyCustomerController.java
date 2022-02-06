@@ -1,6 +1,7 @@
 package controller;
 
 import DAO.CountryDAO;
+import DAO.CustomerDAO;
 import DAO.DivisionDAO;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -31,9 +32,21 @@ public class ModifyCustomerController implements Initializable {
     CountryDAO dao = new CountryDAO();
     DivisionDAO divDao =new DivisionDAO();
     public ObservableList<Country> countryComboBox = dao.getAllCountries();
+    public ObservableList<Division> divisionComboBox(Country country){
+        if(addCustomerCountryComboBox.getSelectionModel().getSelectedIndex()==0){
+            return divDao.getAllUsDivisions();
+        }else if(addCustomerCountryComboBox.getSelectionModel().getSelectedIndex()==1){
+            return divDao.getAllUkDivisions();
+        }else if(addCustomerCountryComboBox.getSelectionModel().getSelectedIndex()==2){
+            return divDao.getAllCanadaDivisions();
+        }
+        return null;
+    }
 
 
     public void setText(Customer customer) throws SQLException {
+        CountryDAO dao = new CountryDAO();
+        DivisionDAO divDao = new DivisionDAO();
         addCustomerId.setText(String.valueOf(customer.getCustomer_ID()));
         addCustomerName.setText(customer.getCustomer_Name());
         addCustomerAddress.setText(customer.getAddress());
@@ -48,23 +61,26 @@ public class ModifyCustomerController implements Initializable {
         scene.changeScene(event, "/view/MainScreen.fxml");
     }
 
-    @FXML
-    void onActionSaveAddCustomer(ActionEvent event) {
+  /*  @FXML void onActionReset(ActionEvent event) throws SQLException {
+        CustomerDAO dao = new CustomerDAO();
+        setText(dao.refreshCustomer(Integer.parseInt(addCustomerId.getText())));
+    }*/
+
+    @FXML void onActionSaveAddCustomer(ActionEvent event) {
 
     }
 
-    @FXML
-    void onActionSelectCountry(ActionEvent event) {
+    @FXML void onActionSelectCountry(ActionEvent event) {
+        addCustomerDivisionComboBox.setItems(divisionComboBox(addCustomerCountryComboBox.getSelectionModel().getSelectedItem()));
+    }
+
+    @FXML void onActionSelectDivision(ActionEvent actionEvent) {
 
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-    }
-
-    public void onActionSelectDivision(ActionEvent actionEvent) {
         addCustomerCountryComboBox.setItems(countryComboBox);
-
     }
+
 }
