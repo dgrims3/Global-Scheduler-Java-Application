@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Country;
 import model.Customer;
+import model.Division;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -34,5 +35,27 @@ public class CountryDAO {
             throwables.printStackTrace();
         }
         return countries;
+    }
+    //
+    public Country getCountryForModifyCustomer (int i) throws SQLException {
+        Connection connection = JDBC.getConnection();
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        String sql = "SELECT * FROM first_level_divisions INNER JOIN countries ON first_level_divisions.Country_ID = countries.Country_ID WHERE Division_ID =  ?";
+        Country country = null;
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, i);
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                country = new Country(
+                        resultSet.getInt("Country_ID"),
+                        resultSet.getString("Country"));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return country;
     }
 }

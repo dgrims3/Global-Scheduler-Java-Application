@@ -83,25 +83,25 @@ public class DivisionDAO {
         return divisions;
     }
 
-        public ObservableList<Division> getDivisionForModifyCustomer (int i) {
-            ObservableList<Division> observableList = FXCollections.observableArrayList();
+        public Division getDivisionForModifyCustomer (int i) throws SQLException {
             Connection connection = JDBC.getConnection();
             PreparedStatement statement = null;
             ResultSet resultSet = null;
-            String sql = "SELECT Division FROM divisions WHERE Division_ID = (?)";
+            String sql = "SELECT Division, Division_ID FROM first_level_divisions WHERE Division_ID = ?";
+            Division division = null;
             try {
                 statement = connection.prepareStatement(sql);
                 statement.setInt(1, i);
                 resultSet = statement.executeQuery();
 
                 while (resultSet.next()) {
-                    observableList.add(new Division(
+                    division = new Division(
                             resultSet.getInt("Division_ID"),
-                            resultSet.getString("Division")));
+                            resultSet.getString("Division"));
                 }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
-            return observableList;
+            return division;
         }
 }

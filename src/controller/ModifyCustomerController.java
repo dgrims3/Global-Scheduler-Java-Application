@@ -2,6 +2,7 @@ package controller;
 
 import DAO.CountryDAO;
 import DAO.DivisionDAO;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,6 +16,7 @@ import model.SceneChange;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class ModifyCustomerController implements Initializable {
@@ -28,14 +30,17 @@ public class ModifyCustomerController implements Initializable {
     @FXML private ComboBox<Division> addCustomerDivisionComboBox;
     CountryDAO dao = new CountryDAO();
     DivisionDAO divDao =new DivisionDAO();
+    public ObservableList<Country> countryComboBox = dao.getAllCountries();
 
-    public void setText(Customer customer){
+
+    public void setText(Customer customer) throws SQLException {
         addCustomerId.setText(String.valueOf(customer.getCustomer_ID()));
         addCustomerName.setText(customer.getCustomer_Name());
         addCustomerAddress.setText(customer.getAddress());
         addCustomerPostalCode.setText(customer.getPostal_Code());
         addCustomerPhoneNumber.setText(customer.getPhone());
-        //addCustomerDivisionComboBox;
+        addCustomerDivisionComboBox.setValue(divDao.getDivisionForModifyCustomer(customer.getDivision_ID()));
+        addCustomerCountryComboBox.setValue(dao.getCountryForModifyCustomer(customer.getDivision_ID()));
     }
     @FXML
     void onActionCancelAddCustomer(ActionEvent event) throws IOException {
@@ -59,6 +64,7 @@ public class ModifyCustomerController implements Initializable {
     }
 
     public void onActionSelectDivision(ActionEvent actionEvent) {
+        addCustomerCountryComboBox.setItems(countryComboBox);
 
     }
 }

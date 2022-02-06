@@ -1,6 +1,8 @@
 package controller;
 
+        import DAO.CountryDAO;
         import DAO.CustomerDAO;
+        import DAO.DivisionDAO;
         import javafx.event.ActionEvent;
         import javafx.fxml.FXML;
         import javafx.fxml.FXMLLoader;
@@ -15,6 +17,7 @@ package controller;
 
         import java.io.IOException;
         import java.net.URL;
+        import java.sql.SQLException;
         import java.util.ResourceBundle;
 
 public class MainScreenController implements Initializable {
@@ -65,7 +68,7 @@ public class MainScreenController implements Initializable {
         dao.deleteCustomer(customersTableView.getSelectionModel().getSelectedItem());
         fillCustomerTableView();
     }
-    @FXML void onActionModifyCustomer(ActionEvent event) throws IOException {
+    @FXML void onActionModifyCustomer(ActionEvent event) throws IOException, SQLException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/view/ModifyCustomer.fxml"));
         loader.load();
