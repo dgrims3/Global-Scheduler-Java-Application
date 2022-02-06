@@ -47,6 +47,7 @@ public class MainScreenController implements Initializable {
     @FXML private TableColumn<Customer, String> custPhoneNumber;
     @FXML private TableColumn<Customer, String> firstLevelDivision;
 
+    //Customer Functions
     public void fillCustomerTableView(){
         CustomerDAO dao = new CustomerDAO();
 
@@ -59,38 +60,46 @@ public class MainScreenController implements Initializable {
         firstLevelDivision.setCellValueFactory( new PropertyValueFactory<>("Division_ID"));
     }
 
-
-    @FXML void OnActionViewReportsScreen(ActionEvent event) {
+    @FXML void onActionDeleteCustomer(ActionEvent event) {
+        CustomerDAO dao = new CustomerDAO();
+        dao.deleteCustomer(customersTableView.getSelectionModel().getSelectedItem());
+        fillCustomerTableView();
     }
-
-    @FXML void onActionAddAppt(ActionEvent event) {
-
+    @FXML void onActionModifyCustomer(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/view/ModifyCustomer.fxml"));
+        loader.load();
+        ModifyCustomerController MCController = loader.getController();
+        if (!customersTableView.getSelectionModel().isEmpty()) {
+            MCController.setText(customersTableView.getSelectionModel().getSelectedItem());
+            stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
+            Parent scene = loader.getRoot();
+            stage.setScene(new Scene(scene));
+            stage.show();
+        }
+        else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Modify Customer error");
+            alert.setContentText("Please Select a Customer");
+            alert.showAndWait();
+        }
     }
 
     @FXML void onActionAddCustomer(ActionEvent event) throws IOException {
         SceneChange scene = new SceneChange();
         scene.changeScene(event, "/view/Customer.fxml");
     }
+    //Appointment Functions
+
+    @FXML void onActionAddAppt(ActionEvent event) {
+
+    }
 
     @FXML void onActionCancelAppt(ActionEvent event) {
 
     }
 
-    @FXML void onActionDeleteCustomer(ActionEvent event) {
-        CustomerDAO dao = new CustomerDAO();
-        dao.deleteCustomer(customersTableView.getSelectionModel().getSelectedItem());
-        fillCustomerTableView();
-    }
-
-    @FXML void onActionLogOut(ActionEvent event) {
-
-    }
-
     @FXML void onActionModifyAppt(ActionEvent event) {
-
-    }
-
-    @FXML void onActionModifyCustomer(ActionEvent event) {
 
     }
 
@@ -109,7 +118,13 @@ public class MainScreenController implements Initializable {
     @FXML void onActionViewApptsCalender(ActionEvent event) {
 
     }
+    //Other Functions
 
+    @FXML void OnActionViewReportsScreen(ActionEvent event) {
+    }
+    @FXML void onActionLogOut(ActionEvent event) {
+
+    }
     @Override public void initialize(URL url, ResourceBundle resourceBundle) {
         fillCustomerTableView();
     }

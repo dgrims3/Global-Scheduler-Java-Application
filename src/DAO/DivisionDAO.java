@@ -2,7 +2,6 @@ package DAO;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.SingleSelectionModel;
 import model.Division;
 
 import java.sql.Connection;
@@ -84,18 +83,25 @@ public class DivisionDAO {
         return divisions;
     }
 
-        public SingleSelectionModel<Division> getDivisionForModifyCustomer (int i) {
+        public ObservableList<Division> getDivisionForModifyCustomer (int i) {
+            ObservableList<Division> observableList = FXCollections.observableArrayList();
             Connection connection = JDBC.getConnection();
             PreparedStatement statement = null;
             ResultSet resultSet = null;
-            String sql = "SELECT Division FROM divisions WHERE Division_ID = ?";
+            String sql = "SELECT Division FROM divisions WHERE Division_ID = (?)";
             try {
                 statement = connection.prepareStatement(sql);
                 statement.setInt(1, i);
-                resultSet = statement.executeQuery(sql);
+                resultSet = statement.executeQuery();
+
+                while (resultSet.next()) {
+                    observableList.add(new Division(
+                            resultSet.getInt("Division_ID"),
+                            resultSet.getString("Division")));
+                }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
-            return (SingleSelectionModel<Division>) resultSet;
+            return observableList;
         }
 }

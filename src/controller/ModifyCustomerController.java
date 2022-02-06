@@ -6,11 +6,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.TextField;
 import model.Country;
 import model.Customer;
 import model.Division;
+import model.SceneChange;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -32,11 +35,12 @@ public class ModifyCustomerController implements Initializable {
         addCustomerAddress.setText(customer.getAddress());
         addCustomerPostalCode.setText(customer.getPostal_Code());
         addCustomerPhoneNumber.setText(customer.getPhone());
-        addCustomerDivisionComboBox.setSelectionModel(divDao.getDivisionForModifyCustomer(customer.getDivision_ID()));
+        //addCustomerDivisionComboBox;
     }
     @FXML
-    void onActionCancelAddCustomer(ActionEvent event) {
-
+    void onActionCancelAddCustomer(ActionEvent event) throws IOException {
+        SceneChange scene = new SceneChange();
+        scene.changeScene(event, "/view/MainScreen.fxml");
     }
 
     @FXML
@@ -55,6 +59,6 @@ public class ModifyCustomerController implements Initializable {
     }
 
     public void onActionSelectDivision(ActionEvent actionEvent) {
-        setText();
+
     }
 }

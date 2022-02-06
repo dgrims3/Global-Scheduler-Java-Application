@@ -46,7 +46,7 @@ public class AddCustomerController implements Initializable {
 
     @FXML void onActionCancelAddCustomer(ActionEvent event) throws IOException {
         SceneChange scene = new SceneChange();
-        scene.changeScene(event, "view/MainScreen.fxml");
+        scene.changeScene(event, "/view/MainScreen.fxml");
     }
     @FXML void onActionSaveAddCustomer(ActionEvent event) throws IOException {
         CustomerDAO dao = new CustomerDAO();
