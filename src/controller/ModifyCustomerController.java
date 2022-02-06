@@ -43,4 +43,7 @@ public class ModifyCustomerController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
+
+    public void onActionSelectDivision(ActionEvent actionEvent) {
+    }
 }
