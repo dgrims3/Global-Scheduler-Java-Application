@@ -7,6 +7,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 import model.Customer;
+import model.Division;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -100,5 +101,43 @@ public class CustomerDAO {
             throwables.printStackTrace();
         }
         return customer;
+    }
+    public int getDivision_ID (Division division) throws SQLException {
+        Connection connection = JDBC.getConnection();
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        int i = 0;
+        String sql = "select Division_ID FROM first_level_divisions WHERE Division = ?";
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, division.getDivision());
+            resultSet = statement.executeQuery();
+           while(resultSet.next()){
+               i = resultSet.getInt("Division_ID");
+           }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return i;
+    }
+    public void updateCustomer(Customer customer){
+        Connection connection = JDBC.getConnection();
+        PreparedStatement statement = null;
+        String sql ="update customers set Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Last_Update = ?, Division_ID = ? WHERE Customer_ID = ?";
+
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, customer.getCustomer_Name());
+            statement.setString(2, customer.getAddress());
+            statement.setString(3, customer.getPostal_Code());
+            statement.setString(4, customer.getPhone());
+            statement.setTimestamp(5, Timestamp.valueOf(LocalDateTime.now()));
+            statement.setString(6, String.valueOf(customer.getDivision_ID()));
+            statement.setInt(7, customer.getCustomer_ID());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

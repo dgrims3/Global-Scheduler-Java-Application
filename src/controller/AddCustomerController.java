@@ -65,7 +65,7 @@ public class AddCustomerController implements Initializable {
         if(Customer_Name.isBlank() || Address.isBlank() || Postal_Code.isBlank() || Phone.isBlank()){alert.showAndWait();}
         else{Customer c = new Customer(Customer_ID, Customer_Name, Address, Postal_Code, Phone, Division_ID);
             dao.addNewCustomer(c);
-           SceneChange scene = new SceneChange(); scene.changeScene(event, "view/MainScreen.fxml");}
+           SceneChange scene = new SceneChange(); scene.changeScene(event, "/view/MainScreen.fxml");}
     }catch (NullPointerException nullPointerException){
         nullPointerException.printStackTrace();
         Alert alert1 = new Alert(Alert.AlertType.ERROR);

@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.TextField;
@@ -66,7 +67,22 @@ public class ModifyCustomerController implements Initializable {
         setText(dao.refreshCustomer(Integer.parseInt(addCustomerId.getText())));
     }*/
 
-    @FXML void onActionSaveAddCustomer(ActionEvent event) {
+    @FXML void onActionSaveAddCustomer(ActionEvent event) throws SQLException, IOException {
+        CustomerDAO dao = new CustomerDAO();
+        SceneChange scene = new SceneChange();
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Missing Fields");
+        alert.setContentText("Please fill out all fields");
+        if(addCustomerName.getText().isBlank()||addCustomerAddress.getText().isBlank()||addCustomerPostalCode.getText().isBlank()||addCustomerPhoneNumber.getText().isBlank()){alert.showAndWait();}
+        else{Customer customer = new Customer(
+                Integer.parseInt(addCustomerId.getText()),
+                addCustomerName.getText(),
+                addCustomerAddress.getText(),
+                addCustomerPostalCode.getText(),
+                addCustomerPhoneNumber.getText(),
+                dao.getDivision_ID(addCustomerDivisionComboBox.getSelectionModel().getSelectedItem()));
+        dao.updateCustomer(customer);
+        scene.changeScene(event, "/view/MainScreen.fxml");}
 
     }
 

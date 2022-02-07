@@ -22,10 +22,6 @@ public class Customer {
         Address = address;
         Postal_Code = postal_Code;
         Phone = phone;
-       /* Create_Date = create_Date;
-        Created_By = created_By;
-        Last_Update = last_Update;
-        Last_Updated_By = last_Updated_By;*/
         Division_ID = division_ID;
     }
 
