@@ -18,6 +18,7 @@ package controller;
         import java.io.IOException;
         import java.net.URL;
         import java.sql.SQLException;
+        import java.util.Optional;
         import java.util.ResourceBundle;
 
 public class MainScreenController implements Initializable {
@@ -65,8 +66,23 @@ public class MainScreenController implements Initializable {
 
     @FXML void onActionDeleteCustomer(ActionEvent event) {
         CustomerDAO dao = new CustomerDAO();
-        dao.deleteCustomer(customersTableView.getSelectionModel().getSelectedItem());
-        fillCustomerTableView();
+
+        if (!customersTableView.getSelectionModel().isEmpty()){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirm Delete");
+        alert.setContentText("Are you sure you want to delete " + customersTableView.getSelectionModel().getSelectedItem().getCustomer_Name() + "?");
+        Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK){
+            dao.deleteCustomer(customersTableView.getSelectionModel().getSelectedItem());
+            fillCustomerTableView();
+                }
+        }
+        else {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Delete Customer Error");
+        alert.setContentText("Please Select a Customer");
+        alert.showAndWait();
+        }
     }
     @FXML void onActionModifyCustomer(ActionEvent event) throws IOException, SQLException {
         FXMLLoader loader = new FXMLLoader();
