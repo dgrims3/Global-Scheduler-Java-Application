@@ -32,9 +32,7 @@ public class AppointmentDAO {
                         resultSet.getTimestamp(6),
                         resultSet.getTimestamp(7),
                         resultSet.getInt(12),
-                        resultSet.getInt(13))
-
-                );
+                        resultSet.getInt(13)));
             }
 
         } catch (SQLException e) {

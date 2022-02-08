@@ -1,5 +1,6 @@
 package controller;
 
+        import DAO.AppointmentDAO;
         import DAO.CountryDAO;
         import DAO.CustomerDAO;
         import DAO.DivisionDAO;
@@ -12,12 +13,14 @@ package controller;
         import javafx.scene.control.*;
         import javafx.scene.control.cell.PropertyValueFactory;
         import javafx.stage.Stage;
+        import model.Appointment;
         import model.Customer;
         import model.SceneChange;
 
         import java.io.IOException;
         import java.net.URL;
         import java.sql.SQLException;
+        import java.sql.Timestamp;
         import java.util.Optional;
         import java.util.ResourceBundle;
 
@@ -25,17 +28,17 @@ public class MainScreenController implements Initializable {
     Stage stage;
     Parent scene;
 
-    @FXML private TableView<?> appointmentsTableView;
-    @FXML private TableColumn<?, ?> apptID;
-    @FXML private TableColumn<?, ?> apptTitle;
-    @FXML private TableColumn<?, ?> apptDescription;
-    @FXML private TableColumn<?, ?> apptLocation;
-    @FXML private TableColumn<?, ?> apptContact;
-    @FXML private TableColumn<?, ?> apptType;
-    @FXML private TableColumn<?, ?> apptStartTime;
-    @FXML private TableColumn<?, ?> apptEndTime;
-    @FXML private TableColumn<?, ?> apptCustomerID;
-    @FXML private TableColumn<?, ?> apptUserID;
+    @FXML private TableView<Appointment> appointmentsTableView;
+    @FXML private TableColumn<Appointment, Integer> apptID;
+    @FXML private TableColumn<Appointment, String> apptTitle;
+    @FXML private TableColumn<Appointment, String> apptDescription;
+    @FXML private TableColumn<Appointment, String> apptLocation;
+    @FXML private TableColumn<Appointment, Integer> apptContact;
+    @FXML private TableColumn<Appointment, String> apptType;
+    @FXML private TableColumn<Appointment, Timestamp> apptStartTime;
+    @FXML private TableColumn<Appointment, Timestamp> apptEndTime;
+    @FXML private TableColumn<Appointment, Integer> apptCustomerID;
+    @FXML private TableColumn<Appointment, Integer> apptUserID;
 
     @FXML private RadioButton viewApptsByAllRdoBtn;
     @FXML private ToggleGroup ViewAppointmentsToggleGroup;
@@ -110,6 +113,21 @@ public class MainScreenController implements Initializable {
     }
     //Appointment Functions
 
+    public void fillAppointmentTableView(){
+        AppointmentDAO dao = new AppointmentDAO();
+        appointmentsTableView.setItems(dao.allAppointments());
+        apptID.setCellValueFactory(new PropertyValueFactory<>("appointment_ID"));
+        apptTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
+        apptDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
+        apptLocation.setCellValueFactory(new PropertyValueFactory<>("location"));
+        apptContact.setCellValueFactory(new PropertyValueFactory<>("contact_ID"));
+        apptType.setCellValueFactory(new PropertyValueFactory<>("type"));
+        apptStartTime.setCellValueFactory(new PropertyValueFactory<>("start"));
+        apptEndTime.setCellValueFactory(new PropertyValueFactory<>("end"));
+        apptCustomerID.setCellValueFactory(new PropertyValueFactory<>("customer_ID"));
+        apptUserID.setCellValueFactory(new PropertyValueFactory<>("user_ID"));
+    }
+
     @FXML void onActionAddAppt(ActionEvent event) {
 
     }
@@ -146,5 +164,6 @@ public class MainScreenController implements Initializable {
     }
     @Override public void initialize(URL url, ResourceBundle resourceBundle) {
         fillCustomerTableView();
+        fillAppointmentTableView();
     }
 }
