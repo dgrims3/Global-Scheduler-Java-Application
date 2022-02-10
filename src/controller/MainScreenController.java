@@ -128,8 +128,9 @@ public class MainScreenController implements Initializable {
         apptUserID.setCellValueFactory(new PropertyValueFactory<>("user_ID"));
     }
 
-    @FXML void onActionAddAppt(ActionEvent event) {
-
+    @FXML void onActionAddAppt(ActionEvent event) throws IOException {
+        SceneChange sceneChange = new SceneChange();
+        sceneChange.changeScene(event,  "/view/AddAppointment.fxml");
     }
 
     @FXML void onActionCancelAppt(ActionEvent event) {
