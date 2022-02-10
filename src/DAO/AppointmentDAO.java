@@ -1,5 +1,6 @@
 package DAO;
 
+import helper.TimeHelper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Appointment;
@@ -16,7 +17,8 @@ public class AppointmentDAO {
 
     public ObservableList<Appointment> allAppointments(){
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
-        String sql = "SELECT * FROM appointments";
+        String sql = "select * from appointments left join contacts on  contacts.Contact_ID = appointments.Contact_ID";
+
 
         try {
             statement = connection.prepareStatement(sql);
@@ -29,10 +31,11 @@ public class AppointmentDAO {
                         resultSet.getString(4),
                         resultSet.getInt(14),
                         resultSet.getString(5),
-                        resultSet.getTimestamp(6),
-                        resultSet.getTimestamp(7),
+                        TimeHelper.localTimeHelper(resultSet.getTimestamp(6)),
+                        TimeHelper.localTimeHelper(  resultSet.getTimestamp(7)),
                         resultSet.getInt(12),
-                        resultSet.getInt(13)));
+                        resultSet.getInt(13),
+                        resultSet.getString(16)));
             }
 
         } catch (SQLException e) {

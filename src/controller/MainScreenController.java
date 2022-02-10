@@ -120,7 +120,7 @@ public class MainScreenController implements Initializable {
         apptTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
         apptDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
         apptLocation.setCellValueFactory(new PropertyValueFactory<>("location"));
-        apptContact.setCellValueFactory(new PropertyValueFactory<>("contact_ID"));
+        apptContact.setCellValueFactory(new PropertyValueFactory<>("contact_Name"));
         apptType.setCellValueFactory(new PropertyValueFactory<>("type"));
         apptStartTime.setCellValueFactory(new PropertyValueFactory<>("start"));
         apptEndTime.setCellValueFactory(new PropertyValueFactory<>("end"));
