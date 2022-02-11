@@ -66,12 +66,12 @@ public class AddCustomerController implements Initializable {
         else{Customer c = new Customer(Customer_ID, Customer_Name, Address, Postal_Code, Phone, Division_ID);
             dao.addNewCustomer(c);
            SceneChange scene = new SceneChange(); scene.changeScene(event, "/view/MainScreen.fxml");}
-    }catch (NullPointerException nullPointerException){
-        nullPointerException.printStackTrace();
-        Alert alert1 = new Alert(Alert.AlertType.ERROR);
-        alert1.setTitle("Missing Fields");
-        alert1.setContentText("Please enter your country and state/province");
-        alert1.showAndWait();
+         }catch (NullPointerException nullPointerException){
+            nullPointerException.printStackTrace();
+            Alert alert1 = new Alert(Alert.AlertType.ERROR);
+            alert1.setTitle("Missing Fields");
+            alert1.setContentText("Please enter your country and state/province");
+            alert1.showAndWait();
     }
     }
     @FXML void onActionSelectCountry(ActionEvent event) {

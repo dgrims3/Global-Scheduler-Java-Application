@@ -132,7 +132,6 @@ public class MainScreenController implements Initializable {
         SceneChange sceneChange = new SceneChange();
         sceneChange.changeScene(event,  "/view/AddAppointment.fxml");
     }
-
     @FXML void onActionCancelAppt(ActionEvent event) {
 
     }

@@ -31,8 +31,10 @@ public class AppointmentDAO {
                         resultSet.getString(4),
                         resultSet.getInt(14),
                         resultSet.getString(5),
-                        TimeHelper.localTimeHelper(resultSet.getTimestamp(6)),
-                        TimeHelper.localTimeHelper(  resultSet.getTimestamp(7)),
+                        resultSet.getTimestamp(6).toLocalDateTime(),
+                        resultSet.getTimestamp(7).toLocalDateTime(),
+                        //TimeHelper.localTimeHelper(resultSet.getTimestamp(6)),
+                        //TimeHelper.localTimeHelper(  resultSet.getTimestamp(7)),
                         resultSet.getInt(12),
                         resultSet.getInt(13),
                         resultSet.getString(16)));
