@@ -104,7 +104,23 @@
       </Label>
       <Button layoutX="401.0" layoutY="511.0" mnemonicParsing="false" onAction="#onActionCancelAddAppointment" prefHeight="25.0" prefWidth="66.0" text="Cancel" />
       <Button layoutX="325.0" layoutY="511.0" mnemonicParsing="false" onAction="#onActionSaveAddAppointment" prefHeight="25.0" prefWidth="66.0" text="Save" />
-      <DatePicker fx:id="ApptDatePicker" layoutX="494.0" layoutY="146.0" />
-      <ComboBox fx:id="apptHourPicker" layoutX="469.0" layoutY="213.0" onAction="#onActionAddHours" prefWidth="225.0" />
+      <DatePicker fx:id="ApptDatePicker" layoutX="465.0" layoutY="207.0" onAction="#onActionAddDate" prefHeight="25.0" prefWidth="228.0" />
+      <ComboBox fx:id="apptHourPicker" layoutX="467.0" layoutY="292.0" onAction="#onActionAddHours" prefWidth="225.0" />
+      <Label layoutX="465.0" layoutY="173.0" prefHeight="27.0" prefWidth="87.0" text="Date">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="468.0" layoutY="265.0" minHeight="27.0" minWidth="87.0" text="StartTime">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="468.0" layoutY="350.0" minHeight="27.0" minWidth="87.0" text="EndTime">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="apptEndHourPicker" layoutX="467.0" layoutY="377.0" onAction="#onActionAddEndHours" prefWidth="225.0" />
    </children>
 </AnchorPane>
