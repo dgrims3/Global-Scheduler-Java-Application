@@ -5,15 +5,19 @@ import helper.TimeHelper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import jdk.jfr.Event;
+import model.Appointment;
 import model.SceneChange;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
@@ -22,7 +26,8 @@ import java.util.ResourceBundle;
 
 public class AddAppointmentController implements Initializable {
     AppointmentDAO dao = new AppointmentDAO();
-    @FXML private DatePicker ApptDatePicker;
+    @FXML public DatePicker ApptDatePicker = new DatePicker();
+    LocalDate date;
     @FXML private TextField addAppointmentId;
     @FXML private ComboBox<String> addApptContact;
     @FXML private TextField addApptCustomerID;
@@ -32,7 +37,7 @@ public class AddAppointmentController implements Initializable {
     @FXML private TextField addApptType;
     @FXML private TextField addApptUserID;
     @FXML private ComboBox<LocalTime> apptHourPicker;
-   @FXML private ComboBox apptEndHourPicker;
+   @FXML private ComboBox<LocalTime> apptEndHourPicker;
 
     public ObservableList<LocalTime> setTimeComboBox(){
         /*  Timestamp ts = Timestamp.valueOf(LocalDateTime.now());
@@ -58,10 +63,11 @@ public class AddAppointmentController implements Initializable {
     }
 
     @FXML void onActionAddHours(ActionEvent event) {
+        LocalDate startDate = ApptDatePicker.getValue();
     }
 
     @FXML void onActionAddEndHours(ActionEvent event) {
-
+        LocalDate endDate = ApptDatePicker.getValue();
     }
 
     @FXML void onActionCancelAddAppointment(ActionEvent event) throws IOException {
@@ -85,16 +91,23 @@ public class AddAppointmentController implements Initializable {
         String title = addApptTitle.getText();
         String description = addApptDescription.getText();
         String location = addApptLocation.getText();
-        int contact_ID = dao.getContactID("Anika Costa");
+        int contact_ID = dao.getContactID(addApptContact.getSelectionModel().getSelectedItem());
         String type = addApptType.getText();
-        LocalDateTime start
+        LocalDateTime start = LocalDateTime.of(date, apptHourPicker.getSelectionModel().getSelectedItem());
+        LocalDateTime end = LocalDateTime.of(date, apptEndHourPicker.getSelectionModel().getSelectedItem());
+        int customer_ID = Integer.parseInt(addApptCustomerID.getText());
+        int user_ID = Integer.parseInt(addApptUserID.getText());
+        String contact_Name = addApptContact.getSelectionModel().getSelectedItem();
+        Appointment appointment = new Appointment(appointment_ID, title, description, location, contact_ID, type, start, end, customer_ID, user_ID, contact_Name);
+
+        dao.addNewAppointment(appointment);
     }
 
     @FXML void onActionSelectContact(ActionEvent event) {
 
     }
     @FXML void onActionAddDate(ActionEvent event) {
-
+        date = ApptDatePicker.getValue();
     }
 
     @Override
