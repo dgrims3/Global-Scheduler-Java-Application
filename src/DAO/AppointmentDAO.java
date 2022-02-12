@@ -13,6 +13,23 @@ public class AppointmentDAO {
     PreparedStatement statement = null;
     ResultSet resultSet = null;
 
+    public int getContactID (String string){
+        String sql = "Select Contact_ID from contacts WHERE Contact_Name = ?";
+        int i = 0;
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, string);
+            resultSet = statement.executeQuery();
+          while (resultSet.next()){
+              i = resultSet.getInt(1);
+          }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return i;
+    }
+
+
     public ObservableList<String> allContacts(){
         ObservableList<String> contacts = FXCollections.observableArrayList();
         String sql = "Select Contact_Name from contacts";
@@ -57,24 +74,22 @@ public class AppointmentDAO {
         return appointments;
     }
     public void addNewAppointment(Appointment appointment){
-        String sql = "INSERT INTO appointments(Appointment_ID, Title, Description, Location, Type, Start, End, Create_Date, Customer_ID, User_ID, Contact_ID)" +
-                "VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO appointments(Title, Description, Location, Type, Start, End, Create_Date, Customer_ID, User_ID, Contact_ID)" +
+                "VALUES(?,?,?,?,?,?,?,?,?,?)";
         try {
             statement = connection.prepareStatement(sql);
-            statement.setInt(1, appointment.getAppointment_ID());
-            statement.setString(2, appointment.getTitle());
-            statement.setString(3, appointment.getDescription());
-            statement.setString(4, appointment.getLocation());
-            statement.setString(5, appointment.getType());
-            statement.setTimestamp(6, Timestamp.valueOf(appointment.getStart()));
-            statement.setTimestamp(7, Timestamp.valueOf(appointment.getEnd()));
-            statement.setTimestamp(8, Timestamp.valueOf(LocalDateTime.now()));
-            statement.setInt(9, appointment.getCustomer_ID());
-            statement.setInt(10, appointment.getUser_ID());
-            statement.setInt(11, appointment.getContact_ID());
+           // statement.setInt(1, appointment.getAppointment_ID());
+            statement.setString(1, appointment.getTitle());
+            statement.setString(2, appointment.getDescription());
+            statement.setString(3, appointment.getLocation());
+            statement.setString(4, appointment.getType());
+            statement.setTimestamp(5, Timestamp.valueOf(appointment.getStart()));
+            statement.setTimestamp(6, Timestamp.valueOf(appointment.getEnd()));
+            statement.setTimestamp(7, Timestamp.valueOf(LocalDateTime.now()));
+            statement.setInt(8, appointment.getCustomer_ID());
+            statement.setInt(9, appointment.getUser_ID());
+            statement.setInt(10, appointment.getContact_ID());
             statement.executeUpdate();
-
-
 
         } catch (SQLException e) {
             e.printStackTrace();
