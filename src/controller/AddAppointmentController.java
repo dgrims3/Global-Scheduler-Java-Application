@@ -41,7 +41,7 @@ public class AddAppointmentController implements Initializable {
         ObservableList<LocalTime> time = FXCollections.observableArrayList();
         LocalTime.now(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("h:mm:ss"));
         LocalTime start = LocalTime.of(8, 0);
-        LocalTime end = LocalTime.of(20, 0);
+        LocalTime end = LocalTime.of(22, 0);
 
         while (start.isBefore(end.plusSeconds(1))) {
             time.add(start);
@@ -62,26 +62,46 @@ public class AddAppointmentController implements Initializable {
        SceneChange scene = new SceneChange();
         scene.changeScene(event, "/view/MainScreen.fxml");
     }
+    public boolean compareTimes(LocalDateTime local) {
+       ZoneId EST = ZoneId.of("US/Eastern");
+       ZonedDateTime zoned = ZonedDateTime.of(local, EST);
+       LocalDate date = LocalDate.of(local.getYear(), local.getMonth(), local.getDayOfMonth());
+       LocalTime openTime = LocalTime.of(8,0);
+       LocalTime closeTime = LocalTime.of(22, 0);
+       ZonedDateTime openHours = ZonedDateTime.of(date, openTime, EST);
+       ZonedDateTime closeHours = ZonedDateTime.of(date, closeTime, EST);
 
+       if(zoned.isBefore(openHours)){
+         alert.setContentText("Time selected is before 8:00 A.M. EST");
+         alert.showAndWait();
+         return false;
+       }
+       else if (zoned.isAfter(closeHours)){
+           alert.setContentText("Time selected is after 10:00 P.M. EST");
+           alert.showAndWait();
+           return false;
+       }
+        System.out.println("success");
+       return true;
+    }
     @FXML void onActionSaveAddAppointment(ActionEvent event) {
+        LocalDateTime start = LocalDateTime.of(date, apptHourPicker.getSelectionModel().getSelectedItem());
+        LocalDateTime end = LocalDateTime.of(date, apptEndHourPicker.getSelectionModel().getSelectedItem());
        try{
-            int appointment_ID = -1;
-            String title = addApptTitle.getText();
-            String description = addApptDescription.getText();
-            String location = addApptLocation.getText();
-            int contact_ID = dao.getContactID(addApptContact.getSelectionModel().getSelectedItem());
-            String type = addApptType.getText();
-            LocalDateTime start = LocalDateTime.of(date, apptHourPicker.getSelectionModel().getSelectedItem());
-            LocalDateTime end = LocalDateTime.of(date, apptEndHourPicker.getSelectionModel().getSelectedItem());
-            int customer_ID = Integer.parseInt(addApptCustomerID.getText());
-            int user_ID = Integer.parseInt(addApptUserID.getText());
-            String contact_Name = addApptContact.getSelectionModel().getSelectedItem();
-            Appointment appointment = new Appointment(appointment_ID, title, description, location, contact_ID, type, start, end, customer_ID, user_ID, contact_Name);
+           if (compareTimes(start)){
+               int appointment_ID = -1;
+               String title = addApptTitle.getText();
+               String description = addApptDescription.getText();
+               String location = addApptLocation.getText();
+               int contact_ID = dao.getContactID(addApptContact.getSelectionModel().getSelectedItem());
+               String type = addApptType.getText();
+               int customer_ID = Integer.parseInt(addApptCustomerID.getText());
+               int user_ID = Integer.parseInt(addApptUserID.getText());
+               String contact_Name = addApptContact.getSelectionModel().getSelectedItem();
+               Appointment appointment = new Appointment(appointment_ID, title, description, location, contact_ID, type, start, end, customer_ID, user_ID, contact_Name);
+               dao.addNewAppointment(appointment);
+           }
 
-            ZonedDateTime time = start.atZone(ZoneId.of("US/Eastern"));
-               System.out.println(time);
-
-            dao.addNewAppointment(appointment);
     }catch (NumberFormatException n){
             alert.setTitle("Entry Error");
             alert.setContentText("Please enter a number for ID fields");
