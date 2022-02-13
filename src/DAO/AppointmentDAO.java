@@ -6,7 +6,10 @@ import javafx.collections.ObservableList;
 import model.Appointment;
 
 import java.sql.*;
+import java.text.DateFormat;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 public class AppointmentDAO {
     Connection connection = JDBC.getConnection();
@@ -83,8 +86,8 @@ public class AppointmentDAO {
             statement.setString(2, appointment.getDescription());
             statement.setString(3, appointment.getLocation());
             statement.setString(4, appointment.getType());
-            statement.setTimestamp(5, Timestamp.valueOf(appointment.getStart()));
-            statement.setTimestamp(6, Timestamp.valueOf(appointment.getEnd()));
+            statement.setTimestamp(5, TimeHelper.timeConverter(appointment.getStart()));
+            statement.setTimestamp(6, TimeHelper.timeConverter(appointment.getEnd()));
             statement.setTimestamp(7, Timestamp.valueOf(LocalDateTime.now()));
             statement.setInt(8, appointment.getCustomer_ID());
             statement.setInt(9, appointment.getUser_ID());
