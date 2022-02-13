@@ -23,9 +23,9 @@ import java.util.ResourceBundle;
 
 public class AddAppointmentController implements Initializable {
     AppointmentDAO dao = new AppointmentDAO();
-    @FXML public DatePicker ApptDatePicker = new DatePicker();
     LocalDate date;
     Alert alert = new Alert(Alert.AlertType.WARNING);
+    @FXML public DatePicker ApptDatePicker = new DatePicker();
     @FXML private TextField addAppointmentId;
     @FXML private ComboBox<String> addApptContact;
     @FXML private TextField addApptCustomerID;
@@ -38,54 +38,16 @@ public class AddAppointmentController implements Initializable {
    @FXML private ComboBox<LocalTime> apptEndHourPicker;
 
     public ObservableList<LocalTime> setTimeComboBox(){
-        /*  Timestamp ts = Timestamp.valueOf(LocalDateTime.now());
-        LocalDateTime ldt = ts.toLocalDateTime();
-        ZonedDateTime zdt = ldt.atZone(ZoneId.of(ZoneId.systemDefault().toString()));
-        ZonedDateTime utczdt = zdt.withZoneSameInstant(ZoneId.of("UTC"));
-        LocalDateTime ldtIn = utczdt.toLocalDateTime();
-
-        ZonedDateTime zdtOut = ldtIn.atZone(ZoneId.of("UTC"));
-        ZonedDateTime zdtOutToLocalTZ = zdtOut.withZoneSameInstant(ZoneId.of(ZoneId.systemDefault().toString()));
-        LocalDateTime ldtOutFinal = zdtOutToLocalTZ.toLocalDateTime();
-        */
         ObservableList<LocalTime> time = FXCollections.observableArrayList();
         LocalTime.now(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("h:mm:ss"));
         LocalTime start = LocalTime.of(8, 0);
         LocalTime end = LocalTime.of(20, 0);
-
 
         while (start.isBefore(end.plusSeconds(1))) {
             time.add(start);
             start = start.plusMinutes(15);
         }
         return time;
-    }
-
-    public LocalDateTime dateTimeConverter(LocalDate date, LocalTime time){
-        //Showing how to parse the Date/Time String
-        DateTimeFormatter dFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate localDate = LocalDate.parse(String.valueOf(date).substring(0, 10), dFormatter);
-        System.out.println("The local date is " + localDate);
-
-        DateTimeFormatter tFormatter = DateTimeFormatter.ofPattern("kk:mm");
-        LocalTime localTime = LocalTime.parse(String.valueOf(time).substring(0), tFormatter);
-        System.out.println("The local time is " + localTime);
-
-       LocalDateTime dateTime = LocalDateTime.of(date, time);
-
-        //Convert to a ZonedDate Time in UTC
-        ZoneId zid = ZoneId.systemDefault();
-
-        ZonedDateTime zdtStart = dateTime.atZone(zid);
-        System.out.println("Local Time: " + zdtStart);
-        ZonedDateTime utcStart = zdtStart.withZoneSameInstant(ZoneId.of("UTC"));
-        System.out.println("Zoned time: " + utcStart);
-        dateTime = utcStart.toLocalDateTime();
-        System.out.println("Zoned time with zone stripped:" + dateTime);
-        //Create Timestamp values from Instants to update database
-        Timestamp startsqlts = Timestamp.valueOf(dateTime); //this value can be inserted into database
-        System.out.println("Timestamp to be inserted: " +startsqlts);
-        return dateTime;
     }
 
     @FXML void onActionAddHours(ActionEvent event) {
@@ -97,9 +59,8 @@ public class AddAppointmentController implements Initializable {
     }
 
     @FXML void onActionCancelAddAppointment(ActionEvent event) throws IOException {
-       /* SceneChange scene = new SceneChange();
-        scene.changeScene(event, "/view/MainScreen.fxml");*/
-        dateTimeConverter(date, apptHourPicker.getSelectionModel().getSelectedItem());
+       SceneChange scene = new SceneChange();
+        scene.changeScene(event, "/view/MainScreen.fxml");
     }
 
     @FXML void onActionSaveAddAppointment(ActionEvent event) {
