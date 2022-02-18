@@ -65,8 +65,8 @@ public class AddAppointmentController implements Initializable {
         scene.changeScene(event, "/view/MainScreen.fxml");
     }
     public boolean compareTimes(ZonedDateTime localStart, ZonedDateTime localEnd) {
-           ZonedDateTime zonedStart = ZonedDateTime.of(localStart.toLocalDateTime(), EST);
-           ZonedDateTime zonedEnd = ZonedDateTime.of(localEnd.toLocalDateTime(), EST);
+           ZonedDateTime zonedStart = localStart.withZoneSameInstant(EST); //ZonedDateTime.of(localStart.toLocalDateTime(), EST);
+           ZonedDateTime zonedEnd =localEnd.withZoneSameInstant(EST); //ZonedDateTime.of(localEnd.toLocalDateTime(), EST);
            LocalDateTime selectedStartTime = zonedStart.withZoneSameInstant(EST).toLocalDateTime();
            LocalDateTime selectedEndTime = zonedEnd.withZoneSameInstant(EST).toLocalDateTime();
 
