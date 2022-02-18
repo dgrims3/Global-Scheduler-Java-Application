@@ -47,7 +47,32 @@ public class AppointmentDAO {
         }
         return contacts;
     }
-
+    public ObservableList<Integer> allUserIDs(){
+        ObservableList<Integer> users = FXCollections.observableArrayList();
+        String sql = "Select User_ID from users order by User_ID";
+        try {statement = connection.prepareStatement(sql);
+            resultSet = statement.executeQuery();
+            while(resultSet.next()){
+                users.add((resultSet.getInt(1)));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
+    public ObservableList<Integer> allCustomerIDs(){
+        ObservableList<Integer> customers = FXCollections.observableArrayList();
+        String sql = "Select Customer_ID from customers order by Customer_ID";
+        try {statement = connection.prepareStatement(sql);
+            resultSet = statement.executeQuery();
+            while(resultSet.next()){
+                customers.add((resultSet.getInt(1)));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return customers;
+    }
     public ObservableList<Appointment> allAppointments(){
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
         String sql = "select * from appointments left join contacts on  contacts.Contact_ID = appointments.Contact_ID";
@@ -93,7 +118,7 @@ public class AppointmentDAO {
             statement.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+           e.printStackTrace();
         }
 
     }

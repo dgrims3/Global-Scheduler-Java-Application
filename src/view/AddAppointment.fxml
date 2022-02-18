@@ -85,8 +85,6 @@
             <TextField fx:id="addApptType" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <ComboBox fx:id="addApptContact" onAction="#onActionSelectContact" prefWidth="225.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <TextField fx:id="addApptLocation" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="addApptUserID" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <TextField fx:id="addApptCustomerID" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <Label prefHeight="27.0" prefWidth="84.0" text="User ID" GridPane.rowIndex="7">
                <font>
                   <Font size="18.0" />
@@ -95,6 +93,8 @@
                   <Insets left="10.0" />
                </GridPane.margin>
             </Label>
+            <ComboBox fx:id="addApptUserID" onAction="#onActionSelectUserID" prefWidth="225.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <ComboBox fx:id="addApptCustomerID" onAction="#onActionSelectCustomerID" prefWidth="225.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
          </children>
       </GridPane>
       <Label alignment="CENTER" layoutX="115.0" prefHeight="112.0" prefWidth="487.0" text="Add Appointmennt">

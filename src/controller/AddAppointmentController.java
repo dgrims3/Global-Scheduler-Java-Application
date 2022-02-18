@@ -29,15 +29,15 @@ public class AddAppointmentController implements Initializable {
     ZoneId EST = ZoneId.of("America/New_York");
     @FXML public DatePicker ApptDatePicker = new DatePicker();
     @FXML private TextField addAppointmentId;
-    @FXML private ComboBox<String> addApptContact;
-    @FXML private TextField addApptCustomerID;
     @FXML private TextField addApptDescription;
     @FXML private TextField addApptLocation;
     @FXML private TextField addApptTitle;
     @FXML private TextField addApptType;
-    @FXML private TextField addApptUserID;
     @FXML private ComboBox<LocalTime> apptHourPicker;
-   @FXML private ComboBox<LocalTime> apptEndHourPicker;
+    @FXML private ComboBox<LocalTime> apptEndHourPicker;
+    @FXML private ComboBox<Integer> addApptUserID;
+    @FXML private ComboBox<Integer> addApptCustomerID;
+    @FXML private ComboBox<String> addApptContact;
 
     public ObservableList<LocalTime> setTimeComboBox(){
         ObservableList<LocalTime> time = FXCollections.observableArrayList();
@@ -52,21 +52,21 @@ public class AddAppointmentController implements Initializable {
         return time;
     }
 
+    @FXML void onActionSelectUserID(ActionEvent event) {};
+    @FXML void onActionSelectCustomerID(ActionEvent actionEvent){};
     @FXML void onActionAddHours(ActionEvent event) {
         LocalDate startDate = ApptDatePicker.getValue();
     }
-
     @FXML void onActionAddEndHours(ActionEvent event) {
         LocalDate endDate = ApptDatePicker.getValue();
     }
-
     @FXML void onActionCancelAddAppointment(ActionEvent event) throws IOException {
        SceneChange scene = new SceneChange();
         scene.changeScene(event, "/view/MainScreen.fxml");
     }
     public boolean compareTimes(ZonedDateTime localStart, ZonedDateTime localEnd) {
            ZonedDateTime zonedStart = localStart.withZoneSameInstant(EST); //ZonedDateTime.of(localStart.toLocalDateTime(), EST);
-           ZonedDateTime zonedEnd =localEnd.withZoneSameInstant(EST); //ZonedDateTime.of(localEnd.toLocalDateTime(), EST);
+           ZonedDateTime zonedEnd = localEnd.withZoneSameInstant(EST); //ZonedDateTime.of(localEnd.toLocalDateTime(), EST);
            LocalDateTime selectedStartTime = zonedStart.withZoneSameInstant(EST).toLocalDateTime();
            LocalDateTime selectedEndTime = zonedEnd.withZoneSameInstant(EST).toLocalDateTime();
 
@@ -82,6 +82,11 @@ public class AddAppointmentController implements Initializable {
        }
        else if (selectedEndTime.isAfter(bizCloseTime)){
            alert.setContentText("Time selected is after 10:00 P.M. EST");
+           alert.showAndWait();
+           return false;
+       }
+       else if(selectedStartTime.isAfter(selectedEndTime) || selectedStartTime.isEqual(selectedEndTime)){
+           alert.setContentText("Start time must be before end time");
            alert.showAndWait();
            return false;
        }
@@ -101,8 +106,8 @@ public class AddAppointmentController implements Initializable {
                String location = addApptLocation.getText();
                int contact_ID = dao.getContactID(addApptContact.getSelectionModel().getSelectedItem());
                String type = addApptType.getText();
-               int customer_ID = Integer.parseInt(addApptCustomerID.getText());
-               int user_ID = Integer.parseInt(addApptUserID.getText());
+               int customer_ID = addApptCustomerID.getValue();
+               int user_ID = addApptUserID.getValue();
                String contact_Name = addApptContact.getSelectionModel().getSelectedItem();
                Appointment appointment = new Appointment(appointment_ID, title, description, location, contact_ID, type, start, end, customer_ID, user_ID, contact_Name);
                dao.addNewAppointment(appointment);
@@ -127,7 +132,9 @@ public class AddAppointmentController implements Initializable {
         apptHourPicker.setItems(setTimeComboBox());
         addApptContact.setItems(dao.allContacts());
         apptEndHourPicker.setItems(setTimeComboBox());
-
+        addApptUserID.setItems(dao.allUserIDs());
+        addApptCustomerID.setItems(dao.allCustomerIDs());
     }
+
 }
 
