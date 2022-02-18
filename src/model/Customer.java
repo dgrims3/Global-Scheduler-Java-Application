@@ -16,7 +16,7 @@ public class Customer {
     private String Last_Updated_By;
     private int Division_ID;
 
-    public Customer(int customer_ID, String customer_Name, String address, String postal_Code, String phone, /*Timestamp create_Date, String created_By, Timestamp last_Update, String last_Updated_By,*/ int division_ID) {
+    public Customer(int customer_ID, String customer_Name, String address, String postal_Code, String phone, int division_ID) {
         Customer_ID = customer_ID;
         Customer_Name = customer_Name;
         Address = address;

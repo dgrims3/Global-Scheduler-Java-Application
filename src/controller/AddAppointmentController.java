@@ -98,6 +98,7 @@ public class AddAppointmentController implements Initializable {
         ZonedDateTime zonedStart = LocalDateTime.of(date, apptHourPicker.getSelectionModel().getSelectedItem()).atZone(sysDef);
         ZonedDateTime zonedEnd = LocalDateTime.of(date, apptEndHourPicker.getSelectionModel().getSelectedItem()).atZone(sysDef);
 
+
        try{
            if (compareTimes(zonedStart, zonedEnd)){
                int appointment_ID = -1;
@@ -111,6 +112,12 @@ public class AddAppointmentController implements Initializable {
                String contact_Name = addApptContact.getSelectionModel().getSelectedItem();
                Appointment appointment = new Appointment(appointment_ID, title, description, location, contact_ID, type, start, end, customer_ID, user_ID, contact_Name);
                dao.addNewAppointment(appointment);
+               /*for (Appointment a: dao.appointmentTimes(addApptCustomerID.getValue())
+                    ) {
+                   if(appointment.getStart().isBefore(a.getStart())){
+                       System.out.println("yay!");
+                   }
+               }*/
            }
 
     }catch (NumberFormatException n){
@@ -134,6 +141,7 @@ public class AddAppointmentController implements Initializable {
         apptEndHourPicker.setItems(setTimeComboBox());
         addApptUserID.setItems(dao.allUserIDs());
         addApptCustomerID.setItems(dao.allCustomerIDs());
+
     }
 
 }

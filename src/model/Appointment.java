@@ -29,6 +29,10 @@ String contact_Name;
         this.user_ID = user_ID;
         this.contact_Name = contact_Name;
     }
+    public Appointment(LocalDateTime start, LocalDateTime end){
+        this.start = start;
+        this.end = end;
+    }
 
     public int getAppointment_ID() {
         return appointment_ID;
@@ -72,5 +76,4 @@ String contact_Name;
     public String getContact_Name() {
         return contact_Name;
     }
-    //@Override public String toString(){return location;}
 }
