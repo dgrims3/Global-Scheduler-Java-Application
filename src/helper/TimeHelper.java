@@ -1,5 +1,8 @@
 package helper;
 
+import model.Appointment;
+import model.Country;
+
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneId;

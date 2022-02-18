@@ -1,6 +1,8 @@
 package controller;
 
 import DAO.AppointmentDAO;
+import com.sun.scenario.effect.impl.sw.java.JSWBlend_SRC_OUTPeer;
+import helper.Lambda;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,6 +14,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import model.Appointment;
 import model.SceneChange;
+import org.w3c.dom.ls.LSOutput;
 
 
 import java.io.IOException;
@@ -39,7 +42,8 @@ public class AddAppointmentController implements Initializable {
     @FXML private ComboBox<Integer> addApptCustomerID;
     @FXML private ComboBox<String> addApptContact;
 
-    public ObservableList<LocalTime> setTimeComboBox(){
+
+        public ObservableList<LocalTime> setTimeComboBox(){
         ObservableList<LocalTime> time = FXCollections.observableArrayList();
         LocalTime.now(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("h:mm:ss"));
         LocalTime start = LocalTime.of(5, 0);
@@ -112,12 +116,10 @@ public class AddAppointmentController implements Initializable {
                String contact_Name = addApptContact.getSelectionModel().getSelectedItem();
                Appointment appointment = new Appointment(appointment_ID, title, description, location, contact_ID, type, start, end, customer_ID, user_ID, contact_Name);
                dao.addNewAppointment(appointment);
-               /*for (Appointment a: dao.appointmentTimes(addApptCustomerID.getValue())
+               for (Appointment a: dao.appointmentTimes(addApptCustomerID.getValue())
                     ) {
-                   if(appointment.getStart().isBefore(a.getStart())){
-                       System.out.println("yay!");
-                   }
-               }*/
+
+               }
            }
 
     }catch (NumberFormatException n){

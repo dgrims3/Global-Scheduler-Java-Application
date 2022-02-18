@@ -4,7 +4,6 @@ import helper.TimeHelper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Appointment;
-
 import java.sql.*;
 import java.time.LocalDateTime;
 
