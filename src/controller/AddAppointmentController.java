@@ -43,7 +43,7 @@ public class AddAppointmentController implements Initializable {
         ObservableList<LocalTime> time = FXCollections.observableArrayList();
         LocalTime.now(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("h:mm:ss"));
         LocalTime start = LocalTime.of(5, 0);
-        LocalTime end = LocalTime.of(24, 0);
+        LocalTime end = LocalTime.of(23, 0);
 
         while (start.isBefore(end.plusSeconds(1))) {
             time.add(start);
@@ -70,8 +70,8 @@ public class AddAppointmentController implements Initializable {
            LocalDateTime selectedStartTime = zonedStart.withZoneSameInstant(EST).toLocalDateTime();
            LocalDateTime selectedEndTime = zonedEnd.withZoneSameInstant(EST).toLocalDateTime();
 
-           ZonedDateTime openTime = (LocalDate.now().atTime(8, 0).atZone(EST));
-           ZonedDateTime closeTime = (LocalDate.now().atTime(22, 0).atZone(EST));
+           ZonedDateTime openTime = (localStart.toLocalDate().atTime(8, 0).atZone(EST));
+           ZonedDateTime closeTime = (localEnd.toLocalDate().atTime(22, 0).atZone(EST));
            LocalDateTime bizOpenTime = openTime.withZoneSameInstant(EST).toLocalDateTime();
            LocalDateTime bizCloseTime = closeTime.withZoneSameInstant(EST).toLocalDateTime();
 
