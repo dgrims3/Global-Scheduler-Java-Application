@@ -115,34 +115,60 @@ public class AddAppointmentController implements Initializable {
                int user_ID = addApptUserID.getValue();
                String contact_Name = addApptContact.getSelectionModel().getSelectedItem();
                Appointment appointment = new Appointment(appointment_ID, title, description, location, contact_ID, type, start, end, customer_ID, user_ID, contact_Name);
-               for (Appointment a: dao.appointmentTimes(addApptCustomerID.getValue())
-                    ) {
-                   if(timeCollision(appointment, a)){
-                       dao.addNewAppointment(appointment);
-                       SceneChange sceneChange = new SceneChange();
-                       sceneChange.changeScene(event, "/view/MainScreen.fxml");
+
+               int i = 0;
+               LocalDateTime aS = null;
+               LocalDateTime aE = null;
+               if(appointment.getStart().isBefore(appointment.getEnd()) || !appointment.getStart().isEqual(appointment.getEnd())){
+                   for (Appointment a: dao.appointmentTimes(addApptCustomerID.getValue())
+                        ) {
+                       if(timeCollision(appointment, a) == 1){
+                           i++;
+                           aS = a.getStart();
+                           aE = a.getEnd();
+
+                       }
+                   }
+                   if(i==0){
+                       System.out.println("yes");
+                           dao.addNewAppointment(appointment);
+                           SceneChange scene = new SceneChange();
+                           scene.changeScene(event, "/view/MainScreen.fxml");
+                   }
+                   else {
+                       if (i > 0) {
+                           alert.setContentText("There is already an appointment scheduled between " + aS.toLocalTime() + " and " + aE.toLocalTime());
+                           alert.showAndWait();
+                           System.out.println("no");
+                       }
                    }
                }
+               else {
+                   alert.setContentText("Start time must be before end time");
+                   alert.showAndWait();
+               }
            }
-
-    }catch (NumberFormatException n){
+       }catch (NumberFormatException n){
             alert.setTitle("Entry Error");
             alert.setContentText("Please enter a number for ID fields");
             alert.showAndWait();
        }
     }
-    public boolean timeCollision(Appointment a, Appointment b){
+    public int timeCollision(Appointment a, Appointment b){
+        int i = 0;
         if(a.getStart().isBefore(b.getStart()) && (a.getEnd().isAfter(b.getStart()) || a.getEnd().isEqual(b.getStart())) ){
-            alert.setContentText("There is already an appointment scheduled between "+b.getStart()+" and " +b.getEnd());
-            return false;
+            i=1;
         }
-        if((a.getStart().isAfter(b.getStart()) || a.getStart().isEqual(b.getStart())) && (a.getEnd().isBefore(b.getEnd()) || a.getEnd().isEqual(b.getEnd()))){
-            alert.setContentText("There is already an appointment scheduled between "+b.getStart()+" and " +b.getEnd());
-            return false;}
-        if((a.getStart().isBefore(b.getEnd()) || a.getStart().isEqual(b.getEnd())) && a.getEnd().isAfter(b.getEnd())){
-            alert.setContentText("There is already an appointment scheduled between "+b.getStart()+" and " +b.getEnd());
-            return false;}
-        return true;
+        else if((a.getStart().isAfter(b.getStart()) || a.getStart().isEqual(b.getStart())) && (a.getEnd().isBefore(b.getEnd()) || a.getEnd().isEqual(b.getEnd()))){
+            i=1;
+            }
+        else if((a.getStart().isBefore(b.getEnd()) || a.getStart().isEqual(b.getEnd())) && a.getEnd().isAfter(b.getEnd())){
+            i=1;
+            }
+        else if(a.getStart().isEqual(b.getStart()) && a.getEnd().isEqual(b.getEnd())){
+            i=1;
+        }
+        return i;
     }
 
     @FXML void onActionSelectContact(ActionEvent event) {
