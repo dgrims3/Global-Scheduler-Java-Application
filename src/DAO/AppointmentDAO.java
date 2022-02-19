@@ -135,6 +135,17 @@ public class AppointmentDAO {
         }
 
     }
+    public void deleteAppointment(int i){
+       String sql = "delete from appointments where Appointment_ID = ?";
+
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
 
 
 }
