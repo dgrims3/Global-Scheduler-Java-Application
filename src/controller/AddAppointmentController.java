@@ -96,7 +96,7 @@ public class AddAppointmentController implements Initializable {
        }
        return true;
     }
-    @FXML void onActionSaveAddAppointment(ActionEvent event) {
+    @FXML void onActionSaveAddAppointment(ActionEvent event) throws IOException {
         LocalDateTime start = LocalDateTime.of(date, apptHourPicker.getSelectionModel().getSelectedItem());
         LocalDateTime end = LocalDateTime.of(date, apptEndHourPicker.getSelectionModel().getSelectedItem());
         ZonedDateTime zonedStart = LocalDateTime.of(date, apptHourPicker.getSelectionModel().getSelectedItem()).atZone(sysDef);
@@ -115,10 +115,13 @@ public class AddAppointmentController implements Initializable {
                int user_ID = addApptUserID.getValue();
                String contact_Name = addApptContact.getSelectionModel().getSelectedItem();
                Appointment appointment = new Appointment(appointment_ID, title, description, location, contact_ID, type, start, end, customer_ID, user_ID, contact_Name);
-               dao.addNewAppointment(appointment);
                for (Appointment a: dao.appointmentTimes(addApptCustomerID.getValue())
                     ) {
-
+                   if(timeCollision(appointment, a)){
+                       dao.addNewAppointment(appointment);
+                       SceneChange sceneChange = new SceneChange();
+                       sceneChange.changeScene(event, "/view/MainScreen.fxml");
+                   }
                }
            }
 
@@ -127,6 +130,19 @@ public class AddAppointmentController implements Initializable {
             alert.setContentText("Please enter a number for ID fields");
             alert.showAndWait();
        }
+    }
+    public boolean timeCollision(Appointment a, Appointment b){
+        if(a.getStart().isBefore(b.getStart()) && (a.getEnd().isAfter(b.getStart()) || a.getEnd().isEqual(b.getStart())) ){
+            alert.setContentText("There is already an appointment scheduled between "+b.getStart()+" and " +b.getEnd());
+            return false;
+        }
+        if((a.getStart().isAfter(b.getStart()) || a.getStart().isEqual(b.getStart())) && (a.getEnd().isBefore(b.getEnd()) || a.getEnd().isEqual(b.getEnd()))){
+            alert.setContentText("There is already an appointment scheduled between "+b.getStart()+" and " +b.getEnd());
+            return false;}
+        if((a.getStart().isBefore(b.getEnd()) || a.getStart().isEqual(b.getEnd())) && a.getEnd().isAfter(b.getEnd())){
+            alert.setContentText("There is already an appointment scheduled between "+b.getStart()+" and " +b.getEnd());
+            return false;}
+        return true;
     }
 
     @FXML void onActionSelectContact(ActionEvent event) {
