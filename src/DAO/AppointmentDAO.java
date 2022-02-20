@@ -149,13 +149,26 @@ public class AppointmentDAO {
     }
     public ObservableList<Appointment> filterByMonth(int i){
         allAppointments();
+        ObservableList<Appointment> month = FXCollections.observableArrayList();
         for (Appointment a:allAppointments()
              ) {
-            if (a.getStart().getMonth().getValue() != i){
-                allAppointments().remove(a);
+            if (a.getStart().getMonth().getValue() == i){
+                month.add(a);
             }
         }
-        return allAppointments();
+        return month;
+    }
+
+    public ObservableList<Appointment> filterByWeek(int i){
+        allAppointments();
+        ObservableList<Appointment> week = FXCollections.observableArrayList();
+        for (Appointment a:allAppointments()
+        ) {
+           /* if (a.getStart().getDayOfWeek() == i){
+                week.add(a);
+            }*/
+        }
+        return week;
     }
 
 

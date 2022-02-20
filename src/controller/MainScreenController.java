@@ -21,6 +21,7 @@ package controller;
         import java.net.URL;
         import java.sql.SQLException;
         import java.sql.Timestamp;
+        import java.time.LocalDate;
         import java.time.LocalDateTime;
         import java.util.Optional;
         import java.util.ResourceBundle;
@@ -169,7 +170,7 @@ public class MainScreenController implements Initializable {
     }
 
     @FXML void onActionViewApptsByWeek(ActionEvent event) {
-
+        System.out.println(LocalDate.now().getDayOfWeek());
     }
 
     @FXML void onActionViewApptsCalender(ActionEvent event) {
