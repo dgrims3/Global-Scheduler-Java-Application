@@ -147,6 +147,16 @@ public class AppointmentDAO {
         }
 
     }
+    public ObservableList<Appointment> filterByMonth(int i){
+        allAppointments();
+        for (Appointment a:allAppointments()
+             ) {
+            if (a.getStart().getMonth().getValue() != i){
+                allAppointments().remove(a);
+            }
+        }
+        return allAppointments();
+    }
 
 
 }

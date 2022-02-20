@@ -21,6 +21,7 @@ package controller;
         import java.net.URL;
         import java.sql.SQLException;
         import java.sql.Timestamp;
+        import java.time.LocalDateTime;
         import java.util.Optional;
         import java.util.ResourceBundle;
 
@@ -162,6 +163,8 @@ public class MainScreenController implements Initializable {
     }
 
     @FXML void onActionViewApptsByMonth(ActionEvent event) {
+        AppointmentDAO dao = new AppointmentDAO();
+        appointmentsTableView.setItems(dao.filterByMonth(LocalDateTime.now().getMonthValue()));
 
     }
 
