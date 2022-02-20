@@ -133,7 +133,24 @@ public class MainScreenController implements Initializable {
         sceneChange.changeScene(event,  "/view/AddAppointment.fxml");
     }
     @FXML void onActionCancelAppt(ActionEvent event) {
+        AppointmentDAO dao = new AppointmentDAO();
 
+        if (!appointmentsTableView.getSelectionModel().isEmpty()){
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirm Delete");
+            alert.setContentText("Are you sure you want to delete this appointment?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK){
+                dao.deleteAppointment(appointmentsTableView.getSelectionModel().getSelectedItem().getAppointment_ID());
+                fillAppointmentTableView();
+            }
+        }
+        else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Delete Appointment Error");
+            alert.setContentText("Please Select an appointment");
+            alert.showAndWait();
+        }
     }
 
     @FXML void onActionModifyAppt(ActionEvent event) {

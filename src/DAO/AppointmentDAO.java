@@ -140,6 +140,7 @@ public class AppointmentDAO {
 
         try {
             statement = connection.prepareStatement(sql);
+            statement.setInt(1,i);
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
