@@ -5,6 +5,7 @@ import DAO.CountryDAO;
 import DAO.DivisionDAO;
 import com.sun.scenario.effect.impl.sw.java.JSWBlend_SRC_OUTPeer;
 import helper.Lambda;
+import helper.TimeHelper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,6 +21,7 @@ import org.w3c.dom.ls.LSOutput;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
@@ -175,6 +177,10 @@ public class AddAppointmentController implements Initializable {
     }
 
     public void setText(Appointment appointment) throws SQLException {
+        date = appointment.getStart().toLocalDate();
+        LocalDateTime start = TimeHelper.toLocalDateTimeConverter(Timestamp.valueOf(appointment.getStart()));
+        LocalDateTime end = TimeHelper.toLocalDateTimeConverter(Timestamp.valueOf(appointment.getEnd()));
+
         addApptLabel.setText("Modify Appointment");
         addAppointmentId.setText(String.valueOf(appointment.getAppointment_ID()));
         addApptTitle.setText(appointment.getTitle());
@@ -185,8 +191,8 @@ public class AddAppointmentController implements Initializable {
         addApptCustomerID.setValue(appointment.getCustomer_ID());
         addApptUserID.setValue(appointment.getUser_ID());
         ApptDatePicker.setValue(appointment.getStart().toLocalDate());
-        apptHourPicker.setValue(appointment.getStart().toLocalTime());
-        apptEndHourPicker.setValue(appointment.getEnd().toLocalTime());
+        apptHourPicker.setValue(start.toLocalTime());
+        apptEndHourPicker.setValue(end.toLocalTime());
     }
 
     @FXML void onActionSelectContact(ActionEvent event) {

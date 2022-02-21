@@ -8,6 +8,7 @@ import java.sql.*;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 public class AppointmentDAO {
     Connection connection = JDBC.getConnection();
@@ -138,8 +139,7 @@ public class AppointmentDAO {
 
     }
     public void updateAppointment(Appointment appointment){
-        String sql = "update appointments set Title = ?, Description  = ?, Location  = ?, Type  = ?, Start  = ?, End  = ?, Last_Update = ?, Customer_ID  = ?, User_ID  = ?, Contact_ID  = ?"
-                + "where Appointment_ID = ?";
+        String sql = "UPDATE appointments SET Title = ?, Description  = ?, Location  = ?, Type  = ?, Start  = ?, End  = ?, Last_Update = ?, Customer_ID  = ?, User_ID  = ?, Contact_ID  = ? WHERE Appointment_ID = ?";
         try {
             statement = connection.prepareStatement(sql);
             statement.setString(1, appointment.getTitle());
@@ -148,7 +148,7 @@ public class AppointmentDAO {
             statement.setString(4, appointment.getType());
             statement.setTimestamp(5, TimeHelper.toTimestampConverter(appointment.getStart()));
             statement.setTimestamp(6, TimeHelper.toTimestampConverter(appointment.getEnd()));
-            statement.setTimestamp(7, Timestamp.valueOf(LocalDateTime.now()));
+            statement.setTimestamp(7, TimeHelper.toTimestampConverter(LocalDateTime.now(ZoneId.systemDefault())));
             statement.setInt(8, appointment.getCustomer_ID());
             statement.setInt(9, appointment.getUser_ID());
             statement.setInt(10, appointment.getContact_ID());
