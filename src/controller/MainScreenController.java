@@ -160,7 +160,8 @@ public class MainScreenController implements Initializable {
     }
 
     @FXML void onActionViewApptsByAll(ActionEvent event) {
-
+        AppointmentDAO dao = new AppointmentDAO();
+        appointmentsTableView.setItems(dao.allAppointments());
     }
 
     @FXML void onActionViewApptsByMonth(ActionEvent event) {
@@ -170,7 +171,8 @@ public class MainScreenController implements Initializable {
     }
 
     @FXML void onActionViewApptsByWeek(ActionEvent event) {
-        System.out.println(LocalDate.now().getDayOfWeek());
+        AppointmentDAO dao = new AppointmentDAO();
+        appointmentsTableView.setItems(dao.filterByWeek());
     }
 
     @FXML void onActionViewApptsCalender(ActionEvent event) {

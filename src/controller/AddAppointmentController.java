@@ -130,7 +130,6 @@ public class AddAppointmentController implements Initializable {
                        }
                    }
                    if(i==0){
-                       System.out.println("yes");
                            dao.addNewAppointment(appointment);
                            SceneChange scene = new SceneChange();
                            scene.changeScene(event, "/view/MainScreen.fxml");

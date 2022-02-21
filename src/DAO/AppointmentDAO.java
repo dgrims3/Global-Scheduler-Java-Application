@@ -5,6 +5,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Appointment;
 import java.sql.*;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class AppointmentDAO {
@@ -159,15 +161,29 @@ public class AppointmentDAO {
         return month;
     }
 
-    public ObservableList<Appointment> filterByWeek(int i){
+    public ObservableList<Appointment> filterByWeek(){
         allAppointments();
         ObservableList<Appointment> week = FXCollections.observableArrayList();
-        for (Appointment a:allAppointments()
-        ) {
-           /* if (a.getStart().getDayOfWeek() == i){
-                week.add(a);
-            }*/
+        DayOfWeek day = LocalDate.now().getDayOfWeek();
+        LocalDate start = null;
+        LocalDate end = null;
+        switch(day) {
+            case SUNDAY: start = LocalDate.now(); end = LocalDate.now().plusDays(6); break;
+            case MONDAY: start = LocalDate.now().minusDays(1); end = LocalDate.now().plusDays(5); break;
+            case TUESDAY: start = LocalDate.now().minusDays(2); end = LocalDate.now().plusDays(4); break;
+            case WEDNESDAY: start = LocalDate.now().minusDays(3); end = LocalDate.now().plusDays(3); break;
+            case THURSDAY: start = LocalDate.now().minusDays(4); end = LocalDate.now().plusDays(2); break;
+            case FRIDAY: start = LocalDate.now().minusDays(5); end = LocalDate.now().plusDays(1); break;
+            case SATURDAY: start = LocalDate.now().minusDays(6); end = LocalDate.now(); break;
         }
+        for (Appointment a:allAppointments()
+             ) {
+            if( (a.getStart().toLocalDate().isEqual(start) || a.getStart().toLocalDate().isAfter(start))
+                    && (a.getEnd().toLocalDate().isBefore(end) || a.getEnd().toLocalDate().isEqual(end)) ){
+                week.add(a);
+            }
+        }
+
         return week;
     }
 
