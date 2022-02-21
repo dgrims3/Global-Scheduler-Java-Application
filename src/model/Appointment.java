@@ -29,9 +29,10 @@ String contact_Name;
         this.user_ID = user_ID;
         this.contact_Name = contact_Name;
     }
-    public Appointment(LocalDateTime start, LocalDateTime end){
+    public Appointment(LocalDateTime start, LocalDateTime end, int appointment_ID){
         this.start = start;
         this.end = end;
+        this.appointment_ID = appointment_ID;
     }
 
     public int getAppointment_ID() {

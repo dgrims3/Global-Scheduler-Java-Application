@@ -144,7 +144,6 @@ public class AddAppointmentController implements Initializable {
                        if (i > 0) {
                            alert.setContentText("There is already an appointment scheduled between " + aS.toLocalTime() + " and " + aE.toLocalTime());
                            alert.showAndWait();
-                           System.out.println("no");
                        }
                    }
                }
@@ -161,16 +160,16 @@ public class AddAppointmentController implements Initializable {
     }
     public int timeCollision(Appointment a, Appointment b){
         int i = 0;
-        if(a.getStart().isBefore(b.getStart()) && (a.getEnd().isAfter(b.getStart()) || a.getEnd().isEqual(b.getStart())) ){
+        if(a.getStart().isBefore(b.getStart()) && (a.getEnd().isAfter(b.getStart()) || a.getEnd().isEqual(b.getStart())) && Integer.parseInt(addAppointmentId.getText()) != b.getAppointment_ID()){
             i=1;
         }
-        else if((a.getStart().isAfter(b.getStart()) || a.getStart().isEqual(b.getStart())) && (a.getEnd().isBefore(b.getEnd()) || a.getEnd().isEqual(b.getEnd()))){
+        else if((a.getStart().isAfter(b.getStart()) || a.getStart().isEqual(b.getStart())) && (a.getEnd().isBefore(b.getEnd()) || a.getEnd().isEqual(b.getEnd())) && Integer.parseInt(addAppointmentId.getText()) != b.getAppointment_ID()){
             i=1;
             }
-        else if((a.getStart().isBefore(b.getEnd()) || a.getStart().isEqual(b.getEnd())) && a.getEnd().isAfter(b.getEnd())){
+        else if((a.getStart().isBefore(b.getEnd()) || a.getStart().isEqual(b.getEnd())) && a.getEnd().isAfter(b.getEnd()) && Integer.parseInt(addAppointmentId.getText()) != b.getAppointment_ID()){
             i=1;
             }
-        else if(a.getStart().isEqual(b.getStart()) && a.getEnd().isEqual(b.getEnd())){
+        else if(a.getStart().isEqual(b.getStart()) && a.getEnd().isEqual(b.getEnd()) && Integer.parseInt(addAppointmentId.getText()) != b.getAppointment_ID()){
             i=1;
         }
         return i;

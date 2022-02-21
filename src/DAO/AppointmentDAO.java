@@ -33,7 +33,7 @@ public class AppointmentDAO {
 
     public ObservableList<Appointment> appointmentTimes(Integer id){
         ObservableList<Appointment> appointment = FXCollections.observableArrayList();
-        String sql = "select Start, End from appointments where Customer_ID = ?";
+        String sql = "select Start, End, Appointment_ID from appointments where Customer_ID = ?";
 
         try {
             statement = connection.prepareStatement(sql);
@@ -41,7 +41,8 @@ public class AppointmentDAO {
             resultSet = statement.executeQuery();
             while (resultSet.next()){appointment.add(new Appointment(
                     TimeHelper.toLocalDateTimeConverter(resultSet.getTimestamp(1)),
-                    TimeHelper.toLocalDateTimeConverter(resultSet.getTimestamp(2))));
+                    TimeHelper.toLocalDateTimeConverter(resultSet.getTimestamp(2)),
+                    resultSet.getInt(3)));
             }
 
         } catch (SQLException e) {
