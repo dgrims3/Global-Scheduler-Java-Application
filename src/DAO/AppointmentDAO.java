@@ -137,6 +137,29 @@ public class AppointmentDAO {
         }
 
     }
+    public void updateAppointment(Appointment appointment){
+        String sql = "update appointments set Title = ?, Description  = ?, Location  = ?, Type  = ?, Start  = ?, End  = ?, Last_Update = ?, Customer_ID  = ?, User_ID  = ?, Contact_ID  = ?"
+                + "where Appointment_ID = ?";
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, appointment.getTitle());
+            statement.setString(2, appointment.getDescription());
+            statement.setString(3, appointment.getLocation());
+            statement.setString(4, appointment.getType());
+            statement.setTimestamp(5, TimeHelper.toTimestampConverter(appointment.getStart()));
+            statement.setTimestamp(6, TimeHelper.toTimestampConverter(appointment.getEnd()));
+            statement.setTimestamp(7, Timestamp.valueOf(LocalDateTime.now()));
+            statement.setInt(8, appointment.getCustomer_ID());
+            statement.setInt(9, appointment.getUser_ID());
+            statement.setInt(10, appointment.getContact_ID());
+            statement.setInt(11, appointment.getAppointment_ID());
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
     public void deleteAppointment(int i){
        String sql = "delete from appointments where Appointment_ID = ?";
 

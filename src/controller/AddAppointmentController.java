@@ -1,6 +1,8 @@
 package controller;
 
 import DAO.AppointmentDAO;
+import DAO.CountryDAO;
+import DAO.DivisionDAO;
 import com.sun.scenario.effect.impl.sw.java.JSWBlend_SRC_OUTPeer;
 import helper.Lambda;
 import javafx.collections.FXCollections;
@@ -8,17 +10,16 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import model.Appointment;
+import model.Customer;
 import model.SceneChange;
 import org.w3c.dom.ls.LSOutput;
 
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
@@ -41,6 +42,7 @@ public class AddAppointmentController implements Initializable {
     @FXML private ComboBox<Integer> addApptUserID;
     @FXML private ComboBox<Integer> addApptCustomerID;
     @FXML private ComboBox<String> addApptContact;
+    @FXML private Label addApptLabel;
 
 
         public ObservableList<LocalTime> setTimeComboBox(){
@@ -105,7 +107,9 @@ public class AddAppointmentController implements Initializable {
 
        try{
            if (compareTimes(zonedStart, zonedEnd)){
-               int appointment_ID = -1;
+               int appointment_ID;
+               if(addAppointmentId.getText().isEmpty()){appointment_ID = -1;} else {appointment_ID = Integer.parseInt(addAppointmentId.getText());
+               }
                String title = addApptTitle.getText();
                String description = addApptDescription.getText();
                String location = addApptLocation.getText();
@@ -130,7 +134,7 @@ public class AddAppointmentController implements Initializable {
                        }
                    }
                    if(i==0){
-                           dao.addNewAppointment(appointment);
+                           if(addAppointmentId.getText().isEmpty()){dao.addNewAppointment(appointment);}else{dao.updateAppointment(appointment);}
                            SceneChange scene = new SceneChange();
                            scene.changeScene(event, "/view/MainScreen.fxml");
                    }
@@ -170,12 +174,28 @@ public class AddAppointmentController implements Initializable {
         return i;
     }
 
+    public void setText(Appointment appointment) throws SQLException {
+        addApptLabel.setText("Modify Appointment");
+        addAppointmentId.setText(String.valueOf(appointment.getAppointment_ID()));
+        addApptTitle.setText(appointment.getTitle());
+        addApptDescription.setText(appointment.getDescription());
+        addApptLocation.setText(appointment.getLocation());
+        addApptContact.setValue(appointment.getContact_Name());
+        addApptType.setText(appointment.getType());
+        addApptCustomerID.setValue(appointment.getCustomer_ID());
+        addApptUserID.setValue(appointment.getUser_ID());
+        ApptDatePicker.setValue(appointment.getStart().toLocalDate());
+        apptHourPicker.setValue(appointment.getStart().toLocalTime());
+        apptEndHourPicker.setValue(appointment.getEnd().toLocalTime());
+    }
+
     @FXML void onActionSelectContact(ActionEvent event) {
 
     }
     @FXML void onActionAddDate(ActionEvent event) {
         date = ApptDatePicker.getValue();
     }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

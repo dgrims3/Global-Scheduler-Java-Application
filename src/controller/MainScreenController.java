@@ -155,8 +155,24 @@ public class MainScreenController implements Initializable {
         }
     }
 
-    @FXML void onActionModifyAppt(ActionEvent event) {
-
+    @FXML void onActionModifyAppt(ActionEvent event) throws IOException, SQLException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/view/AddAppointment.fxml"));
+        loader.load();
+        AddAppointmentController AAController = loader.getController();
+        if (!appointmentsTableView.getSelectionModel().isEmpty()) {
+            AAController.setText(appointmentsTableView.getSelectionModel().getSelectedItem());
+            stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
+            Parent scene = loader.getRoot();
+            stage.setScene(new Scene(scene));
+            stage.show();
+        }
+        else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Modify Appointment error");
+            alert.setContentText("Please Select an appointment");
+            alert.showAndWait();
+        }
     }
 
     @FXML void onActionViewApptsByAll(ActionEvent event) {
