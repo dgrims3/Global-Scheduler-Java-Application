@@ -82,10 +82,13 @@ public class LoginController implements Initializable {
         @FXML
         void onActionLoginToMain(ActionEvent event) throws IOException {
           if (userLogin(loginUserName.getText(), loginPassword.getText())){
+              UserDAO dao = new UserDAO();
+
                     stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
                     scene = FXMLLoader.load(getClass().getResource("/view/MainScreen.fxml"));
                     stage.setScene(new Scene(scene));
                     stage.show();
+
             }
         }
 
