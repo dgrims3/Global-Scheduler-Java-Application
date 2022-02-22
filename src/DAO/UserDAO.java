@@ -46,7 +46,6 @@ public class UserDAO {
     }
     public void appointmentAlert(User user){
         String  sql = "SELECT Start, End, Appointment_ID FROM appointments WHERE User_ID = ?";
-        //String sql = "select Start, End, Appointment_ID from users left join appointments on users.User_ID = appointments.User_ID and users.User_Name = ? and users.Password = ?";
         ObservableList<Appointment> t = FXCollections.observableArrayList();
         LocalDateTime start = LocalDateTime.now(ZoneId.systemDefault());
         LocalDateTime start15 = LocalDateTime.now(ZoneId.systemDefault()).plusMinutes(15);
@@ -54,8 +53,6 @@ public class UserDAO {
 
         try {
             statement = connection.prepareStatement(sql);
-           /* statement.setString(1, s);
-            statement.setString(2, i);*/
             statement.setInt(1, user.getUser_ID());
             resultSet = statement.executeQuery();
             while (resultSet.next()){

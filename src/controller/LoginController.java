@@ -83,13 +83,17 @@ public class LoginController implements Initializable {
         void onActionLoginToMain(ActionEvent event) throws IOException {
           if (userLogin(loginUserName.getText(), loginPassword.getText())){
               UserDAO dao = new UserDAO();
-
-                    stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
-                    scene = FXMLLoader.load(getClass().getResource("/view/MainScreen.fxml"));
-                    stage.setScene(new Scene(scene));
-                    stage.show();
-
+              stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
+              scene = FXMLLoader.load(getClass().getResource("/view/MainScreen.fxml"));
+              stage.setScene(new Scene(scene));
+              stage.show();
             }
+          else {
+              Alert alert = new Alert(Alert.AlertType.ERROR);
+              alert.setTitle(rb.getString("AlertTitle"));
+              alert.setContentText(rb.getString("Alert"));
+              alert.showAndWait();
+          }
         }
 
         @FXML

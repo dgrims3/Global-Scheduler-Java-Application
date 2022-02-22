@@ -199,7 +199,7 @@ public class MainScreenController implements Initializable {
     @FXML void OnActionViewReportsScreen(ActionEvent event) {
     }
     @FXML void onActionLogOut(ActionEvent event) {
-
+        System.exit(0);
     }
     @Override public void initialize(URL url, ResourceBundle resourceBundle) {
         fillCustomerTableView();
