@@ -73,6 +73,7 @@ public class LoginController implements Initializable {
                 alert.showAndWait();}
                 for (User u: dao.getAllUsers()) {
                        if (username.equals(u.getUser_name()) && password.equals(u.getPassword())) {
+                           dao.appointmentAlert(u);
                                bool = true;
                        }
                  }return bool;

@@ -5,6 +5,7 @@ import model.Country;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 
 public class TimeHelper {
@@ -16,5 +17,9 @@ public class TimeHelper {
     }
     public static LocalDateTime toLocalDateTimeConverter(Timestamp timestamp){
         return timestamp.toLocalDateTime().atZone(UTC).withZoneSameInstant(myZone).toLocalDateTime();
+    }
+    public static void appointmentAlert(){
+        LocalTime startTime = LocalTime.of(14, 0);
+
     }
 }
