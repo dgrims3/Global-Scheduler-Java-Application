@@ -4,10 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Appointment;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class ReportsDAO {
@@ -44,23 +41,25 @@ public class ReportsDAO {
         }
         return i;
     }
-    public ArrayList<String[]> typeCount(){
-        ArrayList<String[]> t = new ArrayList<>();
-        String[] s = new String[2];
+    public ArrayList<ArrayList<String>> typeCount(){
+        ArrayList<ArrayList<String>> t = new ArrayList<>();
         String sql = "select Type, count(Type) from appointments group by Type";
 
         try {
             statement = connection.prepareStatement(sql);
             resultSet = statement.executeQuery();
             while(resultSet.next()){
-                s[0] = (resultSet.getString(1));
-                s[1] = (String.valueOf(resultSet.getInt(2)));
+                ArrayList<String> s = new ArrayList<>();
+                s.add(resultSet.getString(1));
+                s.add(String.valueOf(resultSet.getInt(2)));
                 t.add(s);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        for(int i =0;i<10;i++)
+            System.out.println(t.get(i));
         return t;
     }
 

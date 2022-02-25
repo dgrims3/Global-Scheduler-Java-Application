@@ -51,6 +51,6 @@ public class ReportsController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         chooseContactComboBox.setItems(dao.allContacts());
-        dao.typeCount();
+        //dao.typeCount();
     }
 }
