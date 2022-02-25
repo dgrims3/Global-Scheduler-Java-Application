@@ -10,6 +10,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Appointment;
+import org.w3c.dom.ls.LSOutput;
 
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -47,10 +48,19 @@ public class ReportsController implements Initializable {
         apptEndTime.setCellValueFactory(new PropertyValueFactory<>("end"));
         apptCustomerID.setCellValueFactory(new PropertyValueFactory<>("customer_ID"));
     }
+    public void durationSetText(){
+        dao.typeCount();
+        for(int i = 0; i < dao.typeCount().size(); i++){
+          dao.typeCount().get(i);
+        }
+
+
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         chooseContactComboBox.setItems(dao.allContacts());
-        //dao.typeCount();
+        durationSetText();
+
     }
 }

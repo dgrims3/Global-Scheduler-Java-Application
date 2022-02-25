@@ -58,8 +58,6 @@ public class ReportsDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        for(int i =0;i<10;i++)
-            System.out.println(t.get(i));
         return t;
     }
 
