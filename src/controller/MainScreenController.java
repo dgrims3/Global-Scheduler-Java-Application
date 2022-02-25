@@ -196,7 +196,9 @@ public class MainScreenController implements Initializable {
     }
     //Other Functions
 
-    @FXML void OnActionViewReportsScreen(ActionEvent event) {
+    @FXML void OnActionViewReportsScreen(ActionEvent event) throws IOException {
+        SceneChange sceneChange = new SceneChange();
+        sceneChange.changeScene(event,  "/view/Reports.fxml");
     }
     @FXML void onActionLogOut(ActionEvent event) {
         System.exit(0);
