@@ -4,15 +4,15 @@ import DAO.ReportsDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Appointment;
+import model.SceneChange;
 import org.w3c.dom.ls.LSOutput;
 
 import java.awt.*;
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
@@ -31,10 +31,24 @@ public class ReportsController implements Initializable {
     @FXML private ComboBox<String> chooseContactComboBox;
     @FXML private TextArea numberOfApptsTextArea;
     @FXML private TableView<Appointment> scheduleTableView;
+    @FXML private ToggleGroup numberToggleGroup;
+
     ReportsDAO dao = new ReportsDAO();
 
-    @FXML void onActionBackToMain(ActionEvent event) {
+    @FXML void onActionBackToMain(ActionEvent event) throws IOException {
+        SceneChange sceneChange = new SceneChange();
+        sceneChange.changeScene(event,  "/view/MainScreenController.fxml");
+    }
+    @FXML
+    void byMonthRdoBtn(ActionEvent event) {
+        numberOfApptsTextArea.clear();
+        monthCountSetText();
+    }
 
+    @FXML
+    void byTypeRdoBttn(ActionEvent event) {
+        numberOfApptsTextArea.clear();
+        typeCountSetText();
     }
 
     @FXML
@@ -77,8 +91,5 @@ public class ReportsController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         chooseContactComboBox.setItems(dao.allContacts());
-        monthCountSetText();
-        dao.filterByMonth();
-
     }
 }
