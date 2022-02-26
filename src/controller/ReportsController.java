@@ -12,6 +12,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import model.Appointment;
 import org.w3c.dom.ls.LSOutput;
 
+import java.awt.*;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
@@ -48,19 +49,23 @@ public class ReportsController implements Initializable {
         apptEndTime.setCellValueFactory(new PropertyValueFactory<>("end"));
         apptCustomerID.setCellValueFactory(new PropertyValueFactory<>("customer_ID"));
     }
-    public void durationSetText(){
+    public void typeCountSetText(){
         dao.typeCount();
-        for(int i = 0; i < dao.typeCount().size(); i++){
-          dao.typeCount().get(i);
+        numberOfApptsTextArea.setText("Number of Appts by type are \n");
+        for(int i = 0; i < dao.typeCount().size(); i++) {
+            System.out.println(dao.typeCount().get(i));
+            numberOfApptsTextArea.appendText(String.valueOf(dao.typeCount().get(i)));
+            numberOfApptsTextArea.appendText("\n");
         }
-
+    }
+    public void monthCountSetText(){
 
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         chooseContactComboBox.setItems(dao.allContacts());
-        durationSetText();
+        typeCountSetText();
 
     }
 }

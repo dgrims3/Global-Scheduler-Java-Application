@@ -1,10 +1,13 @@
 package DAO;
 
+import helper.TimeHelper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Appointment;
 
 import java.sql.*;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class ReportsDAO {
@@ -87,4 +90,53 @@ public class ReportsDAO {
         }
         return sched;
     }
+
+    public ObservableList<Appointment> getAppointments(){
+        ObservableList<Appointment> appointment = FXCollections.observableArrayList();
+        String sql = "select Start, End, Appointment_ID from appointments";
+        try {
+            statement = connection.prepareStatement(sql);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()){appointment.add(new Appointment(
+                    TimeHelper.toLocalDateTimeConverter(resultSet.getTimestamp(1)),
+                    TimeHelper.toLocalDateTimeConverter(resultSet.getTimestamp(2)),
+                    resultSet.getInt(3)));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return appointment;
+    }
+    public ArrayList<String> filterByMonth(){
+
+        int jan=0;
+        int feb=0;
+        int mar=0;
+        int april=0;
+        int may=0;
+        int june=0;
+        int july=0;
+        int aug=0;
+        int sep=0;
+        int oct=0;
+        int nov=0;
+        int dec=0;
+        for (Appointment a: getAppointments()
+             ) {
+            if(a.getStart().getMonthValue() == 1)jan++;
+            else if(a.getStart().getMonthValue() == 2)feb++;
+            else if(a.getStart().getMonthValue() == 3)mar++;
+            else if(a.getStart().getMonthValue() == 4)april++;
+            else if(a.getStart().getMonthValue() == 5)may++;
+            else if(a.getStart().getMonthValue() == 6)june++;
+            else if(a.getStart().getMonthValue() == 7)july++;
+            else if(a.getStart().getMonthValue() == 8)aug++;
+            else if(a.getStart().getMonthValue() == 9)sep++;
+            else if(a.getStart().getMonthValue() == 10)oct++;
+            else if(a.getStart().getMonthValue() == 11)nov++;
+            else if(a.getStart().getMonthValue() == 12)dec++;
+        }
+
+    }
 }
+
