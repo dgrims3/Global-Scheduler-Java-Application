@@ -53,19 +53,32 @@ public class ReportsController implements Initializable {
         dao.typeCount();
         numberOfApptsTextArea.setText("Number of Appts by type are \n");
         for(int i = 0; i < dao.typeCount().size(); i++) {
-            System.out.println(dao.typeCount().get(i));
             numberOfApptsTextArea.appendText(String.valueOf(dao.typeCount().get(i)));
             numberOfApptsTextArea.appendText("\n");
         }
     }
     public void monthCountSetText(){
+        dao.filterByMonth();
+        numberOfApptsTextArea.appendText("January = "+dao.filterByMonth()[0]+"\n");
+        numberOfApptsTextArea.appendText("February = " +dao.filterByMonth()[1]+"\n");
+        numberOfApptsTextArea.appendText("March = " +dao.filterByMonth()[2]+"\n");
+        numberOfApptsTextArea.appendText("April = " +dao.filterByMonth()[3]+"\n");
+        numberOfApptsTextArea.appendText("May = " +dao.filterByMonth()[4]+"\n");
+        numberOfApptsTextArea.appendText("June = " +dao.filterByMonth()[5]+"\n");
+        numberOfApptsTextArea.appendText("July = " +dao.filterByMonth()[6]+"\n");
+        numberOfApptsTextArea.appendText("August = " +dao.filterByMonth()[7]+"\n");
+        numberOfApptsTextArea.appendText("Sep = " +dao.filterByMonth()[8]+"\n");
+        numberOfApptsTextArea.appendText("October = " +dao.filterByMonth()[9]+"\n");
+        numberOfApptsTextArea.appendText("November = " +dao.filterByMonth()[10]+"\n");
+        numberOfApptsTextArea.appendText("December = " +dao.filterByMonth()[11]+"\n");
 
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         chooseContactComboBox.setItems(dao.allContacts());
-        typeCountSetText();
+        monthCountSetText();
+        dao.filterByMonth();
 
     }
 }

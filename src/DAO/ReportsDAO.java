@@ -6,8 +6,6 @@ import javafx.collections.ObservableList;
 import model.Appointment;
 
 import java.sql.*;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class ReportsDAO {
@@ -107,36 +105,29 @@ public class ReportsDAO {
         }
         return appointment;
     }
-    public ArrayList<String> filterByMonth(){
+    public int[] filterByMonth(){
+       int[] l = new int[12];
 
-        int jan=0;
-        int feb=0;
-        int mar=0;
-        int april=0;
-        int may=0;
-        int june=0;
-        int july=0;
-        int aug=0;
-        int sep=0;
-        int oct=0;
-        int nov=0;
-        int dec=0;
+
         for (Appointment a: getAppointments()
              ) {
-            if(a.getStart().getMonthValue() == 1)jan++;
-            else if(a.getStart().getMonthValue() == 2)feb++;
-            else if(a.getStart().getMonthValue() == 3)mar++;
-            else if(a.getStart().getMonthValue() == 4)april++;
-            else if(a.getStart().getMonthValue() == 5)may++;
-            else if(a.getStart().getMonthValue() == 6)june++;
-            else if(a.getStart().getMonthValue() == 7)july++;
-            else if(a.getStart().getMonthValue() == 8)aug++;
-            else if(a.getStart().getMonthValue() == 9)sep++;
-            else if(a.getStart().getMonthValue() == 10)oct++;
-            else if(a.getStart().getMonthValue() == 11)nov++;
-            else if(a.getStart().getMonthValue() == 12)dec++;
+            if(a.getStart().getMonthValue() == 1)l[0]++;
+            else if(a.getStart().getMonthValue() == 2)l[1]++;
+            else if(a.getStart().getMonthValue() == 3)l[2]++;
+            else if(a.getStart().getMonthValue() == 4)l[3]++;
+            else if(a.getStart().getMonthValue() == 5)l[4]++;
+            else if(a.getStart().getMonthValue() == 6)l[5]++;
+            else if(a.getStart().getMonthValue() == 7)l[6]++;
+            else if(a.getStart().getMonthValue() == 8)l[7]++;
+            else if(a.getStart().getMonthValue() == 9)l[8]++;
+            else if(a.getStart().getMonthValue() == 10)l[9]++;
+            else if(a.getStart().getMonthValue() == 11)l[10]++;
+            else if(a.getStart().getMonthValue() == 12)l[12]++;
         }
-
+        for (int i = 0; i < l.length; i++) {
+            System.out.println(l[i]);
+        }
+        return l;
     }
 }
 
