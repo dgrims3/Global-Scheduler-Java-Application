@@ -6,13 +6,33 @@ import javafx.collections.ObservableList;
 import model.Appointment;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class ReportsDAO {
     Connection connection = JDBC.getConnection();
     PreparedStatement statement = null;
     ResultSet resultSet = null;
+    public ArrayList<Integer> apptLength(){
+        ArrayList<Integer> i = new ArrayList<>();
+        String sql = "SELECT End, Start FROM appointments";
+        try {
+            statement = connection.prepareStatement(sql);
+            resultSet = statement.executeQuery();
 
+            while(resultSet.next()){
+                Integer j = TimeHelper.toLocalDateTimeConverter(resultSet.getTimestamp(1)).toLocalTime().toSecondOfDay();
+                Integer k = TimeHelper.toLocalDateTimeConverter(resultSet.getTimestamp(2)).toLocalTime().toSecondOfDay();
+                Integer l = (j-k)/60;
+                i.add(l);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return i;
+    }
     public ObservableList<String> allContacts(){
         ObservableList<String> contacts = FXCollections.observableArrayList();
         String sql = "Select Contact_Name from contacts";

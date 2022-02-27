@@ -4,7 +4,6 @@ import DAO.AppointmentDAO;
 import DAO.CountryDAO;
 import DAO.DivisionDAO;
 import com.sun.scenario.effect.impl.sw.java.JSWBlend_SRC_OUTPeer;
-import helper.Lambda;
 import helper.TimeHelper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

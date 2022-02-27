@@ -1,6 +1,8 @@
 package controller;
 
 import DAO.ReportsDAO;
+import com.sun.scenario.effect.impl.sw.java.JSWBlend_SRC_OUTPeer;
+import helper.lambdaOne;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -32,12 +34,20 @@ public class ReportsController implements Initializable {
     @FXML private TextArea numberOfApptsTextArea;
     @FXML private TableView<Appointment> scheduleTableView;
     @FXML private ToggleGroup numberToggleGroup;
+    lambdaOne avg = i -> {
+        int l =0;
+        for (int j = 0; j < i.size(); j++) {
+            l = l+i.get(j);
+        }
+        l = l/i.size();
+        return l;
+    };
 
     ReportsDAO dao = new ReportsDAO();
 
     @FXML void onActionBackToMain(ActionEvent event) throws IOException {
-        SceneChange sceneChange = new SceneChange();
-        sceneChange.changeScene(event,  "/view/MainScreenController.fxml");
+        SceneChange scene = new SceneChange();
+        scene.changeScene(event, "/view/MainScreen.fxml");
     }
     @FXML
     void byMonthRdoBtn(ActionEvent event) {
@@ -62,6 +72,10 @@ public class ReportsController implements Initializable {
         apptStartTime.setCellValueFactory(new PropertyValueFactory<>("start"));
         apptEndTime.setCellValueFactory(new PropertyValueFactory<>("end"));
         apptCustomerID.setCellValueFactory(new PropertyValueFactory<>("customer_ID"));
+    }
+    public void fillAvgTimeTextArea(){
+        avgDurationTextArea.setText("Avg Length of all appointments: \n");
+        avgDurationTextArea.appendText(String.valueOf(avg.average(dao.apptLength()))+" minutes");
     }
     public void typeCountSetText(){
         dao.typeCount();
@@ -91,5 +105,6 @@ public class ReportsController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         chooseContactComboBox.setItems(dao.allContacts());
+        fillAvgTimeTextArea();
     }
 }
