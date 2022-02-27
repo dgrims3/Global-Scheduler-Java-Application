@@ -107,8 +107,6 @@ public class ReportsDAO {
     }
     public int[] filterByMonth(){
        int[] l = new int[12];
-
-
         for (Appointment a: getAppointments()
              ) {
             if(a.getStart().getMonthValue() == 1)l[0]++;
@@ -123,9 +121,6 @@ public class ReportsDAO {
             else if(a.getStart().getMonthValue() == 10)l[9]++;
             else if(a.getStart().getMonthValue() == 11)l[10]++;
             else if(a.getStart().getMonthValue() == 12)l[12]++;
-        }
-        for (int i = 0; i < l.length; i++) {
-            System.out.println(l[i]);
         }
         return l;
     }
