@@ -108,14 +108,13 @@ public class AddAppointmentController implements Initializable {
        return true;
     }
     @FXML void onActionSaveAddAppointment(ActionEvent event) throws IOException {
-        LocalDateTime start = LocalDateTime.of(date, apptHourPicker.getSelectionModel().getSelectedItem());
-        LocalDateTime end = LocalDateTime.of(date, apptEndHourPicker.getSelectionModel().getSelectedItem());
-        ZonedDateTime zonedStart = LocalDateTime.of(date, apptHourPicker.getSelectionModel().getSelectedItem()).atZone(sysDef);
-        ZonedDateTime zonedEnd = LocalDateTime.of(date, apptEndHourPicker.getSelectionModel().getSelectedItem()).atZone(sysDef);
-
-
-       try{
-           if (compareTimes(zonedStart, zonedEnd)){
+        try{
+            LocalDateTime start = LocalDateTime.of(date, apptHourPicker.getSelectionModel().getSelectedItem());
+            LocalDateTime end = LocalDateTime.of(date, apptEndHourPicker.getSelectionModel().getSelectedItem());
+            ZonedDateTime zonedStart = LocalDateTime.of(date, apptHourPicker.getSelectionModel().getSelectedItem()).atZone(sysDef);
+            ZonedDateTime zonedEnd = LocalDateTime.of(date, apptEndHourPicker.getSelectionModel().getSelectedItem()).atZone(sysDef);
+           if(ifAnyEmpty()){
+               if (compareTimes(zonedStart, zonedEnd)){
                int appointment_ID;
                if(addAppointmentId.getText().isEmpty()){appointment_ID = -1;} else {appointment_ID = Integer.parseInt(addAppointmentId.getText());
                }
@@ -158,8 +157,11 @@ public class AddAppointmentController implements Initializable {
                    alert.setContentText("Start time must be before end time");
                    alert.showAndWait();
                }
+             }
            }
-       }catch (NumberFormatException n){
+           else{ alert.setContentText("No fields may be left Blank");
+               alert.showAndWait();}
+       }catch (NullPointerException n){
             alert.setTitle("Entry Error");
             alert.setContentText("Please enter a number for ID fields");
             alert.showAndWait();
@@ -180,6 +182,12 @@ public class AddAppointmentController implements Initializable {
             i=1;
         }
         return i;
+    }
+    public boolean ifAnyEmpty(){
+        if(addApptTitle.getText().isBlank()||addApptUserID.getItems().isEmpty()||addApptType.getText().isBlank()||addApptContact.getItems().isEmpty()||addApptLocation.getText().isBlank()||addApptDescription.getText().isBlank()||addApptCustomerID.getItems().isEmpty()){
+            return false;
+        }
+        return true;
     }
 
     public void setText(Appointment appointment) throws SQLException {
