@@ -19,17 +19,17 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.ResourceBundle;
-
+/**
+ * This class is the User Data Access Object. This is used for all methods that involve connecting to the database.
+ */
 public class UserDAO {
     Alert alert = new Alert(Alert.AlertType.INFORMATION);
     PreparedStatement statement = null;
     ResultSet resultSet = null;
     Connection connection = JDBC.getConnection();
-    lambdaTwo toTimestamp = l -> {
-        ZoneId UTC = ZoneId.of("Etc/UTC");
-        ZoneId myZone = ZoneId.systemDefault();
-        return Timestamp.valueOf(l.atZone(myZone).withZoneSameInstant(UTC).toLocalDateTime());
-    };
+    /**
+     * Lambda expression that takes a Timestamp and returns a LocalDateTime.
+     */
     lambdaThree toLocal = t -> {
         ZoneId UTC = ZoneId.of("Etc/UTC");
         ZoneId myZone = ZoneId.systemDefault();
@@ -37,6 +37,9 @@ public class UserDAO {
     };
     public ObservableList <User> allUsers = FXCollections.observableArrayList();
 
+    /**
+     * Method that fills the List of all users in the database.
+     */
     public void fillList(){
         String sql = "SELECT User_ID, User_Name, Password FROM USERS;";
 
@@ -56,6 +59,11 @@ public class UserDAO {
         }
 
     }
+
+    /**
+     * Method that checks the start and end time for all appointments for a specific user. This method is used to set off an alert if there is an appointment within 15 minutes of login.
+     * @param user
+     */
     public void appointmentAlert(User user){
         String  sql = "SELECT Start, End, Appointment_ID FROM appointments WHERE User_ID = ?";
         ObservableList<Appointment> t = FXCollections.observableArrayList();

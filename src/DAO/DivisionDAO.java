@@ -9,11 +9,27 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * This class is the Division Data Access Object. This is used for all methods that involve connecting to the database.
+ */
 public class DivisionDAO {
+    /**
+     * @return Observable List
+     */
     public ObservableList<Division> getAllUsDivisions(){return usDivisions();}
+    /**
+     * @return Observable List
+     */
     public ObservableList<Division> getAllUkDivisions(){return ukDivisions();}
+    /**
+     * @return Observable List
+     */
     public ObservableList<Division> getAllCanadaDivisions(){return canadaDivisions();}
 
+    /**
+     * This method returns a list of all US divisions.
+     * @return Observable List
+     */
     public ObservableList<Division> usDivisions() {
         ObservableList<Division> divisions = FXCollections.observableArrayList();
         Connection connection = null;
@@ -37,6 +53,10 @@ public class DivisionDAO {
         return divisions;
     }
 
+    /**
+     * this method returns a list of all UK divisions
+     * @return Observable List
+     */
     public ObservableList<Division> ukDivisions() {
         ObservableList<Division> divisions = FXCollections.observableArrayList();
         Connection connection = null;
@@ -60,6 +80,10 @@ public class DivisionDAO {
         return divisions;
     }
 
+    /**
+     * this method returns a list of all canadian divisions.
+     * @return
+     */
     public ObservableList<Division> canadaDivisions() {
         ObservableList<Division> divisions = FXCollections.observableArrayList();
         Connection connection = null;
@@ -83,6 +107,12 @@ public class DivisionDAO {
         return divisions;
     }
 
+    /**
+     * This method takes a division ID and returns a Division.
+     * @param i
+     * @return Division
+     * @throws SQLException
+     */
         public Division getDivisionForModifyCustomer (int i) throws SQLException {
             Connection connection = JDBC.getConnection();
             PreparedStatement statement = null;

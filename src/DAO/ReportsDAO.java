@@ -13,21 +13,26 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
-
+/**
+ * This class is the Reports Data Access Object. This is used for all methods that involve connecting to the database.
+ */
 public class ReportsDAO {
     Connection connection = JDBC.getConnection();
     PreparedStatement statement = null;
     ResultSet resultSet = null;
-    lambdaTwo toTimestamp = l -> {
-        ZoneId UTC = ZoneId.of("Etc/UTC");
-        ZoneId myZone = ZoneId.systemDefault();
-        return Timestamp.valueOf(l.atZone(myZone).withZoneSameInstant(UTC).toLocalDateTime());
-    };
+    /**
+     * Lambda expression that takes in a timestamp and returns a LocalDateTime.
+      */
     lambdaThree toLocal = t -> {
         ZoneId UTC = ZoneId.of("Etc/UTC");
         ZoneId myZone = ZoneId.systemDefault();
         return t.toLocalDateTime().atZone(UTC).withZoneSameInstant(myZone).toLocalDateTime();
     };
+
+    /**
+     * Method that creates an array with the length of each appointment in the database.
+     * @return Arraylist
+     */
     public ArrayList<Integer> apptLength(){
         ArrayList<Integer> i = new ArrayList<>();
         String sql = "SELECT End, Start FROM appointments";
@@ -46,6 +51,11 @@ public class ReportsDAO {
         }
         return i;
     }
+
+    /**
+     * Method that returns a list of all contacts from the database.
+     * @return Observable List
+     */
     public ObservableList<String> allContacts(){
         ObservableList<String> contacts = FXCollections.observableArrayList();
         String sql = "Select Contact_Name from contacts";
@@ -60,6 +70,12 @@ public class ReportsDAO {
         }
         return contacts;
     }
+
+    /**
+     * Method that takes in a contact name and returns a contact ID.
+     * @param string
+     * @return int
+     */
     public int getContactID (String string){
         String sql = "Select Contact_ID from contacts WHERE Contact_Name = ?";
         int i = 0;
@@ -75,6 +91,11 @@ public class ReportsDAO {
         }
         return i;
     }
+
+    /**
+     * method that returns an array list of array lists of the appointments, grouped by appointment type.
+     * @return ArrayList<ArrayList<String>
+     */
     public ArrayList<ArrayList<String>> typeCount(){
         ArrayList<ArrayList<String>> t = new ArrayList<>();
         String sql = "select Type, count(Type) from appointments group by Type";
@@ -95,6 +116,11 @@ public class ReportsDAO {
         return t;
     }
 
+    /**
+     * Mehtod that takes a Contact ID and returns all appointments for that contact, ordered chronologically.
+     * @param i
+     * @return Observable List
+     */
     public ObservableList<Appointment> contactSchedules(int i){
         ObservableList<Appointment> sched = FXCollections.observableArrayList();
         String sql = "select * from appointments WHERE Contact_ID = ? order by Start;";
@@ -122,6 +148,10 @@ public class ReportsDAO {
         return sched;
     }
 
+    /**
+     * Method that returns a list of start and end times of all appointments.
+     * @return Observable List.
+     */
     public ObservableList<Appointment> getAppointments(){
         ObservableList<Appointment> appointment = FXCollections.observableArrayList();
         String sql = "select Start, End, Appointment_ID from appointments";
@@ -138,6 +168,11 @@ public class ReportsDAO {
         }
         return appointment;
     }
+
+    /**
+     * Method that counts how many appointments happen each month.
+     * @return array of int's
+     */
     public int[] filterByMonth(){
        int[] l = new int[12];
         for (Appointment a: getAppointments()

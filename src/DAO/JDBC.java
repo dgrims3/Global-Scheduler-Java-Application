@@ -4,6 +4,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+/**
+ * This method connects to the database using the database driver. It is the class that gets used for all methods that access the database.
+ */
 public abstract class JDBC {
  private static final String protocol = "jdbc";
      private static final String vendor = ":mysql:";
@@ -16,6 +19,9 @@ public abstract class JDBC {
         private static Connection connection = null;  // Connection Interface
         private static PreparedStatement preparedStatement;
 
+    /**
+     * makes the connection to the database.
+     */
          public static void makeConnection() {
 
           try {
@@ -34,6 +40,10 @@ public abstract class JDBC {
                   }
           }
 
+    /**
+     * method that is called to get a connection.
+     * @return Connection
+     */
             public static Connection getConnection() {
                 return connection;
             }
@@ -46,20 +56,4 @@ public abstract class JDBC {
                      e.printStackTrace();
                  }
              }
-
-       public static void makePreparedStatement(String sqlStatement, Connection conn) throws SQLException {
-           if (conn != null)
-               preparedStatement = conn.prepareStatement(sqlStatement);
-           else
-               System.out.println("Prepared Statement Creation Failed!");
-       }
-       public static PreparedStatement getPreparedStatement() throws SQLException {
-           if (preparedStatement != null)
-               return preparedStatement;
-           else System.out.println("Null reference to Prepared Statement");
-           return null;
-       }
-
-
-
 }
