@@ -14,9 +14,17 @@ import java.io.IOException;
 import java.time.ZoneId;
 import java.util.Locale;
 
+/**
+ * Main class. Starting point of application.
+ */
 public class Main extends Application {
 ZoneId zoneId;
 
+    /**
+     * Loads the application.
+     * @param primaryStage
+     * @throws Exception
+     */
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("../view/LoginScreen.fxml"));
@@ -25,10 +33,11 @@ ZoneId zoneId;
         primaryStage.show();
     }
 
-
+    /**
+     * Connects the driver to the database.
+     * @param args
+     */
     public static void main(String[] args) {
-       // Locale.setDefault(new Locale("fr"));
-
         JDBC.makeConnection();
         launch(args);
     }
