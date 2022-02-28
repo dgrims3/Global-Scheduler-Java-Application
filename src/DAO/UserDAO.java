@@ -1,6 +1,8 @@
 package DAO;
 
 import helper.TimeHelper;
+import helper.lambdaThree;
+import helper.lambdaTwo;
 import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,6 +25,16 @@ public class UserDAO {
     PreparedStatement statement = null;
     ResultSet resultSet = null;
     Connection connection = JDBC.getConnection();
+    lambdaTwo toTimestamp = l -> {
+        ZoneId UTC = ZoneId.of("Etc/UTC");
+        ZoneId myZone = ZoneId.systemDefault();
+        return Timestamp.valueOf(l.atZone(myZone).withZoneSameInstant(UTC).toLocalDateTime());
+    };
+    lambdaThree toLocal = t -> {
+        ZoneId UTC = ZoneId.of("Etc/UTC");
+        ZoneId myZone = ZoneId.systemDefault();
+        return t.toLocalDateTime().atZone(UTC).withZoneSameInstant(myZone).toLocalDateTime();
+    };
     public ObservableList <User> allUsers = FXCollections.observableArrayList();
 
     public void fillList(){
@@ -56,9 +68,9 @@ public class UserDAO {
             statement.setInt(1, user.getUser_ID());
             resultSet = statement.executeQuery();
             while (resultSet.next()){
-                if(TimeHelper.toLocalDateTimeConverter(resultSet.getTimestamp(1)).isAfter(start) && TimeHelper.toLocalDateTimeConverter(resultSet.getTimestamp(1)).isBefore(start15)){
-                    t.add(new Appointment(TimeHelper.toLocalDateTimeConverter(resultSet.getTimestamp(1)),
-                            TimeHelper.toLocalDateTimeConverter(resultSet.getTimestamp(2)),
+                if(toLocal.toLocalDateTime(resultSet.getTimestamp(1)).isAfter(start)/*TimeHelper.toLocalDateTimeConverter(resultSet.getTimestamp(1)).isAfter(start)*/ && /*TimeHelper.toLocalDateTimeConverter(resultSet.getTimestamp(1))*/toLocal.toLocalDateTime(resultSet.getTimestamp(1)).isBefore(start15)){
+                    t.add(new Appointment( toLocal.toLocalDateTime(resultSet.getTimestamp(1)),//TimeHelper.toLocalDateTimeConverter(resultSet.getTimestamp(1)),
+                            toLocal.toLocalDateTime(resultSet.getTimestamp(2)),//TimeHelper.toLocalDateTimeConverter(resultSet.getTimestamp(2)),
                             resultSet.getInt(3)));
                 }
             }

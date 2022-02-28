@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="304.0" prefWidth="400.0" style="-fx-border-color: black; -fx-border-width: 10;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="500.0" style="-fx-border-color: black; -fx-border-width: 10;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
    <children>
-      <VBox layoutX="3.0" layoutY="107.0" prefHeight="192.0" prefWidth="394.0" style="-fx-background-color: lightslategrey;">
+      <VBox layoutX="3.0" layoutY="107.0" prefHeight="475.0" prefWidth="500.0" style="-fx-background-color: lightslategrey;">
          <children>
             <TextField fx:id="loginUserName" prefHeight="32.0" prefWidth="394.0">
                <VBox.margin>
@@ -44,7 +44,7 @@
             </Label>
          </children>
       </VBox>
-      <Pane layoutX="3.0" layoutY="5.0" prefHeight="102.0" prefWidth="394.0" style="-fx-background-color: D3D3D3;">
+      <Pane layoutX="3.0" layoutY="5.0" prefHeight="102.0" prefWidth="493.0" style="-fx-background-color: D3D3D3;">
          <children>
             <Label fx:id="loginTitle" alignment="CENTER" layoutX="53.0" layoutY="21.0" prefHeight="66.0" prefWidth="295.0" textAlignment="CENTER">
                <font>

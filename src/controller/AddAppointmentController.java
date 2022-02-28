@@ -5,6 +5,7 @@ import DAO.CountryDAO;
 import DAO.DivisionDAO;
 import com.sun.scenario.effect.impl.sw.java.JSWBlend_SRC_OUTPeer;
 import helper.TimeHelper;
+import helper.lambdaThree;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -44,9 +45,14 @@ public class AddAppointmentController implements Initializable {
     @FXML private ComboBox<Integer> addApptCustomerID;
     @FXML private ComboBox<String> addApptContact;
     @FXML private Label addApptLabel;
+    lambdaThree toLocal = t -> {
+        ZoneId UTC = ZoneId.of("Etc/UTC");
+        ZoneId myZone = ZoneId.systemDefault();
+        return t.toLocalDateTime().atZone(UTC).withZoneSameInstant(myZone).toLocalDateTime();
+    };
 
 
-        public ObservableList<LocalTime> setTimeComboBox(){
+    public ObservableList<LocalTime> setTimeComboBox(){
         ObservableList<LocalTime> time = FXCollections.observableArrayList();
         LocalTime.now(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("h:mm:ss"));
         LocalTime start = LocalTime.of(5, 0);
@@ -176,8 +182,8 @@ public class AddAppointmentController implements Initializable {
 
     public void setText(Appointment appointment) throws SQLException {
         date = appointment.getStart().toLocalDate();
-        LocalDateTime start = TimeHelper.toLocalDateTimeConverter(Timestamp.valueOf(appointment.getStart()));
-        LocalDateTime end = TimeHelper.toLocalDateTimeConverter(Timestamp.valueOf(appointment.getEnd()));
+        LocalDateTime start = toLocal.toLocalDateTime(Timestamp.valueOf(appointment.getStart()));//TimeHelper.toLocalDateTimeConverter(Timestamp.valueOf(appointment.getStart()));
+        LocalDateTime end = toLocal.toLocalDateTime(Timestamp.valueOf(appointment.getEnd()));//TimeHelper.toLocalDateTimeConverter(Timestamp.valueOf(appointment.getEnd()));
 
         addApptLabel.setText("Modify Appointment");
         addAppointmentId.setText(String.valueOf(appointment.getAppointment_ID()));

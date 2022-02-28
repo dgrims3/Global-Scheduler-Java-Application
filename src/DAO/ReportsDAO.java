@@ -1,6 +1,8 @@
 package DAO;
 
 import helper.TimeHelper;
+import helper.lambdaThree;
+import helper.lambdaTwo;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Appointment;
@@ -9,12 +11,23 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 
 public class ReportsDAO {
     Connection connection = JDBC.getConnection();
     PreparedStatement statement = null;
     ResultSet resultSet = null;
+    lambdaTwo toTimestamp = l -> {
+        ZoneId UTC = ZoneId.of("Etc/UTC");
+        ZoneId myZone = ZoneId.systemDefault();
+        return Timestamp.valueOf(l.atZone(myZone).withZoneSameInstant(UTC).toLocalDateTime());
+    };
+    lambdaThree toLocal = t -> {
+        ZoneId UTC = ZoneId.of("Etc/UTC");
+        ZoneId myZone = ZoneId.systemDefault();
+        return t.toLocalDateTime().atZone(UTC).withZoneSameInstant(myZone).toLocalDateTime();
+    };
     public ArrayList<Integer> apptLength(){
         ArrayList<Integer> i = new ArrayList<>();
         String sql = "SELECT End, Start FROM appointments";
@@ -23,8 +36,8 @@ public class ReportsDAO {
             resultSet = statement.executeQuery();
 
             while(resultSet.next()){
-                Integer j = TimeHelper.toLocalDateTimeConverter(resultSet.getTimestamp(1)).toLocalTime().toSecondOfDay();
-                Integer k = TimeHelper.toLocalDateTimeConverter(resultSet.getTimestamp(2)).toLocalTime().toSecondOfDay();
+                Integer j = toLocal.toLocalDateTime(resultSet.getTimestamp(1)).toLocalTime().toSecondOfDay();//TimeHelper.toLocalDateTimeConverter(resultSet.getTimestamp(1)).toLocalTime().toSecondOfDay();
+                Integer k = toLocal.toLocalDateTime(resultSet.getTimestamp(2)).toLocalTime().toSecondOfDay();//TimeHelper.toLocalDateTimeConverter(resultSet.getTimestamp(2)).toLocalTime().toSecondOfDay();
                 Integer l = (j-k)/60;
                 i.add(l);
             }
@@ -116,8 +129,8 @@ public class ReportsDAO {
             statement = connection.prepareStatement(sql);
             resultSet = statement.executeQuery();
             while (resultSet.next()){appointment.add(new Appointment(
-                    TimeHelper.toLocalDateTimeConverter(resultSet.getTimestamp(1)),
-                    TimeHelper.toLocalDateTimeConverter(resultSet.getTimestamp(2)),
+                    toLocal.toLocalDateTime(resultSet.getTimestamp(1)),//TimeHelper.toLocalDateTimeConverter(resultSet.getTimestamp(1)),
+                    toLocal.toLocalDateTime(resultSet.getTimestamp(2)),//TimeHelper.toLocalDateTimeConverter(resultSet.getTimestamp(2)),
                     resultSet.getInt(3)));
             }
         } catch (SQLException e) {

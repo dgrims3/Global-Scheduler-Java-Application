@@ -1,6 +1,8 @@
 package DAO;
 
 import helper.TimeHelper;
+import helper.lambdaThree;
+import helper.lambdaTwo;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Appointment;
@@ -10,10 +12,21 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
+
 public class AppointmentDAO {
     Connection connection = JDBC.getConnection();
     PreparedStatement statement = null;
     ResultSet resultSet = null;
+    lambdaTwo toTimestamp = l -> {
+        ZoneId UTC = ZoneId.of("Etc/UTC");
+        ZoneId myZone = ZoneId.systemDefault();
+        return Timestamp.valueOf(l.atZone(myZone).withZoneSameInstant(UTC).toLocalDateTime());
+    };
+    lambdaThree toLocal = t -> {
+       ZoneId UTC = ZoneId.of("Etc/UTC");
+       ZoneId myZone = ZoneId.systemDefault();
+       return t.toLocalDateTime().atZone(UTC).withZoneSameInstant(myZone).toLocalDateTime();
+    };
 
     public int getContactID (String string){
         String sql = "Select Contact_ID from contacts WHERE Contact_Name = ?";
@@ -40,8 +53,8 @@ public class AppointmentDAO {
             statement.setInt(1, id);
             resultSet = statement.executeQuery();
             while (resultSet.next()){appointment.add(new Appointment(
-                    TimeHelper.toLocalDateTimeConverter(resultSet.getTimestamp(1)),
-                    TimeHelper.toLocalDateTimeConverter(resultSet.getTimestamp(2)),
+                  toLocal.toLocalDateTime(resultSet.getTimestamp(1)), // TimeHelper.toLocalDateTimeConverter(resultSet.getTimestamp(1)),
+                   toLocal.toLocalDateTime(resultSet.getTimestamp(2)), //TimeHelper.toLocalDateTimeConverter(resultSet.getTimestamp(2)),
                     resultSet.getInt(3)));
             }
 
@@ -126,8 +139,8 @@ public class AppointmentDAO {
             statement.setString(2, appointment.getDescription());
             statement.setString(3, appointment.getLocation());
             statement.setString(4, appointment.getType());
-            statement.setTimestamp(5, TimeHelper.toTimestampConverter(appointment.getStart()));
-            statement.setTimestamp(6, TimeHelper.toTimestampConverter(appointment.getEnd()));
+            statement.setTimestamp(5, toTimestamp.toTimestamp(appointment.getStart())); //TimeHelper.toTimestampConverter(appointment.getStart()));
+            statement.setTimestamp(6, toTimestamp.toTimestamp(appointment.getEnd())); //TimeHelper.toTimestampConverter(appointment.getEnd()));
             statement.setTimestamp(7, Timestamp.valueOf(LocalDateTime.now()));
             statement.setInt(8, appointment.getCustomer_ID());
             statement.setInt(9, appointment.getUser_ID());
@@ -147,9 +160,9 @@ public class AppointmentDAO {
             statement.setString(2, appointment.getDescription());
             statement.setString(3, appointment.getLocation());
             statement.setString(4, appointment.getType());
-            statement.setTimestamp(5, TimeHelper.toTimestampConverter(appointment.getStart()));
-            statement.setTimestamp(6, TimeHelper.toTimestampConverter(appointment.getEnd()));
-            statement.setTimestamp(7, TimeHelper.toTimestampConverter(LocalDateTime.now(ZoneId.systemDefault())));
+            statement.setTimestamp(5, toTimestamp.toTimestamp(appointment.getStart()));//TimeHelper.toTimestampConverter(appointment.getStart()));
+            statement.setTimestamp(6, toTimestamp.toTimestamp(appointment.getEnd()));//TimeHelper.toTimestampConverter(appointment.getEnd()));
+            statement.setTimestamp(7,  toTimestamp.toTimestamp(LocalDateTime.now(ZoneId.systemDefault())));//TimeHelper.toTimestampConverter(LocalDateTime.now(ZoneId.systemDefault())));
             statement.setInt(8, appointment.getCustomer_ID());
             statement.setInt(9, appointment.getUser_ID());
             statement.setInt(10, appointment.getContact_ID());

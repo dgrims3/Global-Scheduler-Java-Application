@@ -21,7 +21,7 @@ ZoneId zoneId;
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("../view/LoginScreen.fxml"));
         primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setScene(new Scene(root, 500, 475));
         primaryStage.show();
     }
 
