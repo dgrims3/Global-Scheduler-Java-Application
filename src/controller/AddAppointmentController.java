@@ -26,7 +26,9 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
-
+/**
+ *
+ */
 public class AddAppointmentController implements Initializable {
     AppointmentDAO dao = new AppointmentDAO();
     LocalDate date;
