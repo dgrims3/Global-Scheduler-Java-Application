@@ -11,9 +11,20 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
+/**
+ * This class is the Country Data Access Object. This is used for all methods that involve connecting to the database.
+ */
 public class CountryDAO {
+    /**
+     *
+     * @return Observable List
+     */
     public ObservableList<Country> getAllCountries(){return allCountries();}
+
+    /**
+     * This method returns a list of all countries in the database.
+     * @return Observable List
+     */
     public ObservableList<Country> allCountries() {
         ObservableList<Country> countries = FXCollections.observableArrayList();
         Connection connection = null;
@@ -36,7 +47,13 @@ public class CountryDAO {
         }
         return countries;
     }
-    //
+
+    /**
+     * This method takes a country ID as input and returns a country object.
+     * @param i
+     * @return Country
+     * @throws SQLException
+     */
     public Country getCountryForModifyCustomer (int i) throws SQLException {
         Connection connection = JDBC.getConnection();
         PreparedStatement statement = null;

@@ -12,22 +12,35 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
-
+/**
+ * This class is the appointment Data Access Object. This is used for all methods that involve connecting to the database.
+ */
 public class AppointmentDAO {
     Connection connection = JDBC.getConnection();
     PreparedStatement statement = null;
     ResultSet resultSet = null;
-    lambdaTwo toTimestamp = l -> {
+    /**
+     * This lambda expression takes in a LocalDateTime and gives back a Timestamp used for inserting into the database.
+     */
+ lambdaTwo toTimestamp = l -> {
         ZoneId UTC = ZoneId.of("Etc/UTC");
         ZoneId myZone = ZoneId.systemDefault();
         return Timestamp.valueOf(l.atZone(myZone).withZoneSameInstant(UTC).toLocalDateTime());
     };
-    lambdaThree toLocal = t -> {
+    /**
+     * This lambda expression takes in a Timestamp and gives back a LocalDateTime used for extracting from the database.
+     */
+ lambdaThree toLocal = t -> {
        ZoneId UTC = ZoneId.of("Etc/UTC");
        ZoneId myZone = ZoneId.systemDefault();
        return t.toLocalDateTime().atZone(UTC).withZoneSameInstant(myZone).toLocalDateTime();
     };
 
+    /**
+     * This method takes in a contact name and returns a contact ID.
+     * @param string
+     * @return int
+     */
     public int getContactID (String string){
         String sql = "Select Contact_ID from contacts WHERE Contact_Name = ?";
         int i = 0;
@@ -44,6 +57,11 @@ public class AppointmentDAO {
         return i;
     }
 
+    /**
+     * This method takes a customer ID and returns all appointments for that customer.
+     * @param id
+     * @return Observable List
+     */
     public ObservableList<Appointment> appointmentTimes(Integer id){
         ObservableList<Appointment> appointment = FXCollections.observableArrayList();
         String sql = "select Start, End, Appointment_ID from appointments where Customer_ID = ?";
@@ -64,6 +82,10 @@ public class AppointmentDAO {
         return appointment;
     }
 
+    /**
+     * This method returns a list of all contacts in the database.
+     * @return Observable list
+     */
     public ObservableList<String> allContacts(){
         ObservableList<String> contacts = FXCollections.observableArrayList();
         String sql = "Select Contact_Name from contacts";
@@ -78,6 +100,11 @@ public class AppointmentDAO {
         }
         return contacts;
     }
+
+    /**
+     * This method returns all user ID's.
+     * @return Observable List
+     */
     public ObservableList<Integer> allUserIDs(){
         ObservableList<Integer> users = FXCollections.observableArrayList();
         String sql = "Select User_ID from users order by User_ID";
@@ -91,6 +118,11 @@ public class AppointmentDAO {
         }
         return users;
     }
+
+    /**
+     * This method returns all customer ID's.
+     * @return Observable List
+     */
     public ObservableList<Integer> allCustomerIDs(){
         ObservableList<Integer> customers = FXCollections.observableArrayList();
         String sql = "Select Customer_ID from customers order by Customer_ID";
@@ -104,6 +136,11 @@ public class AppointmentDAO {
         }
         return customers;
     }
+
+    /**
+     * This method returns all appointments in the database.
+     * @return Observable List
+     */
     public ObservableList<Appointment> allAppointments(){
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
         String sql = "select * from appointments left join contacts on  contacts.Contact_ID = appointments.Contact_ID";
@@ -130,6 +167,11 @@ public class AppointmentDAO {
         }
         return appointments;
     }
+
+    /**This method inserts a new appointment into the database.
+     *
+     * @param appointment
+     */
     public void addNewAppointment(Appointment appointment){
         String sql = "INSERT INTO appointments(Title, Description, Location, Type, Start, End, Create_Date, Customer_ID, User_ID, Contact_ID)" +
                 "VALUES(?,?,?,?,?,?,?,?,?,?)";
@@ -152,6 +194,11 @@ public class AppointmentDAO {
         }
 
     }
+
+    /**
+     * This method updates appointments in the database.
+     * @param appointment
+     */
     public void updateAppointment(Appointment appointment){
         String sql = "UPDATE appointments SET Title = ?, Description  = ?, Location  = ?, Type  = ?, Start  = ?, End  = ?, Last_Update = ?, Customer_ID  = ?, User_ID  = ?, Contact_ID  = ? WHERE Appointment_ID = ?";
         try {
@@ -174,6 +221,11 @@ public class AppointmentDAO {
         }
 
     }
+
+    /**
+     * this method deletes an appointment from the database.
+     * @param i
+     */
     public void deleteAppointment(int i){
        String sql = "delete from appointments where Appointment_ID = ?";
 
@@ -186,6 +238,12 @@ public class AppointmentDAO {
         }
 
     }
+
+    /**
+     * This method takes a month int and returns a list of appointments, filtered by month.
+     * @param i
+     * @return Observable List
+     */
     public ObservableList<Appointment> filterByMonth(int i){
         allAppointments();
         ObservableList<Appointment> month = FXCollections.observableArrayList();
@@ -198,6 +256,10 @@ public class AppointmentDAO {
         return month;
     }
 
+    /** this method returns a list of appointments, filtered by week.
+     *
+     * @return Observable List
+     */
     public ObservableList<Appointment> filterByWeek(){
         allAppointments();
         ObservableList<Appointment> week = FXCollections.observableArrayList();
