@@ -15,24 +15,39 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.User;
 
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.text.MessageFormat;
 import java.time.ZoneId;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 import java.util.TimeZone;
 
 /**
  * Controller screen that allows a user to log in to the application.
  */
-public class LoginController implements Initializable {
+public class LoginController implements Initializable  {
+    /**
+     * Adds exception to class default constructor signature.
+     * @throws IOException
+     */
+    public LoginController() throws IOException {
+    }
         Stage stage;
         Parent scene;
         ResourceBundle rb = ResourceBundle.getBundle("resourceBundle/rb", Locale.getDefault());
+        String fileName = "login_activity.txt";
+        Scanner scanner = new Scanner(System.in);
+        FileWriter fw = new FileWriter(fileName, true);
+        PrintWriter pw = new PrintWriter(fw);
         @FXML private TextField loginPassword, loginUserName;
         @FXML private Label loginTitle, loginZone;
         @FXML private Button loginButton, quitButton;
+
 
 
     /**
