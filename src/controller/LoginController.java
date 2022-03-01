@@ -20,7 +20,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
+import java.sql.Timestamp;
 import java.text.MessageFormat;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -48,7 +50,17 @@ public class LoginController implements Initializable  {
         @FXML private Label loginTitle, loginZone;
         @FXML private Button loginButton, quitButton;
 
-
+    /**
+     * Method that writes log in attempts to a text file.
+     * @param userName
+     * @param password
+     * @param bool
+     */
+    public void logInLog (String userName, String password, Boolean bool) {
+        pw.append(Timestamp.valueOf(LocalDateTime.now())+" "+userName+" "+password+" "+ "login attempt was successful = "+bool + "\n");
+        pw.flush();
+        pw.close();
+    }
 
     /**
      * Sets the text for the log in screen. Depending on the users Locale the words will be in either French or German.
@@ -92,8 +104,10 @@ public class LoginController implements Initializable  {
                 for (User u: dao.getAllUsers()) {
                        if (username.equals(u.getUser_name()) && password.equals(u.getPassword())) {
                            dao.appointmentAlert(u);
+                           logInLog(username, password, true);
                                bool = true;
                        }
+                       else logInLog(username, password, false);
                  }return bool;
        }
 
