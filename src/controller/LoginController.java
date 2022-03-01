@@ -28,6 +28,9 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 import java.util.TimeZone;
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 /**
  * Controller screen that allows a user to log in to the application.
@@ -50,6 +53,7 @@ public class LoginController implements Initializable  {
         @FXML private Label loginTitle, loginZone;
         @FXML private Button loginButton, quitButton;
 
+
     /**
      * Method that writes log in attempts to a text file.
      * @param userName
@@ -58,8 +62,10 @@ public class LoginController implements Initializable  {
      */
     public void logInLog (String userName, String password, Boolean bool) {
         pw.append(Timestamp.valueOf(LocalDateTime.now())+" "+userName+" "+password+" "+ "login attempt was successful = "+bool + "\n");
+        System.out.println("yes");
         pw.flush();
         pw.close();
+
     }
 
     /**
@@ -104,10 +110,10 @@ public class LoginController implements Initializable  {
                 for (User u: dao.getAllUsers()) {
                        if (username.equals(u.getUser_name()) && password.equals(u.getPassword())) {
                            dao.appointmentAlert(u);
-                           logInLog(username, password, true);
+
                                bool = true;
                        }
-                       else logInLog(username, password, false);
+
                  }return bool;
        }
 
@@ -118,6 +124,7 @@ public class LoginController implements Initializable  {
      */
         @FXML void onActionLoginToMain(ActionEvent event) throws IOException {
           if (userLogin(loginUserName.getText(), loginPassword.getText())){
+              logInLog(loginUserName.getText(), loginPassword.getText(), true);
               UserDAO dao = new UserDAO();
               stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
               scene = FXMLLoader.load(getClass().getResource("/view/MainScreen.fxml"));
@@ -125,6 +132,7 @@ public class LoginController implements Initializable  {
               stage.show();
             }
           else {
+              logInLog(loginUserName.getText(), loginPassword.getText(), false);
               Alert alert = new Alert(Alert.AlertType.ERROR);
               alert.setTitle(rb.getString("AlertTitle"));
               alert.setContentText(rb.getString("Alert"));
