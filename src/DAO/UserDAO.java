@@ -1,24 +1,18 @@
 package DAO;
 
-import helper.TimeHelper;
 import helper.lambdaThree;
-import helper.lambdaTwo;
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import model.Appointment;
 import model.User;
 
-import java.net.URL;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
-import java.time.temporal.ChronoUnit;
-import java.util.ResourceBundle;
+
 /**
  * This class is the User Data Access Object. This is used for all methods that involve connecting to the database.
  */
@@ -76,9 +70,9 @@ public class UserDAO {
             statement.setInt(1, user.getUser_ID());
             resultSet = statement.executeQuery();
             while (resultSet.next()){
-                if(toLocal.toLocalDateTime(resultSet.getTimestamp(1)).isAfter(start)/*TimeHelper.toLocalDateTimeConverter(resultSet.getTimestamp(1)).isAfter(start)*/ && /*TimeHelper.toLocalDateTimeConverter(resultSet.getTimestamp(1))*/toLocal.toLocalDateTime(resultSet.getTimestamp(1)).isBefore(start15)){
-                    t.add(new Appointment( toLocal.toLocalDateTime(resultSet.getTimestamp(1)),//TimeHelper.toLocalDateTimeConverter(resultSet.getTimestamp(1)),
-                            toLocal.toLocalDateTime(resultSet.getTimestamp(2)),//TimeHelper.toLocalDateTimeConverter(resultSet.getTimestamp(2)),
+                if(toLocal.toLocalDateTime(resultSet.getTimestamp(1)).isAfter(start) && toLocal.toLocalDateTime(resultSet.getTimestamp(1)).isBefore(start15)){
+                    t.add(new Appointment( toLocal.toLocalDateTime(resultSet.getTimestamp(1)),
+                            toLocal.toLocalDateTime(resultSet.getTimestamp(2)),
                             resultSet.getInt(3)));
                 }
             }

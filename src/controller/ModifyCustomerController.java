@@ -21,6 +21,9 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+/**
+ * Controller class for modifying an existing customer.
+ */
 public class ModifyCustomerController implements Initializable {
 
     @FXML private TextField addCustomerId;
@@ -33,6 +36,12 @@ public class ModifyCustomerController implements Initializable {
     CountryDAO dao = new CountryDAO();
     DivisionDAO divDao =new DivisionDAO();
     public ObservableList<Country> countryComboBox = dao.getAllCountries();
+
+    /**
+     * Method that takes in a Country object and returns a Division Observable list.
+     * @param country
+     * @return Observable List
+     */
     public ObservableList<Division> divisionComboBox(Country country){
         if(addCustomerCountryComboBox.getSelectionModel().getSelectedIndex()==0){
             return divDao.getAllUsDivisions();
@@ -44,7 +53,11 @@ public class ModifyCustomerController implements Initializable {
         return null;
     }
 
-
+    /**
+     * Method used to fill the text areas with the information of the chosen Customer.
+     * @param customer
+     * @throws SQLException
+     */
     public void setText(Customer customer) throws SQLException {
         CountryDAO dao = new CountryDAO();
         DivisionDAO divDao = new DivisionDAO();
@@ -56,17 +69,23 @@ public class ModifyCustomerController implements Initializable {
         addCustomerDivisionComboBox.setValue(divDao.getDivisionForModifyCustomer(customer.getDivision_ID()));
         addCustomerCountryComboBox.setValue(dao.getCountryForModifyCustomer(customer.getDivision_ID()));
     }
-    @FXML
-    void onActionCancelAddCustomer(ActionEvent event) throws IOException {
+
+    /**
+     * Returns user to main screen.
+     * @param event
+     * @throws IOException
+     */
+    @FXML void onActionCancelAddCustomer(ActionEvent event) throws IOException {
         SceneChange scene = new SceneChange();
         scene.changeScene(event, "/view/MainScreen.fxml");
     }
 
-  /*  @FXML void onActionReset(ActionEvent event) throws SQLException {
-        CustomerDAO dao = new CustomerDAO();
-        setText(dao.refreshCustomer(Integer.parseInt(addCustomerId.getText())));
-    }*/
-
+    /**
+     * Saves new Customer in database.
+     * @param event
+     * @throws SQLException
+     * @throws IOException
+     */
     @FXML void onActionSaveAddCustomer(ActionEvent event) throws SQLException, IOException {
         CustomerDAO dao = new CustomerDAO();
         SceneChange scene = new SceneChange();
@@ -86,6 +105,10 @@ public class ModifyCustomerController implements Initializable {
 
     }
 
+    /**
+     * Fills combo box with divisions.
+     * @param event
+     */
     @FXML void onActionSelectCountry(ActionEvent event) {
         addCustomerDivisionComboBox.setItems(divisionComboBox(addCustomerCountryComboBox.getSelectionModel().getSelectedItem()));
     }
@@ -94,6 +117,11 @@ public class ModifyCustomerController implements Initializable {
 
     }
 
+    /**
+     * override initialize method.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         addCustomerCountryComboBox.setItems(countryComboBox);

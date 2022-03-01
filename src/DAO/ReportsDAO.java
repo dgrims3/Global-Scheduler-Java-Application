@@ -1,16 +1,11 @@
 package DAO;
 
-import helper.TimeHelper;
 import helper.lambdaThree;
-import helper.lambdaTwo;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Appointment;
 
 import java.sql.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 /**
@@ -41,8 +36,8 @@ public class ReportsDAO {
             resultSet = statement.executeQuery();
 
             while(resultSet.next()){
-                Integer j = toLocal.toLocalDateTime(resultSet.getTimestamp(1)).toLocalTime().toSecondOfDay();//TimeHelper.toLocalDateTimeConverter(resultSet.getTimestamp(1)).toLocalTime().toSecondOfDay();
-                Integer k = toLocal.toLocalDateTime(resultSet.getTimestamp(2)).toLocalTime().toSecondOfDay();//TimeHelper.toLocalDateTimeConverter(resultSet.getTimestamp(2)).toLocalTime().toSecondOfDay();
+                Integer j = toLocal.toLocalDateTime(resultSet.getTimestamp(1)).toLocalTime().toSecondOfDay();
+                Integer k = toLocal.toLocalDateTime(resultSet.getTimestamp(2)).toLocalTime().toSecondOfDay();
                 Integer l = (j-k)/60;
                 i.add(l);
             }
@@ -159,8 +154,8 @@ public class ReportsDAO {
             statement = connection.prepareStatement(sql);
             resultSet = statement.executeQuery();
             while (resultSet.next()){appointment.add(new Appointment(
-                    toLocal.toLocalDateTime(resultSet.getTimestamp(1)),//TimeHelper.toLocalDateTimeConverter(resultSet.getTimestamp(1)),
-                    toLocal.toLocalDateTime(resultSet.getTimestamp(2)),//TimeHelper.toLocalDateTimeConverter(resultSet.getTimestamp(2)),
+                    toLocal.toLocalDateTime(resultSet.getTimestamp(1)),
+                    toLocal.toLocalDateTime(resultSet.getTimestamp(2)),
                     resultSet.getInt(3)));
             }
         } catch (SQLException e) {

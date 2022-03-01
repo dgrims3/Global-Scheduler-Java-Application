@@ -23,24 +23,21 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.TimeZone;
 
+/**
+ * Controller screen that allows a user to log in to the application.
+ */
 public class LoginController implements Initializable {
-
         Stage stage;
         Parent scene;
-
         ResourceBundle rb = ResourceBundle.getBundle("resourceBundle/rb", Locale.getDefault());
-
-        @FXML
-        private TextField loginPassword, loginUserName;
-
-        @FXML
-        private Label loginTitle, loginZone;
-
-        @FXML
-        private Button loginButton, quitButton;
+        @FXML private TextField loginPassword, loginUserName;
+        @FXML private Label loginTitle, loginZone;
+        @FXML private Button loginButton, quitButton;
 
 
-
+    /**
+     * Sets the text for the log in screen. Depending on the users Locale the words will be in either French or German.
+     */
     public void setText() {
                 loginPassword.setPromptText(rb.getString("Password"));
                 loginTitle.setText(rb.getString("Title"));
@@ -48,8 +45,14 @@ public class LoginController implements Initializable {
                 loginButton.setText(rb.getString("Login"));
                 quitButton.setText(rb.getString("Quit"));
                 loginZone.setText(String.valueOf(ZoneId.of(TimeZone.getDefault().getID())));
-        }
+    }
 
+    /**
+     * Method that checks if username and password match a user from the database.
+     * @param username
+     * @param password
+     * @return boolean
+     */
         public boolean userLogin(String username, String password){
                boolean bool = false;
                UserDAO dao = new UserDAO();
@@ -79,8 +82,12 @@ public class LoginController implements Initializable {
                  }return bool;
        }
 
-        @FXML
-        void onActionLoginToMain(ActionEvent event) throws IOException {
+    /**
+     * takes a user to the main screen on successful login.
+     * @param event
+     * @throws IOException
+     */
+        @FXML void onActionLoginToMain(ActionEvent event) throws IOException {
           if (userLogin(loginUserName.getText(), loginPassword.getText())){
               UserDAO dao = new UserDAO();
               stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
@@ -96,11 +103,20 @@ public class LoginController implements Initializable {
           }
         }
 
+    /**
+     * Method that quits the program
+     * @param event
+     */
         @FXML
         void onActionQuitProgram(ActionEvent event) {
                 System.exit(0);
         }
 
+    /**
+     * Override initialize method.
+     * @param url
+     * @param resourceBundle
+     */
         @Override
         public void initialize (URL url, ResourceBundle resourceBundle){
                 setText();

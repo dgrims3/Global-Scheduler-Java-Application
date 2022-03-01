@@ -1,10 +1,6 @@
 package controller;
 
 import DAO.AppointmentDAO;
-import DAO.CountryDAO;
-import DAO.DivisionDAO;
-import com.sun.scenario.effect.impl.sw.java.JSWBlend_SRC_OUTPeer;
-import helper.TimeHelper;
 import helper.lambdaThree;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,9 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import model.Appointment;
-import model.Customer;
 import model.SceneChange;
-import org.w3c.dom.ls.LSOutput;
 
 
 import java.io.IOException;
@@ -27,7 +21,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 /**
- *
+ *Controller class that adds new appointments to database.
  */
 public class AddAppointmentController implements Initializable {
     AppointmentDAO dao = new AppointmentDAO();
@@ -47,13 +41,19 @@ public class AddAppointmentController implements Initializable {
     @FXML private ComboBox<Integer> addApptCustomerID;
     @FXML private ComboBox<String> addApptContact;
     @FXML private Label addApptLabel;
+    /**
+     * Lambda expression that takes a timestamp and returns a LocalDateTime.
+     */
     lambdaThree toLocal = t -> {
         ZoneId UTC = ZoneId.of("Etc/UTC");
         ZoneId myZone = ZoneId.systemDefault();
         return t.toLocalDateTime().atZone(UTC).withZoneSameInstant(myZone).toLocalDateTime();
     };
 
-
+    /**
+     * fills a combo box with LocalTimes for the user to select a start time.
+     * @return Observable List
+     */
     public ObservableList<LocalTime> setTimeComboBox(){
         ObservableList<LocalTime> time = FXCollections.observableArrayList();
         LocalTime.now(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("h:mm:ss"));
@@ -69,19 +69,42 @@ public class AddAppointmentController implements Initializable {
 
     @FXML void onActionSelectUserID(ActionEvent event) {};
     @FXML void onActionSelectCustomerID(ActionEvent actionEvent){};
+
+    /**
+     * sets start time for new appointment.
+     * @param event
+     */
     @FXML void onActionAddHours(ActionEvent event) {
         LocalDate startDate = ApptDatePicker.getValue();
     }
+
+    /**
+     * sets end time for new appointment.
+     * @param event
+     */
     @FXML void onActionAddEndHours(ActionEvent event) {
         LocalDate endDate = ApptDatePicker.getValue();
     }
+
+    /**
+     * brings user back to the main screen.
+     * @param event
+     * @throws IOException
+     */
     @FXML void onActionCancelAddAppointment(ActionEvent event) throws IOException {
        SceneChange scene = new SceneChange();
         scene.changeScene(event, "/view/MainScreen.fxml");
     }
+
+    /**
+     * Method that checks if the user selected a time before the businesses open hours.
+     * @param localStart
+     * @param localEnd
+     * @return boolean
+     */
     public boolean compareTimes(ZonedDateTime localStart, ZonedDateTime localEnd) {
-           ZonedDateTime zonedStart = localStart.withZoneSameInstant(EST); //ZonedDateTime.of(localStart.toLocalDateTime(), EST);
-           ZonedDateTime zonedEnd = localEnd.withZoneSameInstant(EST); //ZonedDateTime.of(localEnd.toLocalDateTime(), EST);
+           ZonedDateTime zonedStart = localStart.withZoneSameInstant(EST);
+           ZonedDateTime zonedEnd = localEnd.withZoneSameInstant(EST);
            LocalDateTime selectedStartTime = zonedStart.withZoneSameInstant(EST).toLocalDateTime();
            LocalDateTime selectedEndTime = zonedEnd.withZoneSameInstant(EST).toLocalDateTime();
 
@@ -107,6 +130,12 @@ public class AddAppointmentController implements Initializable {
        }
        return true;
     }
+
+    /**
+     * Method that saves the new appointment into the database.
+     * @param event
+     * @throws IOException
+     */
     @FXML void onActionSaveAddAppointment(ActionEvent event) throws IOException {
         try{
             LocalDateTime start = LocalDateTime.of(date, apptHourPicker.getSelectionModel().getSelectedItem());
@@ -167,6 +196,13 @@ public class AddAppointmentController implements Initializable {
             alert.showAndWait();
        }
     }
+
+    /**
+     * Method that makes sure that the new appointment does not overlap with an already existing appointment.
+     * @param a
+     * @param b
+     * @return int
+     */
     public int timeCollision(Appointment a, Appointment b){
         int i = 0;
         if(a.getStart().isBefore(b.getStart()) && (a.getEnd().isAfter(b.getStart()) || a.getEnd().isEqual(b.getStart())) && Integer.parseInt(addAppointmentId.getText()) != b.getAppointment_ID()){
@@ -183,6 +219,11 @@ public class AddAppointmentController implements Initializable {
         }
         return i;
     }
+
+    /**
+     * Method that makes sure no fields are left empty.
+     * @return
+     */
     public boolean ifAnyEmpty(){
         if(addApptTitle.getText().isBlank()||addApptUserID.getItems().isEmpty()||addApptType.getText().isBlank()||addApptContact.getItems().isEmpty()||addApptLocation.getText().isBlank()||addApptDescription.getText().isBlank()||addApptCustomerID.getItems().isEmpty()){
             return false;
@@ -190,10 +231,15 @@ public class AddAppointmentController implements Initializable {
         return true;
     }
 
+    /**
+     * Method that fills the text fields with data from the selected appointment.
+     * @param appointment
+     * @throws SQLException
+     */
     public void setText(Appointment appointment) throws SQLException {
         date = appointment.getStart().toLocalDate();
-        LocalDateTime start = toLocal.toLocalDateTime(Timestamp.valueOf(appointment.getStart()));//TimeHelper.toLocalDateTimeConverter(Timestamp.valueOf(appointment.getStart()));
-        LocalDateTime end = toLocal.toLocalDateTime(Timestamp.valueOf(appointment.getEnd()));//TimeHelper.toLocalDateTimeConverter(Timestamp.valueOf(appointment.getEnd()));
+        LocalDateTime start = toLocal.toLocalDateTime(Timestamp.valueOf(appointment.getStart()));
+        LocalDateTime end = toLocal.toLocalDateTime(Timestamp.valueOf(appointment.getEnd()));
 
         addApptLabel.setText("Modify Appointment");
         addAppointmentId.setText(String.valueOf(appointment.getAppointment_ID()));
@@ -212,11 +258,20 @@ public class AddAppointmentController implements Initializable {
     @FXML void onActionSelectContact(ActionEvent event) {
 
     }
+
+    /**
+     * sets the date parameter with the user selected time.
+     * @param event
+     */
     @FXML void onActionAddDate(ActionEvent event) {
         date = ApptDatePicker.getValue();
     }
 
-
+    /**
+     * overload initialize method.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         apptHourPicker.setItems(setTimeComboBox());

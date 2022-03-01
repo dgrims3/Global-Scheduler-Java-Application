@@ -19,6 +19,9 @@ import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
+/**
+ * Controller for the reports class. This class generates business reports.
+ */
 public class ReportsController implements Initializable {
 
     @FXML private TableColumn<Appointment, String> apptContact;
@@ -34,6 +37,9 @@ public class ReportsController implements Initializable {
     @FXML private TextArea numberOfApptsTextArea;
     @FXML private TableView<Appointment> scheduleTableView;
     @FXML private ToggleGroup numberToggleGroup;
+    /**
+     * This lambda expression takes an array of integers and returns the average of all numbers in the array. This is used to find the average length of all appointments.
+     */
     lambdaOne avg = i -> {
         int l =0;
         for (int j = 0; j < i.size(); j++) {
@@ -45,22 +51,39 @@ public class ReportsController implements Initializable {
 
     ReportsDAO dao = new ReportsDAO();
 
+    /**
+     * Brings user back to the main screen of application.
+     * @param event
+     * @throws IOException
+     */
     @FXML void onActionBackToMain(ActionEvent event) throws IOException {
         SceneChange scene = new SceneChange();
         scene.changeScene(event, "/view/MainScreen.fxml");
     }
-    @FXML
-    void byMonthRdoBtn(ActionEvent event) {
+
+    /**
+     * Radio button that displays number of appointments per month.
+     * @param event
+     */
+    @FXML void byMonthRdoBtn(ActionEvent event) {
         numberOfApptsTextArea.clear();
         monthCountSetText();
     }
 
+    /**
+     * Radio button that displays number of appointments by type.
+     * @param event
+     */
     @FXML
     void byTypeRdoBttn(ActionEvent event) {
         numberOfApptsTextArea.clear();
         typeCountSetText();
     }
 
+    /**
+     * fills combo box with all contacts.
+     * @param event
+     */
     @FXML
     void onActionChooseContactComboBox(ActionEvent event) {
         scheduleTableView.setItems(dao.contactSchedules(dao.getContactID(chooseContactComboBox.getSelectionModel().getSelectedItem())));
@@ -73,10 +96,18 @@ public class ReportsController implements Initializable {
         apptEndTime.setCellValueFactory(new PropertyValueFactory<>("end"));
         apptCustomerID.setCellValueFactory(new PropertyValueFactory<>("customer_ID"));
     }
+
+    /**
+     * fills text area with average appt time.
+     */
     public void fillAvgTimeTextArea(){
         avgDurationTextArea.setText("Avg Length of all appointments: \n");
         avgDurationTextArea.appendText(String.valueOf(avg.average(dao.apptLength()))+" minutes");
     }
+
+    /**
+     * fills text area with number of appointments by type.
+     */
     public void typeCountSetText(){
         dao.typeCount();
         numberOfApptsTextArea.setText("Number of Appts by type are \n");
@@ -85,6 +116,10 @@ public class ReportsController implements Initializable {
             numberOfApptsTextArea.appendText("\n");
         }
     }
+
+    /**
+     * function that counts how many appointments take place each month.
+     */
     public void monthCountSetText(){
         dao.filterByMonth();
         numberOfApptsTextArea.appendText("January = "+dao.filterByMonth()[0]+"\n");
@@ -102,6 +137,11 @@ public class ReportsController implements Initializable {
 
     }
 
+    /**
+     *Override initialize method.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         chooseContactComboBox.setItems(dao.allContacts());

@@ -19,8 +19,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controller class that adds customers to the database.
+ */
 public class AddCustomerController implements Initializable {
-
 
     @FXML private TextField addCustomerId;
     @FXML private TextField addCustomerName;
@@ -32,6 +34,12 @@ public class AddCustomerController implements Initializable {
     CountryDAO dao = new CountryDAO();
     DivisionDAO divDao = new DivisionDAO();
     public ObservableList<Country> countryComboBox = dao.getAllCountries();
+
+    /**
+     * Method that takes a Country as input and returns an observable list of first level divisions.
+     * @param country
+     * @return Observable list
+     */
     public ObservableList<Division> divisionComboBox(Country country){
         if(addCustomerCountryComboBox.getSelectionModel().getSelectedIndex()==0){
             return divDao.getAllUsDivisions();
@@ -43,11 +51,21 @@ public class AddCustomerController implements Initializable {
         return null;
     }
 
-
+    /**
+     * Brings user back to the main screen.
+     * @param event
+     * @throws IOException
+     */
     @FXML void onActionCancelAddCustomer(ActionEvent event) throws IOException {
         SceneChange scene = new SceneChange();
         scene.changeScene(event, "/view/MainScreen.fxml");
     }
+
+    /**
+     * Saves a new customer into the database.
+     * @param event
+     * @throws IOException
+     */
     @FXML void onActionSaveAddCustomer(ActionEvent event) throws IOException {
         CustomerDAO dao = new CustomerDAO();
 
@@ -70,17 +88,26 @@ public class AddCustomerController implements Initializable {
             nullPointerException.printStackTrace();
             Alert alert1 = new Alert(Alert.AlertType.ERROR);
             alert1.setTitle("Missing Fields");
-            alert1.setContentText("Please enter your country and state/province");
+            alert1.setContentText("Please fill out all fields");
             alert1.showAndWait();
+        }
     }
-    }
+
+    /**
+     * Method that fills a combo box of first level divisions.
+     * @param event
+     */
     @FXML void onActionSelectCountry(ActionEvent event) {
         addCustomerDivisionComboBox.setItems(divisionComboBox(addCustomerCountryComboBox.getSelectionModel().getSelectedItem()));
     }
     @FXML void onActionSelectDivision(ActionEvent event) {
-
     }
 
+    /**
+     * override initialize method.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         addCustomerCountryComboBox.setItems(countryComboBox);

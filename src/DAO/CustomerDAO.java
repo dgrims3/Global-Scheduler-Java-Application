@@ -39,10 +39,6 @@ public class CustomerDAO {
                         resultSet.getString(3),
                         resultSet.getString(4),
                         resultSet.getString(5),
-                       /* resultSet.getTimestamp(6),
-                        resultSet.getString(7),
-                        resultSet.getTimestamp(8),
-                        resultSet.getString(9),*/
                         resultSet.getInt(10)));
             }
         } catch (SQLException throwables) {

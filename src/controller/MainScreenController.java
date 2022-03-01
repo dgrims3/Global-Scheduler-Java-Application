@@ -26,6 +26,9 @@ package controller;
         import java.util.Optional;
         import java.util.ResourceBundle;
 
+/**
+ * Controller for the main screen of the application.
+ */
 public class MainScreenController implements Initializable {
     Stage stage;
     Parent scene;
@@ -175,17 +178,29 @@ public class MainScreenController implements Initializable {
         }
     }
 
+    /**
+     * Fills table view with all appointments.
+     * @param event
+     */
     @FXML void onActionViewApptsByAll(ActionEvent event) {
         AppointmentDAO dao = new AppointmentDAO();
         appointmentsTableView.setItems(dao.allAppointments());
     }
 
+    /**
+     * Fills table view with appointments of current month.
+     * @param event
+     */
     @FXML void onActionViewApptsByMonth(ActionEvent event) {
         AppointmentDAO dao = new AppointmentDAO();
         appointmentsTableView.setItems(dao.filterByMonth(LocalDateTime.now().getMonthValue()));
 
     }
 
+    /**
+     *Fills table view with appointments of current week.
+     * @param event
+     */
     @FXML void onActionViewApptsByWeek(ActionEvent event) {
         AppointmentDAO dao = new AppointmentDAO();
         appointmentsTableView.setItems(dao.filterByWeek());
@@ -196,13 +211,29 @@ public class MainScreenController implements Initializable {
     }
     //Other Functions
 
+    /**
+     * Brings user to the business reports page.
+     * @param event
+     * @throws IOException
+     */
     @FXML void OnActionViewReportsScreen(ActionEvent event) throws IOException {
         SceneChange sceneChange = new SceneChange();
         sceneChange.changeScene(event,  "/view/Reports.fxml");
     }
+
+    /**
+     * Logs out the user from the application.
+     * @param event
+     */
     @FXML void onActionLogOut(ActionEvent event) {
         System.exit(0);
     }
+
+    /**
+     * Overload initialize method.
+     * @param url
+     * @param resourceBundle
+     */
     @Override public void initialize(URL url, ResourceBundle resourceBundle) {
         fillCustomerTableView();
         fillAppointmentTableView();

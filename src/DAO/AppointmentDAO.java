@@ -1,6 +1,5 @@
 package DAO;
 
-import helper.TimeHelper;
 import helper.lambdaThree;
 import helper.lambdaTwo;
 import javafx.collections.FXCollections;
@@ -71,8 +70,8 @@ public class AppointmentDAO {
             statement.setInt(1, id);
             resultSet = statement.executeQuery();
             while (resultSet.next()){appointment.add(new Appointment(
-                  toLocal.toLocalDateTime(resultSet.getTimestamp(1)), // TimeHelper.toLocalDateTimeConverter(resultSet.getTimestamp(1)),
-                   toLocal.toLocalDateTime(resultSet.getTimestamp(2)), //TimeHelper.toLocalDateTimeConverter(resultSet.getTimestamp(2)),
+                  toLocal.toLocalDateTime(resultSet.getTimestamp(1)),
+                   toLocal.toLocalDateTime(resultSet.getTimestamp(2)),
                     resultSet.getInt(3)));
             }
 
@@ -181,8 +180,8 @@ public class AppointmentDAO {
             statement.setString(2, appointment.getDescription());
             statement.setString(3, appointment.getLocation());
             statement.setString(4, appointment.getType());
-            statement.setTimestamp(5, toTimestamp.toTimestamp(appointment.getStart())); //TimeHelper.toTimestampConverter(appointment.getStart()));
-            statement.setTimestamp(6, toTimestamp.toTimestamp(appointment.getEnd())); //TimeHelper.toTimestampConverter(appointment.getEnd()));
+            statement.setTimestamp(5, toTimestamp.toTimestamp(appointment.getStart()));
+            statement.setTimestamp(6, toTimestamp.toTimestamp(appointment.getEnd()));
             statement.setTimestamp(7, Timestamp.valueOf(LocalDateTime.now()));
             statement.setInt(8, appointment.getCustomer_ID());
             statement.setInt(9, appointment.getUser_ID());
@@ -207,9 +206,9 @@ public class AppointmentDAO {
             statement.setString(2, appointment.getDescription());
             statement.setString(3, appointment.getLocation());
             statement.setString(4, appointment.getType());
-            statement.setTimestamp(5, toTimestamp.toTimestamp(appointment.getStart()));//TimeHelper.toTimestampConverter(appointment.getStart()));
-            statement.setTimestamp(6, toTimestamp.toTimestamp(appointment.getEnd()));//TimeHelper.toTimestampConverter(appointment.getEnd()));
-            statement.setTimestamp(7,  toTimestamp.toTimestamp(LocalDateTime.now(ZoneId.systemDefault())));//TimeHelper.toTimestampConverter(LocalDateTime.now(ZoneId.systemDefault())));
+            statement.setTimestamp(5, toTimestamp.toTimestamp(appointment.getStart()));
+            statement.setTimestamp(6, toTimestamp.toTimestamp(appointment.getEnd()));
+            statement.setTimestamp(7,  toTimestamp.toTimestamp(LocalDateTime.now(ZoneId.systemDefault())));
             statement.setInt(8, appointment.getCustomer_ID());
             statement.setInt(9, appointment.getUser_ID());
             statement.setInt(10, appointment.getContact_ID());
