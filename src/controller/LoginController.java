@@ -47,8 +47,7 @@ public class LoginController implements Initializable  {
         ResourceBundle rb = ResourceBundle.getBundle("resourceBundle/rb", Locale.getDefault());
         String fileName = "login_activity.txt";
         Scanner scanner = new Scanner(System.in);
-        FileWriter fw = new FileWriter(fileName, true);
-        PrintWriter pw = new PrintWriter(fw);
+
         @FXML private TextField loginPassword, loginUserName;
         @FXML private Label loginTitle, loginZone;
         @FXML private Button loginButton, quitButton;
@@ -60,9 +59,13 @@ public class LoginController implements Initializable  {
      * @param password
      * @param bool
      */
-    public void logInLog (String userName, String password, Boolean bool) {
+    public void logInLog (String userName, String password, Boolean bool) throws IOException {
+        FileWriter fw = new FileWriter(fileName, true);
+        PrintWriter pw = new PrintWriter(fw);
         pw.append(Timestamp.valueOf(LocalDateTime.now())+" "+userName+" "+password+" "+ "login attempt was successful = "+bool + "\n");
         System.out.println("yes");
+        /*pw.print(Timestamp.valueOf(LocalDateTime.now())+" "+userName+" "+password+" "+ "login attempt was successful = "+bool + "\n");
+        System.out.println("yes");*/
         pw.flush();
         pw.close();
 
