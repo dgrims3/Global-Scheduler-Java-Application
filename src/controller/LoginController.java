@@ -63,9 +63,6 @@ public class LoginController implements Initializable  {
         FileWriter fw = new FileWriter(fileName, true);
         PrintWriter pw = new PrintWriter(fw);
         pw.append(Timestamp.valueOf(LocalDateTime.now())+" "+userName+" "+password+" "+ "login attempt was successful = "+bool + "\n");
-        System.out.println("yes");
-        /*pw.print(Timestamp.valueOf(LocalDateTime.now())+" "+userName+" "+password+" "+ "login attempt was successful = "+bool + "\n");
-        System.out.println("yes");*/
         pw.flush();
         pw.close();
 
