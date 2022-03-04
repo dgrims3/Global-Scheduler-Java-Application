@@ -50,6 +50,7 @@ public class AddAppointmentController implements Initializable {
         return t.toLocalDateTime().atZone(UTC).withZoneSameInstant(myZone).toLocalDateTime();
     };
 
+
     /**
      * fills a combo box with LocalTimes for the user to select a start time.
      * @return Observable List
@@ -238,8 +239,10 @@ public class AddAppointmentController implements Initializable {
      */
     public void setText(Appointment appointment) throws SQLException {
         date = appointment.getStart().toLocalDate();
-        LocalDateTime start = toLocal.toLocalDateTime(Timestamp.valueOf(appointment.getStart()));
-        LocalDateTime end = toLocal.toLocalDateTime(Timestamp.valueOf(appointment.getEnd()));
+        //LocalDateTime start = toLocal.toLocalDateTime(Timestamp.valueOf(appointment.getStart()));
+        //LocalDateTime end = toLocal.toLocalDateTime(Timestamp.valueOf(appointment.getEnd()));
+        LocalDateTime start = appointment.getStart();
+        LocalDateTime end = appointment.getEnd();
 
         addApptLabel.setText("Modify Appointment");
         addAppointmentId.setText(String.valueOf(appointment.getAppointment_ID()));
@@ -251,8 +254,8 @@ public class AddAppointmentController implements Initializable {
         addApptCustomerID.setValue(appointment.getCustomer_ID());
         addApptUserID.setValue(appointment.getUser_ID());
         ApptDatePicker.setValue(appointment.getStart().toLocalDate());
-        apptHourPicker.setValue(start.toLocalTime());
-        apptEndHourPicker.setValue(end.toLocalTime());
+        apptHourPicker.setValue(appointment.getStart().toLocalTime());//apptHourPicker.setValue(start.toLocalTime());
+        apptEndHourPicker.setValue(appointment.getEnd().toLocalTime());//apptEndHourPicker.setValue(end.toLocalTime());
     }
 
     @FXML void onActionSelectContact(ActionEvent event) {
