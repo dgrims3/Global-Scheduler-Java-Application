@@ -12,7 +12,7 @@ import java.util.ArrayList;
 @FunctionalInterface
 public interface lambdaTwo {
     /**
-     *
+     * This lambda takes in a localdatetime and returns a lambda.
      * @param l
      * @return timestamp
      */

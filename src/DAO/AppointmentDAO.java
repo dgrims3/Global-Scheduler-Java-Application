@@ -21,6 +21,9 @@ public class AppointmentDAO {
 
     /**
      * This lambda expression takes in a LocalDateTime and gives back a Timestamp used for inserting into the database.
+     * LAMBDA Expression: The Lambda makes the code more efficient by providing a quick conversion method that can be used anywhere.
+     * @param LocalDateTime l
+     * @returns Timestamp
      */
     lambdaTwo toTimestamp = l -> {
         ZoneId UTC = ZoneId.of("Etc/UTC");
@@ -29,6 +32,9 @@ public class AppointmentDAO {
     };
     /**
      * This lambda expression takes in a Timestamp and gives back a LocalDateTime used for extracting from the database.
+     * LAMBDA Expression: The Lambda makes the code more efficient by providing a quick conversion method that can be used anywhere.
+     * @param Timestamp t
+     * @returns LocalDateTime
      */
  lambdaThree toLocal = t -> {
        ZoneId UTC = ZoneId.of("Etc/UTC");

@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @FunctionalInterface
 public interface lambdaThree {
     /**
-     *
+     * This Lambda takes in a timestamp and returns a localdatetime.
      * @param t
      * @return LocalDateTime
      */
