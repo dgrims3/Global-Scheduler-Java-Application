@@ -65,6 +65,25 @@ public class CustomerDAO {
     }
 
     /**
+     * Method that deletes appointments associated with a customer that is to be deleted.
+     * @param i
+     */
+    public void deleteCustomerAppointment(int i){
+        Connection connection = JDBC.getConnection();
+        PreparedStatement statement = null;
+        String sql = "delete from appointments where Customer_ID = ?";
+
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1,i);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
      * this method adds a new customer to the database.
      * @param customer
      */

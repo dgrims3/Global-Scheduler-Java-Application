@@ -1,6 +1,7 @@
 package controller;
 
 import DAO.UserDAO;
+import helper.lambdaTwo;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -62,7 +63,7 @@ public class LoginController implements Initializable  {
     public void logInLog (String userName, String password, Boolean bool) throws IOException {
         FileWriter fw = new FileWriter(fileName, true);
         PrintWriter pw = new PrintWriter(fw);
-        pw.append(Timestamp.valueOf(LocalDateTime.now())+" "+userName+" "+password+" "+ "login attempt was successful = "+bool + "\n");
+        pw.append(Timestamp.valueOf(LocalDateTime.now().atZone(ZoneId.systemDefault()).withZoneSameInstant(ZoneId.of("Etc/UTC")).toLocalDateTime())+" "+userName+" "+password+" "+ "login attempt was successful = "+bool + "\n");
         pw.flush();
         pw.close();
 

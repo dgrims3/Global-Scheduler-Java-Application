@@ -18,10 +18,11 @@ public class AppointmentDAO {
     Connection connection = JDBC.getConnection();
     PreparedStatement statement = null;
     ResultSet resultSet = null;
+
     /**
      * This lambda expression takes in a LocalDateTime and gives back a Timestamp used for inserting into the database.
      */
- lambdaTwo toTimestamp = l -> {
+    lambdaTwo toTimestamp = l -> {
         ZoneId UTC = ZoneId.of("Etc/UTC");
         ZoneId myZone = ZoneId.systemDefault();
         return Timestamp.valueOf(l.atZone(myZone).withZoneSameInstant(UTC).toLocalDateTime());

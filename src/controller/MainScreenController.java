@@ -60,6 +60,10 @@ public class MainScreenController implements Initializable {
     @FXML private TableColumn<Customer, String> firstLevelDivision;
 
     //Customer Functions
+
+    /**
+     * Method to fill the table view with customer objects.
+     */
     public void fillCustomerTableView(){
         CustomerDAO dao = new CustomerDAO();
 
@@ -72,16 +76,22 @@ public class MainScreenController implements Initializable {
         firstLevelDivision.setCellValueFactory( new PropertyValueFactory<>("Division_ID"));
     }
 
+    /**
+     * Method for deleting a customer from the database.
+     * @param event
+     */
     @FXML void onActionDeleteCustomer(ActionEvent event) {
         CustomerDAO dao = new CustomerDAO();
 
         if (!customersTableView.getSelectionModel().isEmpty()){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirm Delete");
-        alert.setContentText("Are you sure you want to delete " + customersTableView.getSelectionModel().getSelectedItem().getCustomer_Name() + "?");
+        alert.setContentText("Are you sure you want to delete " + customersTableView.getSelectionModel().getSelectedItem().getCustomer_Name() + " and all their appointments?");
         Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK){
+            dao.deleteCustomerAppointment(customersTableView.getSelectionModel().getSelectedItem().getCustomer_ID());
             dao.deleteCustomer(customersTableView.getSelectionModel().getSelectedItem());
+            fillAppointmentTableView();
             fillCustomerTableView();
                 }
         }
@@ -92,6 +102,13 @@ public class MainScreenController implements Initializable {
         alert.showAndWait();
         }
     }
+
+    /**
+     * Method for modifying a customer object in the database.
+     * @param event
+     * @throws IOException
+     * @throws SQLException
+     */
     @FXML void onActionModifyCustomer(ActionEvent event) throws IOException, SQLException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/view/ModifyCustomer.fxml"));
@@ -112,12 +129,21 @@ public class MainScreenController implements Initializable {
         }
     }
 
+    /**
+     * Method used to bring user to the add customer screen.
+     * @param event
+     * @throws IOException
+     */
     @FXML void onActionAddCustomer(ActionEvent event) throws IOException {
         SceneChange scene = new SceneChange();
         scene.changeScene(event, "/view/Customer.fxml");
     }
     //Appointment Functions
 
+    /**
+     * Method used to fill the table view with appointment objects from the database.
+     *
+     */
     public void fillAppointmentTableView(){
         AppointmentDAO dao = new AppointmentDAO();
         appointmentsTableView.setItems(dao.allAppointments());
@@ -133,17 +159,27 @@ public class MainScreenController implements Initializable {
         apptUserID.setCellValueFactory(new PropertyValueFactory<>("user_ID"));
     }
 
+    /**
+     * Method that brings the user to the add appointment screen.
+     * @param event
+     * @throws IOException
+     */
     @FXML void onActionAddAppt(ActionEvent event) throws IOException {
         SceneChange sceneChange = new SceneChange();
         sceneChange.changeScene(event,  "/view/AddAppointment.fxml");
     }
+
+    /**
+     * Method used to delete an appointment from a database.
+     * @param event
+     */
     @FXML void onActionCancelAppt(ActionEvent event) {
         AppointmentDAO dao = new AppointmentDAO();
 
         if (!appointmentsTableView.getSelectionModel().isEmpty()){
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirm Delete");
-            alert.setContentText("Are you sure you want to delete this appointment?");
+            alert.setContentText("Cancel Appt "+appointmentsTableView.getSelectionModel().getSelectedItem().getAppointment_ID()+", "+appointmentsTableView.getSelectionModel().getSelectedItem().getDescription()+"?" );
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK){
                 dao.deleteAppointment(appointmentsTableView.getSelectionModel().getSelectedItem().getAppointment_ID());
@@ -158,6 +194,12 @@ public class MainScreenController implements Initializable {
         }
     }
 
+    /**
+     * Method that takes a selected appointment and brings it to the modify appointment screen.
+     * @param event
+     * @throws IOException
+     * @throws SQLException
+     */
     @FXML void onActionModifyAppt(ActionEvent event) throws IOException, SQLException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/view/AddAppointment.fxml"));
@@ -206,9 +248,6 @@ public class MainScreenController implements Initializable {
         appointmentsTableView.setItems(dao.filterByWeek());
     }
 
-    @FXML void onActionViewApptsCalender(ActionEvent event) {
-
-    }
     //Other Functions
 
     /**
