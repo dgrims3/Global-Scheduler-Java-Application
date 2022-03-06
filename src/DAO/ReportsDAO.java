@@ -112,7 +112,7 @@ public class ReportsDAO {
     }
 
     /**
-     * Mehtod that takes a Contact ID and returns all appointments for that contact, ordered chronologically.
+     * Method that takes a Contact ID and returns all appointments for that contact, ordered chronologically.
      * @param i
      * @return Observable List
      */
@@ -166,7 +166,7 @@ public class ReportsDAO {
 
     /**
      * Method that counts how many appointments happen each month.
-     * @return array of int's
+     * @return array of int
      */
     public int[] filterByMonth(){
        int[] l = new int[12];

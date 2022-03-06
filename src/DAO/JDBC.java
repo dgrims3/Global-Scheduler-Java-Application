@@ -20,7 +20,7 @@ public abstract class JDBC {
         private static PreparedStatement preparedStatement;
 
     /**
-     * makes the connection to the database.
+     * method that makes the connection to the database.
      */
          public static void makeConnection() {
 

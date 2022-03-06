@@ -113,6 +113,10 @@ public class ModifyCustomerController implements Initializable {
         addCustomerDivisionComboBox.setItems(divisionComboBox(addCustomerCountryComboBox.getSelectionModel().getSelectedItem()));
     }
 
+    /**
+     * Action event when a user selects a first level division.
+     * @param actionEvent
+     */
     @FXML void onActionSelectDivision(ActionEvent actionEvent) {
 
     }

@@ -13,10 +13,6 @@ public class Customer {
     private String Address;
     private String Postal_Code;
     private String Phone;
-    private Timestamp Create_Date;
-    private String Created_By;
-    private Timestamp Last_Update;
-    private String Last_Updated_By;
     private int Division_ID;
 
     /**

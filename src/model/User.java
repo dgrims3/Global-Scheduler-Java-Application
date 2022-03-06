@@ -36,7 +36,7 @@ public class User {
     }
 
     /**
-     * gets the user name.
+     * gets the username.
      * @return String
      */
     public String getUser_name() {
@@ -52,7 +52,7 @@ public class User {
     }
 
     /**
-     * Override method for user Strings
+     * Override method for user Strings.
      * @return String
      */
     @Override

@@ -54,7 +54,7 @@ public class DivisionDAO {
     }
 
     /**
-     * this method returns a list of all UK divisions
+     * this method returns a list of all UK divisions.
      * @return Observable List
      */
     public ObservableList<Division> ukDivisions() {

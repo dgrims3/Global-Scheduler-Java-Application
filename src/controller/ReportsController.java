@@ -39,6 +39,9 @@ public class ReportsController implements Initializable {
     @FXML private ToggleGroup numberToggleGroup;
     /**
      * This lambda expression takes an array of integers and returns the average of all numbers in the array. This is used to find the average length of all appointments.
+     * @param int i
+     * @returns int
+     *
      */
     lambdaOne avg = i -> {
         int l =0;
@@ -99,6 +102,7 @@ public class ReportsController implements Initializable {
 
     /**
      * fills text area with average appt time.
+     * The lambda expression is used in the method
      */
     public void fillAvgTimeTextArea(){
         avgDurationTextArea.setText("Avg Length of all appointments: \n");

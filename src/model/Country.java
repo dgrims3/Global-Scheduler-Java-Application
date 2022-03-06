@@ -1,7 +1,7 @@
 package model;
 
 /**
- * This is a class for Country Objects. Takes country information from database and creates a country Object
+ * This is a class for Country Objects. Takes country information from database and creates a country Object.
  */
 public class Country {
     int country_ID;
@@ -18,7 +18,7 @@ public class Country {
     }
 
     /**
-     * Override method for returning a string
+     * Override method for returning a string.
      * @return String
      */
     @Override public String toString(){

@@ -44,13 +44,6 @@ public class MainScreenController implements Initializable {
     @FXML private TableColumn<Appointment, Timestamp> apptEndTime;
     @FXML private TableColumn<Appointment, Integer> apptCustomerID;
     @FXML private TableColumn<Appointment, Integer> apptUserID;
-
-    @FXML private RadioButton viewApptsByAllRdoBtn;
-    @FXML private ToggleGroup ViewAppointmentsToggleGroup;
-    @FXML private RadioButton viewApptsByWeekRdoBtn;
-    @FXML private RadioButton viewApptsByMonthRdoBtn;
-    @FXML private DatePicker viewApptsCalender;
-
     @FXML private TableView<Customer> customersTableView;
     @FXML private TableColumn<Customer, Integer> custID;
     @FXML private TableColumn<Customer, String> custName;

@@ -1,8 +1,6 @@
 package controller;
 
 import DAO.UserDAO;
-import helper.lambdaTwo;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,22 +14,17 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.User;
 
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.sql.Timestamp;
-import java.text.MessageFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 import java.util.TimeZone;
-import java.util.logging.FileHandler;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
 
 /**
  * Controller screen that allows a user to log in to the application.
@@ -70,7 +63,7 @@ public class LoginController implements Initializable  {
     }
 
     /**
-     * Sets the text for the log in screen. Depending on the users Locale the words will be in either French or German.
+     * Sets the text for the log in screen. Depending on the users Locale the words will be in either French or English.
      */
     public void setText() {
                 loginPassword.setPromptText(rb.getString("Password"));
@@ -142,7 +135,7 @@ public class LoginController implements Initializable  {
         }
 
     /**
-     * Method that quits the program
+     * Method that quits the program.
      * @param event
      */
         @FXML

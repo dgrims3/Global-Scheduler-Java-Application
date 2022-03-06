@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 /**
- * This class creates Appointment Objects. it uses data from the mySQL database to make appointment objects
+ * This class creates Appointment Objects. it uses data from the mySQL database to make appointment objects.
  */
 public class Appointment {
 int appointment_ID;
@@ -75,7 +75,7 @@ String contact_Name;
         return title;
     }
     /**
-     * gets appt description
+     * gets appt description.
      * @return String
      */
     public String getDescription() {
@@ -99,7 +99,7 @@ String contact_Name;
     }
 
     /**
-     * gets appt trye.
+     * gets appt type.
      * @return String
      */
     public String getType() {
@@ -107,7 +107,7 @@ String contact_Name;
     }
 
     /**
-     * gets appt Start time.
+     * gets appt start time.
      * @return LocalDateTime
      */
     public LocalDateTime getStart() {
@@ -115,7 +115,7 @@ String contact_Name;
     }
 
     /**
-     * gets appt End time.
+     * gets appt end time.
      * @return LocalDateTime
      */
     public LocalDateTime getEnd() {
@@ -131,7 +131,7 @@ String contact_Name;
     }
 
     /**
-     * gets appt user ID
+     * gets appt user ID.
      * @return int
      */
     public int getUser_ID() {

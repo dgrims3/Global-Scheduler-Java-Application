@@ -30,7 +30,7 @@ public class Division {
     public String getDivision() { return Division; }
 
     /**
-     * Override method for printing Strings
+     * Override method for printing Strings.
      * @return String
      */
     @Override public String toString(){ return Division;}

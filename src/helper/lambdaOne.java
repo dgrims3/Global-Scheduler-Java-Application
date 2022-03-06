@@ -10,7 +10,7 @@ import java.util.ArrayList;
 @FunctionalInterface
 public interface lambdaOne {
     /**
-     * This lambda interface takes in an array and returns an intteger.
+     * This lambda interface takes in an array and returns an integer.
      * @param i
      * @return
      */

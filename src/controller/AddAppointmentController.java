@@ -222,7 +222,7 @@ public class AddAppointmentController implements Initializable {
 
     /**
      * Method that makes sure no fields are left empty.
-     * @return
+     * @return boolean
      */
     public boolean ifAnyEmpty(){
         if(addApptTitle.getText().isBlank()||addApptUserID.getItems().isEmpty()||addApptType.getText().isBlank()||addApptContact.getItems().isEmpty()||addApptLocation.getText().isBlank()||addApptDescription.getText().isBlank()||addApptCustomerID.getItems().isEmpty()){
@@ -238,10 +238,6 @@ public class AddAppointmentController implements Initializable {
      */
     public void setText(Appointment appointment) throws SQLException {
         date = appointment.getStart().toLocalDate();
-        //LocalDateTime start = toLocal.toLocalDateTime(Timestamp.valueOf(appointment.getStart()));
-        //LocalDateTime end = toLocal.toLocalDateTime(Timestamp.valueOf(appointment.getEnd()));
-        LocalDateTime start = appointment.getStart();
-        LocalDateTime end = appointment.getEnd();
 
         addApptLabel.setText("Modify Appointment");
         addAppointmentId.setText(String.valueOf(appointment.getAppointment_ID()));
@@ -253,13 +249,15 @@ public class AddAppointmentController implements Initializable {
         addApptCustomerID.setValue(appointment.getCustomer_ID());
         addApptUserID.setValue(appointment.getUser_ID());
         ApptDatePicker.setValue(appointment.getStart().toLocalDate());
-        apptHourPicker.setValue(appointment.getStart().toLocalTime());//apptHourPicker.setValue(start.toLocalTime());
-        apptEndHourPicker.setValue(appointment.getEnd().toLocalTime());//apptEndHourPicker.setValue(end.toLocalTime());
+        apptHourPicker.setValue(appointment.getStart().toLocalTime());
+        apptEndHourPicker.setValue(appointment.getEnd().toLocalTime());
     }
 
-    @FXML void onActionSelectContact(ActionEvent event) {
-
-    }
+    /**
+     * method that takes in an action event when a contact is selected.
+     * @param event
+     */
+    @FXML void onActionSelectContact(ActionEvent event) {}
 
     /**
      * sets the date parameter with the user selected time.

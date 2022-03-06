@@ -158,30 +158,4 @@ public class CustomerDAO {
             e.printStackTrace();
         }
     }
-    /* public Customer refreshCustomer(int i) {
-       Customer customer = null;
-        Connection connection = null;
-        PreparedStatement statement = null;
-        ResultSet resultSet;
-        String sql = "SELECT * FROM customers WHERE Customer_ID = ?";
-
-        try {
-            connection = JDBC.getConnection();
-            statement = connection.prepareStatement(sql);
-            statement.setInt(1, i);
-            resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                customer = (new Customer(
-                        resultSet.getInt(1),
-                        resultSet.getString(2),
-                        resultSet.getString(3),
-                        resultSet.getString(4),
-                        resultSet.getString(5),
-                        resultSet.getInt(10)));
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return customer;
-    }*/
 }

@@ -21,14 +21,6 @@ public class UserDAO {
     PreparedStatement statement = null;
     ResultSet resultSet = null;
     Connection connection = JDBC.getConnection();
-    /**
-     * Lambda expression that takes a Timestamp and returns a LocalDateTime.
-     */
-    lambdaThree toLocal = t -> {
-        ZoneId UTC = ZoneId.of("Etc/UTC");
-        ZoneId myZone = ZoneId.systemDefault();
-        return t.toLocalDateTime().atZone(UTC).withZoneSameInstant(myZone).toLocalDateTime();
-    };
     public ObservableList <User> allUsers = FXCollections.observableArrayList();
 
     /**
@@ -64,17 +56,11 @@ public class UserDAO {
         LocalDateTime start = LocalDateTime.now(ZoneId.systemDefault());
         LocalDateTime start15 = LocalDateTime.now(ZoneId.systemDefault()).plusMinutes(15);
 
-
         try {
             statement = connection.prepareStatement(sql);
             statement.setInt(1, user.getUser_ID());
             resultSet = statement.executeQuery();
             while (resultSet.next()){
-               /* if(toLocal.toLocalDateTime(resultSet.getTimestamp(1)).isAfter(start) && toLocal.toLocalDateTime(resultSet.getTimestamp(1)).isBefore(start15)){
-                    t.add(new Appointment( toLocal.toLocalDateTime(resultSet.getTimestamp(1)),
-                            toLocal.toLocalDateTime(resultSet.getTimestamp(2)),
-                            resultSet.getInt(3)));
-                }*/
                 if(resultSet.getTimestamp(1).toLocalDateTime().isAfter(start) && resultSet.getTimestamp(1).toLocalDateTime().isBefore(start15)){
                     t.add(new Appointment(resultSet.getTimestamp(1).toLocalDateTime(),
                             resultSet.getTimestamp(2).toLocalDateTime(),
@@ -100,6 +86,11 @@ public class UserDAO {
             alert.showAndWait();
         }
     }
+
+    /**
+     * method that returns an observable list of all users in the database.
+     * @return ObservableList
+     */
     public ObservableList <User> getAllUsers() {return allUsers;}
 
 }

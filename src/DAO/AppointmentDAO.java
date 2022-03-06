@@ -1,7 +1,6 @@
 package DAO;
 
 import helper.lambdaThree;
-import helper.lambdaTwo;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Appointment;
@@ -18,29 +17,6 @@ public class AppointmentDAO {
     Connection connection = JDBC.getConnection();
     PreparedStatement statement = null;
     ResultSet resultSet = null;
-
-    /**
-     * This lambda expression takes in a LocalDateTime and gives back a Timestamp used for inserting into the database.
-     * LAMBDA Expression: The Lambda makes the code more efficient by providing a quick conversion method that can be used anywhere.
-     * @param LocalDateTime l
-     * @returns Timestamp
-     */
-    lambdaTwo toTimestamp = l -> {
-        ZoneId UTC = ZoneId.of("Etc/UTC");
-        ZoneId myZone = ZoneId.systemDefault();
-        return Timestamp.valueOf(l.atZone(myZone).withZoneSameInstant(UTC).toLocalDateTime());
-    };
-    /**
-     * This lambda expression takes in a Timestamp and gives back a LocalDateTime used for extracting from the database.
-     * LAMBDA Expression: The Lambda makes the code more efficient by providing a quick conversion method that can be used anywhere.
-     * @param Timestamp t
-     * @returns LocalDateTime
-     */
- lambdaThree toLocal = t -> {
-       ZoneId UTC = ZoneId.of("Etc/UTC");
-       ZoneId myZone = ZoneId.systemDefault();
-       return t.toLocalDateTime().atZone(UTC).withZoneSameInstant(myZone).toLocalDateTime();
-    };
 
     /**
      * This method takes in a contact name and returns a contact ID.
@@ -77,8 +53,8 @@ public class AppointmentDAO {
             statement.setInt(1, id);
             resultSet = statement.executeQuery();
             while (resultSet.next()){appointment.add(new Appointment(
-                resultSet.getTimestamp(1).toLocalDateTime(),  //toLocal.toLocalDateTime(resultSet.getTimestamp(1)),
-                  resultSet.getTimestamp(2).toLocalDateTime(), //toLocal.toLocalDateTime(resultSet.getTimestamp(2)),
+                resultSet.getTimestamp(1).toLocalDateTime(),
+                  resultSet.getTimestamp(2).toLocalDateTime(),
                     resultSet.getInt(3)));
             }
 
@@ -161,8 +137,8 @@ public class AppointmentDAO {
                         resultSet.getString(4),
                         resultSet.getInt(14),
                         resultSet.getString(5),
-                        /*toLocal.toLocalDateTime(resultSet.getTimestamp(6)), */resultSet.getTimestamp(6).toLocalDateTime(),
-                        /*toLocal.toLocalDateTime(resultSet.getTimestamp(7)),*/resultSet.getTimestamp(7).toLocalDateTime(),
+                        resultSet.getTimestamp(6).toLocalDateTime(),
+                        resultSet.getTimestamp(7).toLocalDateTime(),
                         resultSet.getInt(12),
                         resultSet.getInt(13),
                         resultSet.getString(16)));
@@ -213,9 +189,9 @@ public class AppointmentDAO {
             statement.setString(2, appointment.getDescription());
             statement.setString(3, appointment.getLocation());
             statement.setString(4, appointment.getType());
-            statement.setTimestamp(5, Timestamp.valueOf(appointment.getStart())); //statement.setTimestamp(5, toTimestamp.toTimestamp(appointment.getStart()));
-            statement.setTimestamp(6, Timestamp.valueOf(appointment.getEnd()));//statement.setTimestamp(6, toTimestamp.toTimestamp(appointment.getEnd()));
-            statement.setTimestamp(7, Timestamp.valueOf(LocalDateTime.now()));//statement.setTimestamp(7,  toTimestamp.toTimestamp(LocalDateTime.now(ZoneId.systemDefault())));
+            statement.setTimestamp(5, Timestamp.valueOf(appointment.getStart()));
+            statement.setTimestamp(6, Timestamp.valueOf(appointment.getEnd()));
+            statement.setTimestamp(7, Timestamp.valueOf(LocalDateTime.now()));
             statement.setInt(8, appointment.getCustomer_ID());
             statement.setInt(9, appointment.getUser_ID());
             statement.setInt(10, appointment.getContact_ID());
