@@ -39,7 +39,7 @@ public class ModifyCustomerController implements Initializable {
 
     /**
      * Method that takes in a Country object and returns a Division Observable list.
-     * @param country
+     * @param country Country
      * @return Observable List
      */
     public ObservableList<Division> divisionComboBox(Country country){
@@ -55,8 +55,8 @@ public class ModifyCustomerController implements Initializable {
 
     /**
      * Method used to fill the text areas with the information of the chosen Customer.
-     * @param customer
-     * @throws SQLException
+     * @param customer Customer
+     * @throws SQLException e
      */
     public void setText(Customer customer) throws SQLException {
         CountryDAO dao = new CountryDAO();
@@ -72,8 +72,8 @@ public class ModifyCustomerController implements Initializable {
 
     /**
      * Returns user to main screen.
-     * @param event
-     * @throws IOException
+     * @param event ActionEvent
+     * @throws IOException e
      */
     @FXML void onActionCancelAddCustomer(ActionEvent event) throws IOException {
         SceneChange scene = new SceneChange();
@@ -82,7 +82,7 @@ public class ModifyCustomerController implements Initializable {
 
     /**
      * Saves new Customer in database.
-     * @param event
+     * @param event ActionEvent
      * @throws SQLException
      * @throws IOException
      */
@@ -107,7 +107,7 @@ public class ModifyCustomerController implements Initializable {
 
     /**
      * Fills combo box with divisions.
-     * @param event
+     * @param event ActionEvent
      */
     @FXML void onActionSelectCountry(ActionEvent event) {
         addCustomerDivisionComboBox.setItems(divisionComboBox(addCustomerCountryComboBox.getSelectionModel().getSelectedItem()));
@@ -115,7 +115,7 @@ public class ModifyCustomerController implements Initializable {
 
     /**
      * Action event when a user selects a first level division.
-     * @param actionEvent
+     * @param actionEvent ActionEvent
      */
     @FXML void onActionSelectDivision(ActionEvent actionEvent) {
 
@@ -123,8 +123,8 @@ public class ModifyCustomerController implements Initializable {
 
     /**
      * override initialize method.
-     * @param url
-     * @param resourceBundle
+     * @param url URL
+     * @param resourceBundle ResoiurceBundle
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

@@ -15,14 +15,14 @@ public class ReportsDAO {
     Connection connection = JDBC.getConnection();
     PreparedStatement statement = null;
     ResultSet resultSet = null;
-    /**
+/*    *//**
      * Lambda expression that takes in a timestamp and returns a LocalDateTime.
-      */
+      *//*
     lambdaThree toLocal = t -> {
         ZoneId UTC = ZoneId.of("Etc/UTC");
         ZoneId myZone = ZoneId.systemDefault();
         return t.toLocalDateTime().atZone(UTC).withZoneSameInstant(myZone).toLocalDateTime();
-    };
+    };*/
 
     /**
      * Method that creates an array with the length of each appointment in the database.
@@ -36,8 +36,8 @@ public class ReportsDAO {
             resultSet = statement.executeQuery();
 
             while(resultSet.next()){
-                Integer j = toLocal.toLocalDateTime(resultSet.getTimestamp(1)).toLocalTime().toSecondOfDay();
-                Integer k = toLocal.toLocalDateTime(resultSet.getTimestamp(2)).toLocalTime().toSecondOfDay();
+                Integer j = resultSet.getTimestamp(1).toLocalDateTime().toLocalTime().toSecondOfDay();
+                Integer k = resultSet.getTimestamp(2).toLocalDateTime().toLocalTime().toSecondOfDay();
                 Integer l = (j-k)/60;
                 i.add(l);
             }
@@ -154,8 +154,8 @@ public class ReportsDAO {
             statement = connection.prepareStatement(sql);
             resultSet = statement.executeQuery();
             while (resultSet.next()){appointment.add(new Appointment(
-                    toLocal.toLocalDateTime(resultSet.getTimestamp(1)),
-                    toLocal.toLocalDateTime(resultSet.getTimestamp(2)),
+                    resultSet.getTimestamp(1).toLocalDateTime(),
+                    resultSet.getTimestamp(2).toLocalDateTime(),
                     resultSet.getInt(3)));
             }
         } catch (SQLException e) {
