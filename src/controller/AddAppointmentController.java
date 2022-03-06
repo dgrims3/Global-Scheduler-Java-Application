@@ -50,7 +50,6 @@ public class AddAppointmentController implements Initializable {
         return t.toLocalDateTime().atZone(UTC).withZoneSameInstant(myZone).toLocalDateTime();
     };
 
-
     /**
      * fills a combo box with LocalTimes for the user to select a start time.
      * @return Observable List
@@ -59,7 +58,7 @@ public class AddAppointmentController implements Initializable {
         ObservableList<LocalTime> time = FXCollections.observableArrayList();
         LocalTime.now(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("h:mm:ss"));
         LocalTime start = LocalTime.of(5, 0);
-        LocalTime end = LocalTime.of(23, 0);
+        LocalTime end = LocalTime.of(22, 0);
 
         while (start.isBefore(end.plusSeconds(1))) {
             time.add(start);
@@ -115,12 +114,12 @@ public class AddAppointmentController implements Initializable {
            LocalDateTime bizCloseTime = closeTime.withZoneSameInstant(EST).toLocalDateTime();
 
        if(selectedStartTime.isBefore(bizOpenTime)){
-         alert.setContentText("Time selected is before 8:00 A.M. EST");
+         alert.setContentText(localStart.toLocalTime()+ " " + ZoneId.of(String.valueOf(sysDef)) +" is before 8:00 A.M. EST");
          alert.showAndWait();
          return false;
        }
        else if (selectedEndTime.isAfter(bizCloseTime)){
-           alert.setContentText("Time selected is after 10:00 P.M. EST");
+           alert.setContentText(localEnd.toLocalTime()+ " " + ZoneId.of(String.valueOf(sysDef)) +" is after 10:00 P.M. EST");
            alert.showAndWait();
            return false;
        }
@@ -178,7 +177,7 @@ public class AddAppointmentController implements Initializable {
                    }
                    else {
                        if (i > 0) {
-                           alert.setContentText("There is already an appointment scheduled between " + aS.toLocalTime() + " and " + aE.toLocalTime());
+                           alert.setContentText("There is already an appointment scheduled between \n" + aS.toLocalTime() + " and " + aE.toLocalTime());
                            alert.showAndWait();
                        }
                    }
@@ -206,16 +205,16 @@ public class AddAppointmentController implements Initializable {
      */
     public int timeCollision(Appointment a, Appointment b){
         int i = 0;
-        if(a.getStart().isBefore(b.getStart()) && (a.getEnd().isAfter(b.getStart()) || a.getEnd().isEqual(b.getStart())) && Integer.parseInt(addAppointmentId.getText()) != b.getAppointment_ID()){
+        if(a.getStart().isBefore(b.getStart()) && (a.getEnd().isAfter(b.getStart()) || a.getEnd().isEqual(b.getStart())) && (addAppointmentId.getText().isBlank()||Integer.parseInt(addAppointmentId.getText()) != b.getAppointment_ID())){
             i=1;
         }
-        else if((a.getStart().isAfter(b.getStart()) || a.getStart().isEqual(b.getStart())) && (a.getEnd().isBefore(b.getEnd()) || a.getEnd().isEqual(b.getEnd())) && Integer.parseInt(addAppointmentId.getText()) != b.getAppointment_ID()){
+        else if((a.getStart().isAfter(b.getStart()) || a.getStart().isEqual(b.getStart())) && (a.getEnd().isBefore(b.getEnd()) || a.getEnd().isEqual(b.getEnd())) && (addAppointmentId.getText().isBlank()||Integer.parseInt(addAppointmentId.getText()) != b.getAppointment_ID())){
             i=1;
             }
-        else if((a.getStart().isBefore(b.getEnd()) || a.getStart().isEqual(b.getEnd())) && a.getEnd().isAfter(b.getEnd()) && Integer.parseInt(addAppointmentId.getText()) != b.getAppointment_ID()){
+        else if((a.getStart().isBefore(b.getEnd()) || a.getStart().isEqual(b.getEnd())) && a.getEnd().isAfter(b.getEnd()) && (addAppointmentId.getText().isBlank()||Integer.parseInt(addAppointmentId.getText()) != b.getAppointment_ID())){
             i=1;
             }
-        else if(a.getStart().isEqual(b.getStart()) && a.getEnd().isEqual(b.getEnd()) && Integer.parseInt(addAppointmentId.getText()) != b.getAppointment_ID()){
+        else if(a.getStart().isEqual(b.getStart()) && a.getEnd().isEqual(b.getEnd()) && (addAppointmentId.getText().isBlank()||Integer.parseInt(addAppointmentId.getText()) != b.getAppointment_ID())){
             i=1;
         }
         return i;

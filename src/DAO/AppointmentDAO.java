@@ -77,8 +77,8 @@ public class AppointmentDAO {
             statement.setInt(1, id);
             resultSet = statement.executeQuery();
             while (resultSet.next()){appointment.add(new Appointment(
-                  toLocal.toLocalDateTime(resultSet.getTimestamp(1)),
-                   toLocal.toLocalDateTime(resultSet.getTimestamp(2)),
+                resultSet.getTimestamp(1).toLocalDateTime(),  //toLocal.toLocalDateTime(resultSet.getTimestamp(1)),
+                  resultSet.getTimestamp(2).toLocalDateTime(), //toLocal.toLocalDateTime(resultSet.getTimestamp(2)),
                     resultSet.getInt(3)));
             }
 

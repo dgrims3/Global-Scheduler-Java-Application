@@ -70,10 +70,16 @@ public class UserDAO {
             statement.setInt(1, user.getUser_ID());
             resultSet = statement.executeQuery();
             while (resultSet.next()){
-                if(toLocal.toLocalDateTime(resultSet.getTimestamp(1)).isAfter(start) && toLocal.toLocalDateTime(resultSet.getTimestamp(1)).isBefore(start15)){
+               /* if(toLocal.toLocalDateTime(resultSet.getTimestamp(1)).isAfter(start) && toLocal.toLocalDateTime(resultSet.getTimestamp(1)).isBefore(start15)){
                     t.add(new Appointment( toLocal.toLocalDateTime(resultSet.getTimestamp(1)),
                             toLocal.toLocalDateTime(resultSet.getTimestamp(2)),
                             resultSet.getInt(3)));
+                }*/
+                if(resultSet.getTimestamp(1).toLocalDateTime().isAfter(start) && resultSet.getTimestamp(1).toLocalDateTime().isBefore(start15)){
+                    t.add(new Appointment(resultSet.getTimestamp(1).toLocalDateTime(),
+                            resultSet.getTimestamp(2).toLocalDateTime(),
+                            resultSet.getInt(3)));
+
                 }
             }
         } catch (SQLException e) {
