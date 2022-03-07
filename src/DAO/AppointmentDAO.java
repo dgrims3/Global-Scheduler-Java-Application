@@ -1,6 +1,5 @@
 package DAO;
 
-import helper.lambdaThree;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Appointment;
@@ -8,7 +7,6 @@ import java.sql.*;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 
 /**
  * This class is the appointment Data Access Object. This is used for all methods that involve connecting to the database.

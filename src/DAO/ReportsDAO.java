@@ -1,12 +1,10 @@
 package DAO;
 
-import helper.lambdaThree;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Appointment;
 
 import java.sql.*;
-import java.time.ZoneId;
 import java.util.ArrayList;
 /**
  * This class is the Reports Data Access Object. This is used for all methods that involve connecting to the database.

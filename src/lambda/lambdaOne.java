@@ -1,7 +1,5 @@
-package helper;
+package lambda;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -10,9 +8,9 @@ import java.util.ArrayList;
 @FunctionalInterface
 public interface lambdaOne {
     /**
-     * This lambda interface takes in an array and returns an integer.
-     * @param i
-     * @return
+     * LAMBDA Expression: This lambda interface takes in an array and returns an integer.
+     * @param i ArrayList
+     * @return integer
      */
     int average(ArrayList<Integer> i);
 }

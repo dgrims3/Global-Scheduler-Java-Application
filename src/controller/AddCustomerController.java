@@ -6,10 +6,16 @@ import DAO.DivisionDAO;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import lambda.lambdaTwo;
 import model.Country;
 import model.Customer;
 import model.Division;
@@ -34,7 +40,19 @@ public class AddCustomerController implements Initializable {
     CountryDAO dao = new CountryDAO();
     DivisionDAO divDao = new DivisionDAO();
     public ObservableList<Country> countryComboBox = dao.getAllCountries();
-
+    /**
+     * LAMBDA Expression: This lambda improves the code by making the process of changing scenes less verbose.
+     * @param e ActionEvent
+     * @param s String
+     */
+    lambdaTwo change = (e, s) -> {
+        Stage stage;
+        Parent scene;
+        stage = (Stage) ((Button)e.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource(s));
+        stage.setScene(new Scene(scene));
+        stage.show();
+    };
     /**
      * Method that takes a Country as input and returns an observable list of first level divisions.
      * @param country
@@ -57,8 +75,7 @@ public class AddCustomerController implements Initializable {
      * @throws IOException
      */
     @FXML void onActionCancelAddCustomer(ActionEvent event) throws IOException {
-        SceneChange scene = new SceneChange();
-        scene.changeScene(event, "/view/MainScreen.fxml");
+        change.sceneChange(event, "/view/MainScreen.fxml");
     }
 
     /**
@@ -83,7 +100,7 @@ public class AddCustomerController implements Initializable {
         if(Customer_Name.isBlank() || Address.isBlank() || Postal_Code.isBlank() || Phone.isBlank()){alert.showAndWait();}
         else{Customer c = new Customer(Customer_ID, Customer_Name, Address, Postal_Code, Phone, Division_ID);
             dao.addNewCustomer(c);
-           SceneChange scene = new SceneChange(); scene.changeScene(event, "/view/MainScreen.fxml");}
+            change.sceneChange(event, "/view/MainScreen.fxml");}
          }catch (NullPointerException nullPointerException){
             nullPointerException.printStackTrace();
             Alert alert1 = new Alert(Alert.AlertType.ERROR);

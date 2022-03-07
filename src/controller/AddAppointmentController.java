@@ -1,21 +1,23 @@
 package controller;
 
 import DAO.AppointmentDAO;
-import helper.lambdaThree;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import lambda.lambdaThree;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import lambda.lambdaTwo;
 import model.Appointment;
 import model.SceneChange;
-
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
@@ -60,7 +62,19 @@ lambdaThree time = (i, j) -> {
       }
       return time;
   };
-
+    /**
+     * LAMBDA Expression: This lambda improves the code by making the process of changing scenes less verbose.
+     * @param e ActionEvent
+     * @param s String
+     */
+    lambdaTwo change = (e, s) -> {
+        Stage stage;
+        Parent scene;
+        stage = (Stage) ((Button)e.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource(s));
+        stage.setScene(new Scene(scene));
+        stage.show();
+    };
 
     @FXML void onActionSelectUserID(ActionEvent event) {};
     @FXML void onActionSelectCustomerID(ActionEvent actionEvent){};
@@ -87,8 +101,7 @@ lambdaThree time = (i, j) -> {
      * @throws IOException
      */
     @FXML void onActionCancelAddAppointment(ActionEvent event) throws IOException {
-       SceneChange scene = new SceneChange();
-        scene.changeScene(event, "/view/MainScreen.fxml");
+     change.sceneChange(event, "/view/MainScreen.fxml");
     }
 
     /**
@@ -167,8 +180,7 @@ lambdaThree time = (i, j) -> {
                    }
                    if(i==0){
                            if(addAppointmentId.getText().isEmpty()){dao.addNewAppointment(appointment);}else{dao.updateAppointment(appointment);}
-                           SceneChange scene = new SceneChange();
-                           scene.changeScene(event, "/view/MainScreen.fxml");
+                            change.sceneChange(event, "/view/MainScreen.fxml");
                    }
                    else {
                        if (i > 0) {

@@ -1,19 +1,21 @@
 package controller;
 
 import DAO.ReportsDAO;
-import com.sun.scenario.effect.impl.sw.java.JSWBlend_SRC_OUTPeer;
-import helper.lambdaOne;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import lambda.lambdaOne;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
+import lambda.lambdaTwo;
 import model.Appointment;
 import model.SceneChange;
-import org.w3c.dom.ls.LSOutput;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -23,7 +25,6 @@ import java.util.ResourceBundle;
  * Controller for the reports class. This class generates business reports.
  */
 public class ReportsController implements Initializable {
-
     @FXML private TableColumn<Appointment, String> apptContact;
     @FXML private TableColumn<Appointment, Integer> apptCustomerID;
     @FXML private TableColumn<Appointment, String> apptDescription;
@@ -51,6 +52,19 @@ public class ReportsController implements Initializable {
         l = l/i.size();
         return l;
     };
+    /**
+     * LAMBDA Expression: This lambda improves the code by making the process of changing scenes less verbose.
+     * @param e ActionEvent
+     * @param s String
+     */
+    lambdaTwo change = (e, s) -> {
+        Stage stage;
+        Parent scene;
+        stage = (Stage) ((Button)e.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource(s));
+        stage.setScene(new Scene(scene));
+        stage.show();
+    };
 
     ReportsDAO dao = new ReportsDAO();
 
@@ -60,8 +74,7 @@ public class ReportsController implements Initializable {
      * @throws IOException
      */
     @FXML void onActionBackToMain(ActionEvent event) throws IOException {
-        SceneChange scene = new SceneChange();
-        scene.changeScene(event, "/view/MainScreen.fxml");
+       change.sceneChange(event, "/view/MainScreen.fxml");
     }
 
     /**

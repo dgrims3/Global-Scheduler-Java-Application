@@ -13,7 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.User;
-
+import lambda.lambdaTwo;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -30,23 +30,26 @@ import java.util.TimeZone;
  * Controller screen that allows a user to log in to the application.
  */
 public class LoginController implements Initializable  {
-    /**
-     * Adds exception to class default constructor signature.
-     * @throws IOException
-     */
-    public LoginController() throws IOException {
-    }
         Stage stage;
         Parent scene;
         ResourceBundle rb = ResourceBundle.getBundle("resourceBundle/rb", Locale.getDefault());
         String fileName = "login_activity.txt";
-        Scanner scanner = new Scanner(System.in);
-
         @FXML private TextField loginPassword, loginUserName;
         @FXML private Label loginTitle, loginZone;
         @FXML private Button loginButton, quitButton;
-
-
+    /**
+     * LAMBDA Expression: This lambda improves the code by making the process of changing scenes less verbose.
+     * @param e ActionEvent
+     * @param s String
+     */
+        lambdaTwo change = (e, s) -> {
+        Stage stage;
+        Parent scene;
+        stage = (Stage) ((Button)e.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource(s));
+        stage.setScene(new Scene(scene));
+        stage.show();
+        };
     /**
      * Method that writes log in attempts to a text file.
      * @param userName
@@ -59,8 +62,8 @@ public class LoginController implements Initializable  {
         pw.append(Timestamp.valueOf(LocalDateTime.now().atZone(ZoneId.systemDefault()).withZoneSameInstant(ZoneId.of("Etc/UTC")).toLocalDateTime())+" "+userName+" "+password+" "+ "login attempt was successful = "+bool + "\n");
         pw.flush();
         pw.close();
-
     }
+
 
     /**
      * Sets the text for the log in screen. Depending on the users Locale the words will be in either French or English.
@@ -119,11 +122,8 @@ public class LoginController implements Initializable  {
         @FXML void onActionLoginToMain(ActionEvent event) throws IOException {
           if (userLogin(loginUserName.getText(), loginPassword.getText())){
               logInLog(loginUserName.getText(), loginPassword.getText(), true);
-              UserDAO dao = new UserDAO();
-              stage = (Stage) ((Button)event.getSource()).getScene().getWindow();
-              scene = FXMLLoader.load(getClass().getResource("/view/MainScreen.fxml"));
-              stage.setScene(new Scene(scene));
-              stage.show();
+
+              change.sceneChange(event, "/view/MainScreen.fxml");
             }
           else {
               logInLog(loginUserName.getText(), loginPassword.getText(), false);

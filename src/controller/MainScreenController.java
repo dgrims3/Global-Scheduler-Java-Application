@@ -13,6 +13,7 @@ package controller;
         import javafx.scene.control.*;
         import javafx.scene.control.cell.PropertyValueFactory;
         import javafx.stage.Stage;
+        import lambda.lambdaTwo;
         import model.Appointment;
         import model.Customer;
         import model.SceneChange;
@@ -128,8 +129,7 @@ public class MainScreenController implements Initializable {
      * @throws IOException
      */
     @FXML void onActionAddCustomer(ActionEvent event) throws IOException {
-        SceneChange scene = new SceneChange();
-        scene.changeScene(event, "/view/Customer.fxml");
+       change.sceneChange(event, "/view/Customer.fxml");
     }
     //Appointment Functions
 
@@ -158,8 +158,7 @@ public class MainScreenController implements Initializable {
      * @throws IOException
      */
     @FXML void onActionAddAppt(ActionEvent event) throws IOException {
-        SceneChange sceneChange = new SceneChange();
-        sceneChange.changeScene(event,  "/view/AddAppointment.fxml");
+        change.sceneChange(event,  "/view/AddAppointment.fxml");
     }
 
     /**
@@ -244,13 +243,26 @@ public class MainScreenController implements Initializable {
     //Other Functions
 
     /**
+     * LAMBDA Expression: This lambda improves the code by making the process of changing scenes less verbose.
+     * @param e ActionEvent
+     * @param s String
+     */
+    lambdaTwo change = (e, s) -> {
+        Stage stage;
+        Parent scene;
+        stage = (Stage) ((Button)e.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource(s));
+        stage.setScene(new Scene(scene));
+        stage.show();
+    };
+
+    /**
      * Brings user to the business reports page.
      * @param event
      * @throws IOException
      */
     @FXML void OnActionViewReportsScreen(ActionEvent event) throws IOException {
-        SceneChange sceneChange = new SceneChange();
-        sceneChange.changeScene(event,  "/view/Reports.fxml");
+      change.sceneChange(event,  "/view/Reports.fxml");
     }
 
     /**
