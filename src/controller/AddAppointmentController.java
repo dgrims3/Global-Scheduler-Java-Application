@@ -41,31 +41,26 @@ public class AddAppointmentController implements Initializable {
     @FXML private ComboBox<Integer> addApptCustomerID;
     @FXML private ComboBox<String> addApptContact;
     @FXML private Label addApptLabel;
-    /**
-     * Lambda expression that takes a timestamp and returns a LocalDateTime.
-     */
-    lambdaThree toLocal = t -> {
-        ZoneId UTC = ZoneId.of("Etc/UTC");
-        ZoneId myZone = ZoneId.systemDefault();
-        return t.toLocalDateTime().atZone(UTC).withZoneSameInstant(myZone).toLocalDateTime();
-    };
 
     /**
-     * fills a combo box with LocalTimes for the user to select a start time.
-     * @return Observable List
+     * LAMBDA Expression: takes in two integers, a start and end time. and returns an observable list of 15 minute increments between those numbers to fill the time combo box with.
+     * @param i int
+     * @param j int
+     * @returns ObservableList<LocalTime>
      */
-    public ObservableList<LocalTime> setTimeComboBox(){
-        ObservableList<LocalTime> time = FXCollections.observableArrayList();
-        LocalTime.now(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("h:mm:ss"));
-        LocalTime start = LocalTime.of(5, 0);
-        LocalTime end = LocalTime.of(22, 0);
+lambdaThree time = (i, j) -> {
+      ObservableList<LocalTime> time = FXCollections.observableArrayList();
+      LocalTime.now(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern("h:mm:ss"));
+      LocalTime start = LocalTime.of(i, 0);
+      LocalTime end = LocalTime.of(j, 30);
 
-        while (start.isBefore(end.plusSeconds(1))) {
-            time.add(start);
-            start = start.plusMinutes(15);
-        }
-        return time;
-    }
+      while (start.isBefore(end.plusSeconds(1))) {
+          time.add(start);
+          start = start.plusMinutes(15);
+      }
+      return time;
+  };
+
 
     @FXML void onActionSelectUserID(ActionEvent event) {};
     @FXML void onActionSelectCustomerID(ActionEvent actionEvent){};
@@ -274,9 +269,9 @@ public class AddAppointmentController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        apptHourPicker.setItems(setTimeComboBox());
+        apptHourPicker.setItems(time.timeFiller(1,23));
         addApptContact.setItems(dao.allContacts());
-        apptEndHourPicker.setItems(setTimeComboBox());
+        apptEndHourPicker.setItems(time.timeFiller(1,23));
         addApptUserID.setItems(dao.allUserIDs());
         addApptCustomerID.setItems(dao.allCustomerIDs());
 
