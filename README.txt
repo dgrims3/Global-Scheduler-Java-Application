@@ -1,5 +1,7 @@
 •  title and purpose of the application:
-        This application, titled "Global Scheduler" is an application that a business would use for scheduling appointments of any kind. it connects to a mysql database and pulls         and pushes information into the database to make, view, or change appointments or customer information. It is built to be able to be used by users in all different time zones. 
+        This application, titled "Global Scheduler" is an application that a business would use for scheduling appointments of any kind. 
+        It connects to a mysql database and pulls and pushes information into the database to make, view, or change appointments or customer information. 
+        It is built to be able to be used by users in all different time zones. 
 
 •  author, contact information, student application version, and date:
         David Grimsley
